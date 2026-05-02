@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histoire - Jungfrau-Aletsch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/global.css">
+
+    <style>
+        :root { --line-color: #cbd5e1; }
+
+        /* --- Switch Onglets --- */
+        .timeline-switch {
+            display: inline-flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 99px;
+            margin-top: 2rem;
+        }
+
+        .switch-btn {
+            padding: 0.75rem 2rem;
+            border-radius: 99px;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.2s ease;
+        }
+
+        .switch-btn.active {
+            background: white;
+            color: #2563eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .switch-btn:hover:not(.active) {
+            color: #334155;
+        }
+
+        /* --- TIMELINE ARCHITECTURE (Desktop First) --- */
+        .timeline-wrapper {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        /* Ligne Centrale Continue */
+        .timeline-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 4rem;
+            /* Début au niveau du premier item */
+            bottom: 4rem;
+            /* Fin au niveau du dernier */
+            left: 50%;
+            width: 4px;
+            background: var(--line-color);
+            transform: translateX(-50%);
+            border-radius: 99px;
+            z-index: 0;
+        }
+
+        /* Rangée (Grid 3 colonnes implicite via Flex) */
+        .timeline-row {
+            display: flex;
+            align-items: center;
+            /* Centrage vertical Carte vs Media */
+            justify-content: center;
+            position: relative;
+            margin-bottom: 6rem;
+            /* Espace vertical */
+            z-index: 10;
+        }
+
+        .timeline-row:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Colonnes (Carte & Media) */
+        .timeline-col {
+            width: 45%;
+            /* 45% + 45% + 10% espace central */
+            position: relative;
+        }
+
+        /* --- LOGIQUE ALTERNÉE --- */
+        /* Impairs (1, 3, 5...) : Carte à GAUCHE, Media à DROITE */
+        .timeline-row:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-row:nth-child(odd) .timeline-col.is-card {
+            padding-right: 3rem;
+            text-align: right;
+        }
+
+        .timeline-row:nth-child(odd) .timeline-col.is-media {
+            padding-left: 3rem;
+        }
+
+        /* Alignement du bouton "En savoir plus" à droite pour les cartes de gauche */
+        .timeline-row:nth-child(odd) .btn-readmore {
+            margin-left: auto;
+        }
+
+        /* Pairs (2, 4, 6...) : Carte à DROITE, Media à GAUCHE */
+        .timeline-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-row:nth-child(even) .timeline-col.is-card {
+            padding-left: 3rem;
+            text-align: left;
+        }
+
+        .timeline-row:nth-child(even) .timeline-col.is-media {
+            padding-right: 3rem;
+        }
+
+        .timeline-row:nth-child(even) .btn-readmore {
+            margin-right: auto;
+        }
+
+        /* --- STYLES DES POINTS (DOTS) --- */
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            background: white;
+            /* Base pour masquer la ligne derrière */
+        }
+
+        /* Style Impair : Point Bleu Plein */
+        .timeline-row:nth-child(odd) .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: #2563eb;
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px #2563eb;
+            /* Double border effect */
+        }
+
+        /* Style Pair : Anneau Large */
+        .timeline-row:nth-child(even) .timeline-dot {
+            width: 28px;
+            height: 28px;
+            background: white;
+            border: 4px solid #2563eb;
+            border-radius: 50%;
+        }
+
+        /* --- COMPOSANTS INTERNES --- */
+
+        /* Media Placeholder */
+        .media-placeholder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 1.5rem;
+            /* Large radius */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .media-placeholder:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+            background-color: #eff6ff;
+        }
+
+        /* Card Style (Conservation de l'existant) */
+        .timeline-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Accordéon */
+        .accordion-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s ease-out;
+        }
+
+        .accordion-content>div {
+            overflow: hidden;
+        }
+
+        .accordion-content.open {
+            grid-template-rows: 1fr;
+        }
+
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+
+        .chevron.rotate {
+            transform: rotate(180deg);
+        }
+
+        /* --- RESPONSIVE MOBILE (< 1024px) --- */
+        @media (max-width: 1024px) {
+            .timeline-wrapper::before {
+                left: 24px;
+                transform: none;
+            }
+
+            /* Ligne à gauche */
+
+            .timeline-row,
+            .timeline-row:nth-child(even),
+            .timeline-row:nth-child(odd) {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 4rem;
+            }
+
+            .timeline-col {
+                width: 100%;
+            }
+
+            /* Alignement et Ordre Mobile */
+            .timeline-row .timeline-col.is-card {
+                order: 1;
+                padding: 0 0 0 4rem !important;
+                /* Marge à gauche pour la ligne */
+                text-align: left !important;
+            }
+
+            .timeline-row .timeline-col.is-media {
+                order: 2;
+                padding: 0 0 0 4rem !important;
+                margin-top: 1rem;
+            }
+
+            /* Points alignés à gauche */
+            .timeline-dot {
+                left: 24px !important;
+                top: 2rem !important;
+                /* Aligné avec le haut de la carte */
+                transform: translateX(-50%) !important;
+            }
+
+            /* Reset bouton alignement */
+            .btn-readmore {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+        }
+
+    </style>
+    <link rel="stylesheet" href="assets/css/accessibility-widget.css">
+</head>
+
+<body class="antialiased overflow-x-hidden">
+
+    <header id="navbar" class="navbar-fixed w-full z-50 bg-white border-b-4 border-blue-600">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="assets/images/logomcnnoir.svg" alt="M.C.N." class="h-12 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors"
+                    data-i18n="nav.home">Accueil</a>
+                <a href="timeline.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors"
+                    data-i18n="nav.history">Histoire</a>
+                <a href="sites.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors"
+                    data-i18n="nav.visite">Sites</a>
+                <a href="parcours.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.parcours">Parcours</a>
+                <a href="temoignages.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.testimonials">Témoignages</a>
+                <a href="notreequipe.html"
+                    class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors"
+                    data-i18n="nav.team">Équipe</a>
+            </nav>
+            <div class="hidden md:flex items-center gap-4">
+                <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-universal-access-circle w-7 h-7" viewBox="0 0 16 16" role="img"
+                        aria-label="Accessibilité">
+                        <path
+                            d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z" />
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8" />
+                    </svg>
+                </a>
+                <div class="flex items-center bg-gray-100 rounded-full px-1 py-1 border border-gray-200">
+                    <button type="button" id="btn-en" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full"
+                        onclick="setLanguage('en')">EN</button>
+                    <button type="button" id="btn-fr" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full"
+                        onclick="setLanguage('fr')">FR</button>
+                </div>
+            </div>
+            <button type="button" class="md:hidden text-slate-800" onclick="openMobileMenu()" aria-label="Menu"><i data-lucide="menu"></i></button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 overflow-y-auto hidden-menu-state">
+        <button type="button" id="close-menu" class="absolute top-6 right-6 text-slate-800" aria-label="Fermer le menu">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <nav class="flex flex-col gap-6 text-xl font-bold">
+            <a href="index.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.home">Accueil</a>
+            <a href="timeline.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.history">Histoire</a>
+            <a href="sites.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.visite">Sites</a>
+            <a href="parcours.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.parcours">Parcours</a>
+            <a href="temoignages.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.testimonials">Témoignages</a>
+            <a href="notreequipe.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.team">Équipe</a>
+            
+            <div class="border-t border-slate-100 my-2"></div>
+            
+            <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 text-lg flex items-center gap-2 mobile-link">
+                Accessibilité
+            </a>
+            
+            <div class="flex items-center gap-4 mt-2">
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm inactive" onclick="setLanguage('en'); closeMobileMenu()">EN</button>
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm active" onclick="setLanguage('fr'); closeMobileMenu()">FR</button>
+            </div>
+        </nav>
+    </div>
+
+
+    <section class="pt-32 pb-12 bg-white text-center">
+        <div class="max-w-4xl mx-auto px-6 fade-up">
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-6" data-i18n="timeline.hero.title">Repères
+                historiques</h1>
+            <div class="w-16 h-1 bg-blue-600 mx-auto mb-6"></div>
+            <p class="text-lg md:text-xl text-slate-600 leading-relaxed" data-i18n="timeline.hero.subtitle">
+                L'histoire de l'inscription et de la gestion du site Jungfrau-Aletsch au patrimoine mondial de l'UNESCO.
+            </p>
+
+            <div class="timeline-switch fade-up" style="transition-delay: 100ms;" role="tablist" aria-label="Choix de la thématique de la frise">
+                <button type="button" id="tab-heritage" class="switch-btn active" onclick="switchTab('heritage')" role="tab"
+                    aria-selected="true" aria-controls="timeline-heritage" data-i18n="timeline.tab.heritage">
+                    Patrimoine
+                </button>
+                <button type="button" id="tab-geology" class="switch-btn" onclick="switchTab('geology')" role="tab"
+                    aria-selected="false" aria-controls="timeline-geology" data-i18n="timeline.tab.geology">
+                    Géologie
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <main class="bg-white min-h-[60vh]">
+
+        <h2 class="sr-only">Frise chronologique des événements</h2>
+
+        <div id="timeline-heritage" class="timeline-wrapper fade-up" role="tabpanel" aria-labelledby="tab-heritage">
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-sm font-bold rounded-full mb-3"
+                            data-i18n="timeline.1972.date">1972</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="timeline.1972.title">Convention du
+                            patrimoine</h3>
+                        <p class="text-slate-600 mb-4 text-sm" data-i18n="timeline.1972.desc">Adoption par l’UNESCO de
+                            la Convention...</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 group">
+                            <span data-i18n="timeline.btn.readmore">En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4 text-blue-600"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left"
+                                data-i18n="timeline.1972.details"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <span data-i18n="timeline.placeholder">Media à venir</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-sm font-bold rounded-full mb-3"
+                            data-i18n="timeline.1978.date">1978</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="timeline.1978.title">Premières
+                            inscriptions</h3>
+                        <p class="text-slate-600 mb-4 text-sm" data-i18n="timeline.1978.desc">Les premiers sites sont
+                            inscrits...</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                            <span data-i18n="timeline.btn.readmore">En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left"
+                                data-i18n="timeline.1978.details"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <span data-i18n="timeline.placeholder">Media à venir</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-sm font-bold rounded-full mb-3"
+                            data-i18n="timeline.2001.date">2001</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="timeline.2001.title">Inscription
+                            initiale</h3>
+                        <p class="text-slate-600 mb-4 text-sm" data-i18n="timeline.2001.desc">Le site est inscrit sur la
+                            Liste...</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                            <span data-i18n="timeline.btn.readmore">En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left"
+                                data-i18n="timeline.2001.details"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <span data-i18n="timeline.placeholder">Media à venir</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-sm font-bold rounded-full mb-3"
+                            data-i18n="timeline.2005.date">2005</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="timeline.2005.title">Gestion
+                            participative</h3>
+                        <p class="text-slate-600 mb-4 text-sm" data-i18n="timeline.2005.desc">Mise en place d’un plan de
+                            gestion...</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                            <span data-i18n="timeline.btn.readmore">En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left"
+                                data-i18n="timeline.2005.details"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <span data-i18n="timeline.placeholder">Media à venir</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-sm font-bold rounded-full mb-3"
+                            data-i18n="timeline.2007.date">2007</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="timeline.2007.title">Extension du
+                            site</h3>
+                        <p class="text-slate-600 mb-4 text-sm" data-i18n="timeline.2007.desc">La superficie du site est
+                            étendue...</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                            <span data-i18n="timeline.btn.readmore">En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left"
+                                data-i18n="timeline.2007.details"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <span data-i18n="timeline.placeholder">Media à venir</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-sm font-bold rounded-full mb-3"
+                            data-i18n="timeline.2008.date">2008</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="timeline.2008.title">Nom officiel
+                        </h3>
+                        <p class="text-slate-600 mb-4 text-sm" data-i18n="timeline.2008.desc">Le site adopte
+                            officiellement le nom...</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                            <span data-i18n="timeline.btn.readmore">En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left"
+                                data-i18n="timeline.2008.details"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <span data-i18n="timeline.placeholder">Media à venir</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-sm font-bold rounded-full mb-3"
+                            data-i18n="timeline.2014.date">2014</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="timeline.2014.title">Rapport de
+                            suivi</h3>
+                        <p class="text-slate-600 mb-4 text-sm" data-i18n="timeline.2014.desc">Évaluation confirmant
+                            l’intégrité...</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                            <span data-i18n="timeline.btn.readmore">En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left"
+                                data-i18n="timeline.2014.details"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <span data-i18n="timeline.placeholder">Media à venir</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="timeline-geology" class="timeline-wrapper hidden" role="tabpanel" aria-labelledby="tab-geology" hidden>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-sm font-bold rounded-full mb-3">Il
+                            y a plus de 200 millions d'années</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Origine des roches</h3>
+                        <p class="text-slate-600 mb-4 text-sm">Le territoire est formé de roches anciennes, bien avant
+                            l'apparition des Alpes.</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 group">
+                            <span>En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left">
+                                À cette époque, la région est recouverte par des mers peu profondes. Des sédiments
+                                marins s'accumulent et formeront plus tard calcaires, schistes et roches métamorphiques.
+                                Ces matériaux constituent aujourd'hui la base géologique du massif de la
+                                Jungfrau-Aletsch.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder" role="img" aria-label="Espace réservé pour image de formation rocheuse">
+                        <div class="text-center">
+                            <p class="font-bold">Média à venir</p>
+                            <p class="text-xs opacity-60">Image / Vidéo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-sm font-bold rounded-full mb-3">40
+                            à 30 millions d'années</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Naissance des Alpes</h3>
+                        <p class="text-slate-600 mb-4 text-sm">La collision des plaques africaine et européenne provoque
+                            le soulèvement alpin.</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 group">
+                            <span>En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left">
+                                Orogenèse alpine : plissement et empilement de nappes tectoniques. Roches déformées,
+                                déplacées et élevées à plusieurs milliers de mètres, donnant naissance aux sommets
+                                emblématiques.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder" role="img" aria-label="Espace réservé pour schéma tectonique">
+                        <div class="text-center">
+                            <p class="font-bold">Média à venir</p>
+                            <p class="text-xs opacity-60">Image / Vidéo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-sm font-bold rounded-full mb-3">2,5
+                            millions à 10 000 ans</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Ères glaciaires</h3>
+                        <p class="text-slate-600 mb-4 text-sm">Les glaciers sculptent profondément le paysage. Le
+                            glacier d'Aletsch devient le plus grand des Alpes.</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 group">
+                            <span>En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left">
+                                Cycles glaciaires du Quaternaire : alternance périodes froides/tempérées. Vallées en
+                                auge, moraines, façonnage des reliefs. Le glacier d'Aletsch atteint alors une extension
+                                plus vaste qu'aujourd'hui.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <div class="text-center">
+                            <p class="font-bold">Média à venir</p>
+                            <p class="text-xs opacity-60">Image / Vidéo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-sm font-bold rounded-full mb-3">XVIIIe
+                            – début XIXe siècle</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Découverte scientifique</h3>
+                        <p class="text-slate-600 mb-4 text-sm">Le site attire naturalistes et premiers chercheurs.</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 group">
+                            <span>En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left">
+                                Les Alpes deviennent un laboratoire naturel pour l'étude des glaciers et du climat.
+                                Observations régulières sur la dynamique glaciaire : débuts de la glaciologie
+                                scientifique en Europe.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <div class="text-center">
+                            <p class="font-bold">Média à venir</p>
+                            <p class="text-xs opacity-60">Image / Vidéo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-sm font-bold rounded-full mb-3">Fin
+                            XIXe – début XXe siècle</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Tourisme et accès</h3>
+                        <p class="text-slate-600 mb-4 text-sm">Développement de l'alpinisme et des infrastructures de
+                            montagne.</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 group">
+                            <span>En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left">
+                                Chemins de fer alpins (dont la Jungfraubahn) rendent la haute montagne accessible. Le
+                                paysage glaciaire devient un symbole touristique, tout en restant un espace naturel
+                                fragile.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <div class="text-center">
+                            <p class="font-bold">Média à venir</p>
+                            <p class="text-xs opacity-60">Image / Vidéo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-sm font-bold rounded-full mb-3">Années
+                            1980–1990</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Accélération de la fonte</h3>
+                        <p class="text-slate-600 mb-4 text-sm">Le recul des glaciers devient visible et mesurable.</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 group">
+                            <span>En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left">
+                                Hausse des températures : déséquilibre du bilan de masse. Perte de volume accélérée liée
+                                au réchauffement climatique global.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <div class="text-center">
+                            <p class="font-bold">Média à venir</p>
+                            <p class="text-xs opacity-60">Image / Vidéo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-sm font-bold rounded-full mb-3">Années
+                            2010–2020</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Symbole climatique</h3>
+                        <p class="text-slate-600 mb-4 text-sm">Le glacier d'Aletsch devient un indicateur majeur du
+                            changement climatique.</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 group">
+                            <span>En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left">
+                                Recul largement documenté et utilisé dans des programmes de sensibilisation.
+                                Illustration concrète des effets du réchauffement en milieu alpin.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <div class="text-center">
+                            <p class="font-bold">Média à venir</p>
+                            <p class="text-xs opacity-60">Image / Vidéo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-row">
+                <div class="timeline-col is-card">
+                    <div class="timeline-card">
+                        <span
+                            class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-sm font-bold rounded-full mb-3">Aujourd'hui</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Un patrimoine vivant</h3>
+                        <p class="text-slate-600 mb-4 text-sm">Un site protégé, scientifique et pédagogique.</p>
+                        <button type="button" onclick="toggleAccordion(this)"
+                            class="btn-readmore text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 group">
+                            <span>En savoir plus</span>
+                            <i data-lucide="chevron-down" class="chevron w-4 h-4"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="pt-4 text-sm text-slate-500 leading-relaxed text-left">
+                                Jungfrau-Aletsch est un espace de recherche, un territoire touristique et un outil de
+                                sensibilisation. Enjeu : concilier préservation, transmission des savoirs et
+                                fréquentation durable.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-col is-media">
+                    <div class="media-placeholder">
+                        <div class="text-center">
+                            <p class="font-bold">Média à venir</p>
+                            <p class="text-xs opacity-60">Image / Vidéo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer id="footer" class="bg-slate-950 text-slate-400 pt-16 text-sm border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            <div class="flex flex-col">
+                <span class="text-white font-bold text-lg uppercase tracking-widest mb-4">Jungfrau-Aletsch</span>
+                <p class="leading-relaxed mb-6 text-slate-500" data-i18n="footer.desc">
+                    Site du patrimoine mondial UNESCO depuis 2001.
+                </p>
+                <div class="flex gap-4 mt-auto">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin"
+                            class="w-5 h-5"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col2">Explorer
+                </h3>
+                <ul class="space-y-3">
+                    <li><a href="index.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.home">Accueil</a></li>
+                    <li><a href="timeline.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.history">Histoire</a></li>
+                    <li><a href="sites.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.visite">Sites</a></li>
+                    <li><a href="parcours.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.parcours">Parcours</a></li>
+                    <li><a href="temoignages.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.testimonials">Témoignages</a></li>
+                    <li><a href="notreequipe.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.team">Équipe</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col3">
+                    Informations</h3>
+                <ul class="space-y-3">
+                    <li><a href="accessibility.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="footer.accessibility">Accessibilité</a></li>
+                    <li><a href="faq.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.faq">FAQ</a></li>
+                    <li><a href="mentions-legales.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.legal">Mentions
+                            légales</a></li>
+                    <li><a href="confidentialite.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.privacy">Politique
+                            de confidentialité</a></li>
+                    <li><a href="sitemap.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.sitemap">Plan du
+                            site</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col4">Nous
+                    contacter</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="mailto:karlnatngam@gmail.com"
+                            class="hover:text-white transition-colors">karlnatngam@gmail.com</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="phone" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="tel:0762905525" class="hover:text-white transition-colors">07 62 90 55 25</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <span data-i18n="footer.hours">De 8h00 à 20h00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div
+                class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+                <p>&copy; 2026 Jungfrau-Aletsch. Tous droits réservés.</p>
+                <div class="flex gap-6">
+                    <a href="mentions-legales.html" class="hover:text-slate-400 transition-colors" data-i18n="footer.legal">Mentions
+                        légales</a>
+                    <a href="confidentialite.html" class="hover:text-slate-400 transition-colors"
+                        data-i18n="footer.confidentiality">Confidentialité</a>
+                    <a href="notreequipe.html"
+                        class="hover:text-slate-400 transition-colors underline decoration-slate-700"
+                        data-i18n="footer.team">Équipe</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/timeline.js"></script>
+
+    <script src="assets/js/accessibility-widget.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signaler un problème — Jungfrau-Aletsch UNESCO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/global.css">
+
+    <style>
+        /* Type cards */
+        .type-card {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .type-card:hover {
+            transform: translateY(-4px);
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 20px;
+            border-color: #e2e8f0;
+        }
+
+        .type-card.selected {
+            border-color: #2563eb;
+            box-shadow: rgba(37, 99, 235, 0.15) 0px 0px 0px 2px;
+        }
+
+        .type-card .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+        }
+
+        /* Form fields */
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            width: 100%;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            background: white;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            color: #0f172a;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .form-field input::placeholder,
+        .form-field textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus,
+        .form-field textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        .form-field select {
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        .form-field textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-hint {
+            display: block;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 0.35rem;
+        }
+
+        .form-field .optional-tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-left: 0.35rem;
+        }
+
+        /* File upload */
+        .file-drop {
+            border: 2px dashed #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #fafbfc;
+        }
+
+        .file-drop:hover,
+        .file-drop.dragover {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .file-drop input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* Confirmation */
+        .confirmation-state {
+            display: none;
+        }
+
+        .confirmation-state.show {
+            display: block;
+        }
+
+        .form-state {
+            transition: opacity 0.4s ease;
+        }
+
+        .form-state.hidden-form {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+        }
+
+        /* Mini FAQ accordion */
+        .mini-faq-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #0f172a;
+            cursor: pointer;
+            font-family: inherit;
+            text-align: left;
+            transition: border-color 0.2s;
+        }
+
+        .mini-faq-btn:hover {
+            border-color: #2563eb;
+        }
+
+        .mini-faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            font-size: 0.82rem;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .mini-faq-item.open .mini-faq-answer {
+            padding: 0.75rem 1rem 0;
+        }
+
+        .mini-faq-chevron {
+            transition: transform 0.3s;
+            width: 16px;
+            height: 16px;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .mini-faq-item.open .mini-faq-chevron {
+            transform: rotate(180deg);
+            color: #2563eb;
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/accessibility-widget.css">
+</head>
+
+<body class="antialiased overflow-x-hidden">
+
+    <!-- ═══════════ NAVBAR ═══════════ -->
+    <header id="navbar" class="navbar-fixed w-full z-50 bg-white border-b-4 border-blue-600">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="assets/images/logomcnnoir.svg" alt="M.C.N." class="h-12 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html"
+                    class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Accueil</a>
+                <a href="timeline.html"
+                    class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Histoire</a>
+                <a href="sites.html"
+                    class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Sites</a>
+                <a href="parcours.html"
+                    class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Parcours</a>
+                <a href="temoignages.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.testimonials">Témoignages</a>
+                <a href="notreequipe.html"
+                    class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Équipe</a>
+            </nav>
+            <div class="hidden md:flex items-center gap-4">
+                <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 transition-colors"
+                    aria-label="Accessibilité">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-7 h-7"
+                        viewBox="0 0 16 16" role="img">
+                        <path
+                            d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z" />
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8" />
+                    </svg>
+                </a>
+                <div class="flex items-center bg-gray-100 rounded-full px-1 py-1 border border-gray-200">
+                    <button type="button" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full inactive"
+                        onclick="setLanguage('en')">EN</button>
+                    <button type="button" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full active"
+                        onclick="setLanguage('fr')">FR</button>
+                </div>
+            </div>
+            <button type="button" class="md:hidden text-slate-800" onclick="openMobileMenu()" aria-label="Menu"><i data-lucide="menu"></i></button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 overflow-y-auto hidden-menu-state">
+        <button type="button" id="close-menu" class="absolute top-6 right-6 text-slate-800" aria-label="Fermer le menu">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <nav class="flex flex-col gap-6 text-xl font-bold">
+            <a href="index.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.home">Accueil</a>
+            <a href="timeline.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.history">Histoire</a>
+            <a href="sites.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.visite">Sites</a>
+            <a href="parcours.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.parcours">Parcours</a>
+            <a href="temoignages.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.testimonials">Témoignages</a>
+            <a href="notreequipe.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.team">Équipe</a>
+
+            <div class="border-t border-slate-100 my-2"></div>
+
+            <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 text-lg flex items-center gap-2 mobile-link">
+                Accessibilité
+            </a>
+
+            <div class="flex items-center gap-4 mt-2">
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm inactive" onclick="setLanguage('en'); closeMobileMenu()">EN</button>
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm active" onclick="setLanguage('fr'); closeMobileMenu()">FR</button>
+            </div>
+        </nav>
+    </div>
+
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="relative pt-32 pb-20 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div
+                class="inline-flex items-center gap-2 mb-6 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wider fade-up">
+                <i data-lucide="flag" class="w-3.5 h-3.5"></i>
+                <span data-i18n="report.hero.badge">Support &amp; amélioration continue</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-4 fade-up" style="transition-delay:50ms;">
+                <span data-i18n="report.hero.title">Signaler un problème</span>
+            </h1>
+            <div class="w-16 h-1 bg-blue-600 mx-auto mb-6 fade-up" style="transition-delay:80ms;"></div>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed fade-up"
+                style="transition-delay:100ms;">
+                <span data-i18n="report.hero.subtitle">Vous avez rencontré une erreur, un bug ou un problème d'affichage ? Aidez-nous à améliorer l'expérience en nous le signalant.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══════════ MAIN ═══════════ -->
+    <main class="max-w-5xl mx-auto px-6 py-16">
+
+        <!-- Introduction -->
+        <p class="max-w-3xl mx-auto text-center text-slate-500 mb-14 fade-up">
+            <span data-i18n="report.intro">Chaque retour nous aide à rendre le site plus fiable et agréable. Que ce soit un problème technique, une erreur de contenu ou un souci d'accessibilité, votre signalement contribue directement à la qualité du site.</span>
+        </p>
+
+        <!-- ── Types de problèmes ── -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16 fade-up" style="transition-delay:80ms;"
+            id="type-cards">
+            <div class="type-card" data-type="Problème technique">
+                <div class="card-icon bg-rose-50"><i data-lucide="bug" class="w-5 h-5 text-rose-600"></i></div>
+                <p class="text-sm font-semibold text-slate-900 mb-1" data-i18n="report.type.bug">Problème technique</p>
+                <p class="text-xs text-slate-400 leading-snug" data-i18n="report.type.bug.desc">Bug, chargement, erreur JS</p>
+            </div>
+            <div class="type-card" data-type="Erreur de contenu">
+                <div class="card-icon bg-amber-50"><i data-lucide="file-warning" class="w-5 h-5 text-amber-600"></i>
+                </div>
+                <p class="text-sm font-semibold text-slate-900 mb-1" data-i18n="report.type.content">Erreur de contenu</p>
+                <p class="text-xs text-slate-400 leading-snug" data-i18n="report.type.content.desc">Texte inexact, faute</p>
+            </div>
+            <div class="type-card" data-type="Lien cassé">
+                <div class="card-icon bg-orange-50"><i data-lucide="unlink" class="w-5 h-5 text-orange-600"></i></div>
+                <p class="text-sm font-semibold text-slate-900 mb-1" data-i18n="report.type.link">Lien cassé</p>
+                <p class="text-xs text-slate-400 leading-snug" data-i18n="report.type.link.desc">Lien mort, page 404</p>
+            </div>
+            <div class="type-card" data-type="Affichage mobile">
+                <div class="card-icon bg-violet-50"><i data-lucide="smartphone" class="w-5 h-5 text-violet-600"></i>
+                </div>
+                <p class="text-sm font-semibold text-slate-900 mb-1" data-i18n="report.type.mobile">Affichage mobile</p>
+                <p class="text-xs text-slate-400 leading-snug" data-i18n="report.type.mobile.desc">Mise en page, responsive</p>
+            </div>
+            <div class="type-card" data-type="Accessibilité">
+                <div class="card-icon bg-cyan-50"><i data-lucide="accessibility" class="w-5 h-5 text-cyan-600"></i>
+                </div>
+                <p class="text-sm font-semibold text-slate-900 mb-1" data-i18n="report.type.a11y">Accessibilité</p>
+                <p class="text-xs text-slate-400 leading-snug" data-i18n="report.type.a11y.desc">Contraste, clavier, lecture</p>
+            </div>
+            <div class="type-card" data-type="Autre">
+                <div class="card-icon bg-slate-100"><i data-lucide="message-square-plus"
+                        class="w-5 h-5 text-slate-500"></i></div>
+                <p class="text-sm font-semibold text-slate-900 mb-1" data-i18n="report.type.other">Autre</p>
+                <p class="text-xs text-slate-400 leading-snug" data-i18n="report.type.other.desc">Suggestion, remarque</p>
+            </div>
+        </div>
+
+        <!-- ══ FORMULAIRE ══ -->
+        <div class="relative fade-up" style="transition-delay:150ms;" id="form-wrapper">
+
+            <!-- État formulaire -->
+            <div class="form-state" id="form-state">
+                <div class="bg-white border border-slate-100 rounded-3xl shadow-sm p-8 md:p-10">
+
+                    <h2 class="text-2xl font-bold text-slate-900 mb-2" data-i18n="report.form.title">Décrivez le problème</h2>
+                    <p class="text-sm text-slate-500 mb-8" data-i18n="report.form.required">Les champs marqués <span class="text-rose-500">*</span> sont obligatoires.</p>
+
+                    <form id="report-form" class="space-y-6" enctype="multipart/form-data" novalidate>
+
+                        <!-- Type -->
+                        <div class="form-field">
+                            <label for="report-type" class="form-label"><span data-i18n="report.form.type">Type de problème</span> <span
+                                    class="text-rose-500">*</span></label>
+                            <select id="report-type" name="type" required>
+                                <option value="" disabled selected data-i18n="report.form.type.placeholder">Sélectionnez un type</option>
+                                <option>Problème technique</option>
+                                <option>Erreur de contenu</option>
+                                <option>Lien cassé</option>
+                                <option>Affichage mobile</option>
+                                <option>Accessibilité</option>
+                                <option>Autre</option>
+                            </select>
+                        </div>
+
+                        <!-- Page concernée -->
+                        <div class="form-field">
+                            <label for="report-page" class="form-label"><span data-i18n="report.form.page">Page concernée</span> <span
+                                    class="text-rose-500">*</span></label>
+                            <input type="text" id="report-page" name="page" required
+                                placeholder="Ex. : page Parcours, page FAQ, Accueil…">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-field">
+                            <label for="report-desc" class="form-label"><span data-i18n="report.form.desc">Description du problème</span> <span
+                                    class="text-rose-500">*</span></label>
+                            <textarea id="report-desc" name="description" required
+                                placeholder="Décrivez précisément le problème rencontré…" rows="5"></textarea>
+                        </div>
+
+                        <!-- Étapes -->
+                        <div class="form-field">
+                            <label for="report-steps" class="form-label"><span data-i18n="report.form.steps">Étapes pour reproduire</span> <span
+                                    class="optional-tag">(facultatif)</span></label>
+                            <textarea id="report-steps" name="steps"
+                                placeholder="Ex. : cliquer sur le bouton « Explorer », ouvrir depuis Safari mobile…"
+                                rows="3"></textarea>
+                            <span class="form-hint" data-i18n="report.form.steps.hint">Indiquez les étapes si le problème peut être reproduit.</span>
+                        </div>
+
+                        <!-- Appareil -->
+                        <div class="form-field">
+                            <label for="report-device" class="form-label"><span data-i18n="report.form.device">Appareil / environnement</span> <span
+                                    class="optional-tag">(facultatif)</span></label>
+                            <input type="text" id="report-device" name="device"
+                                placeholder="Ex. : iPhone 15, Chrome 120, Windows 11, Firefox…">
+                        </div>
+
+                        <!-- 2 colonnes : email + upload -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Email -->
+                            <div class="form-field">
+                                <label for="report-email" class="form-label"><span data-i18n="report.form.email">Email</span> <span
+                                        class="optional-tag">(facultatif)</span></label>
+                                <input type="email" id="report-email" name="email" placeholder="votre@email.com">
+                                <span class="form-hint" data-i18n="report.form.email.hint">Uniquement si vous souhaitez être recontacté.</span>
+                            </div>
+
+                            <!-- Upload -->
+                            <div class="form-field">
+                                <label class="form-label"><span data-i18n="report.form.screenshot">Capture d'écran</span> <span
+                                        class="optional-tag">(facultatif)</span></label>
+                                <div class="file-drop" id="file-drop">
+                                    <input type="file" id="report-file" aria-label="Joindre un fichier (optionnel)" name="screenshot" accept="image/*">
+                                    <i data-lucide="image-plus" class="w-6 h-6 text-slate-300 mx-auto mb-2"></i>
+                                    <p class="text-sm text-slate-400" data-i18n="report.form.file.hint">Cliquez ou glissez une image</p>
+                                    <p id="file-name" class="text-xs text-blue-600 font-medium mt-1 hidden"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rassurance -->
+                        <p class="text-xs text-slate-400 text-center pt-2">
+                            <i data-lucide="heart" class="w-3 h-3 inline -mt-0.5 text-slate-300"></i>
+                            <span data-i18n="report.form.reassurance">Nous lisons attentivement chaque signalement afin d'améliorer le site.</span>
+                        </p>
+
+                        <!-- Submit -->
+                        <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                            <button type="submit"
+                                class="flex-1 inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors shadow-sm">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                <span data-i18n="report.form.submit">Envoyer le signalement</span>
+                            </button>
+                            <button type="reset"
+                                class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white border border-slate-200 text-slate-600 font-semibold text-sm hover:border-slate-300 transition-all">
+                                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                                <span data-i18n="report.form.reset">Réinitialiser</span>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <!-- État confirmation -->
+            <div class="confirmation-state" id="confirmation-state">
+                <div class="bg-blue-50 border border-blue-100 rounded-3xl p-10 md:p-14 text-center">
+                    <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="check-circle-2" class="w-8 h-8 text-blue-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-3">Merci pour votre signalement</h2>
+                    <p class="text-slate-600 max-w-md mx-auto mb-8 leading-relaxed">
+                        Votre retour a bien été pris en compte et nous aidera à améliorer le site Jungfrau-Aletsch.
+                        Si vous avez laissé votre email, nous pourrons vous tenir informé.
+                    </p>
+                    <button type="button" onclick="resetForm()"
+                        class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors shadow-sm">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        Signaler un autre problème
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── Mini FAQ ── -->
+        <div class="max-w-3xl mx-auto mt-16 fade-up" style="transition-delay:200ms;">
+            <h3 class="text-lg font-bold text-slate-900 mb-4">Questions sur les signalements</h3>
+            <div class="space-y-2" id="mini-faq">
+                <div class="mini-faq-item">
+                    <button type="button" class="mini-faq-btn" aria-expanded="false">
+                        <span>Comment décrire un bug efficacement ?</span>
+                        <svg class="mini-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="mini-faq-answer">
+                        <p>Soyez le plus précis possible : indiquez la page concernée, ce que vous avez fait, ce qui
+                            s'est passé et ce que vous attendiez. Une capture d'écran est toujours utile.</p>
+                    </div>
+                </div>
+                <div class="mini-faq-item">
+                    <button type="button" class="mini-faq-btn" aria-expanded="false">
+                        <span>Puis-je joindre une capture d'écran ?</span>
+                        <svg class="mini-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="mini-faq-answer">
+                        <p>Oui, le formulaire permet de joindre une image (PNG, JPG). Cela nous aide à comprendre
+                            rapidement le problème et à le corriger plus vite.</p>
+                    </div>
+                </div>
+                <div class="mini-faq-item">
+                    <button type="button" class="mini-faq-btn" aria-expanded="false">
+                        <span>Vais-je recevoir une réponse ?</span>
+                        <svg class="mini-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="mini-faq-answer">
+                        <p>Si vous avez renseigné votre adresse email, nous pourrons vous répondre directement. Sinon,
+                            votre signalement sera traité anonymement mais avec la même attention.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ═══════════ CTA AIDE ═══════════ -->
+    <section class="max-w-7xl mx-auto px-6 pb-24 fade-up">
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 p-10 md:p-14 text-center">
+            <i data-lucide="life-buoy" class="w-10 h-10 text-blue-600 mx-auto mb-4"></i>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3">Besoin d'une autre aide ?</h2>
+            <p class="text-slate-600 max-w-lg mx-auto mb-8">
+                Pour toute question ne concernant pas un bug, consultez notre FAQ ou contactez-nous directement.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="faq.html"
+                    class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors shadow-sm">
+                    <i data-lucide="help-circle" class="w-4 h-4"></i>
+                    Consulter la FAQ
+                </a>
+                <a href="mailto:karlnatngam@gmail.com"
+                    class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white border border-slate-200 text-slate-700 font-semibold text-sm hover:border-blue-600 hover:text-blue-600 transition-all shadow-sm">
+                    <i data-lucide="mail" class="w-4 h-4"></i>
+                    Nous contacter
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer id="footer" class="bg-slate-950 text-slate-400 pt-16 text-sm border-t border-slate-900">
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+            <div class="flex flex-col">
+                <span class="text-white font-bold text-lg uppercase tracking-widest mb-4">Jungfrau-Aletsch</span>
+                <p class="leading-relaxed mb-6 text-slate-500" data-i18n="footer.desc">
+                    Site du patrimoine mondial UNESCO depuis 2001. Préserver et valoriser ce joyau des Alpes pour les
+                    générations futures.
+                </p>
+                <div class="flex gap-4 mt-auto">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin"
+                            class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col2">Explorer
+                </h3>
+                <ul class="space-y-3">
+                    <li><a href="#home" class="hover:text-blue-400 transition-colors" data-i18n="nav.home">Accueil</a>
+                    </li>
+                    <li><a href="timeline.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.history">Histoire</a></li>
+                    <li><a href="sites.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.visite">Sites</a></li>
+                    <li><a href="parcours.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.parcours">Parcours</a></li>
+                    <li><a href="temoignages.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.testimonials">Témoignages</a></li>
+                    <li><a href="notreequipe.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.team">Équipe</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col3">
+                    Informations</h3>
+                <ul class="space-y-3">
+                    <li><a href="accessibility.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="footer.accessibility">Accessibilité</a></li>
+                    <li><a href="faq.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.faq">FAQ</a>
+                    </li>
+                    <li><a href="mentions-legales.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="footer.legal">Mentions légales</a></li>
+                    <li><a href="confidentialite.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="footer.privacy">Politique de confidentialité</a></li>
+                    <li><a href="sitemap.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="footer.sitemap">Plan du site</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col4">Nous
+                    contacter</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="mailto:karlnatngam@gmail.com"
+                            class="hover:text-white transition-colors break-all">karlnatngam@gmail.com</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="phone" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="tel:0762905525" class="hover:text-white transition-colors">07 62 90 55 25</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <span data-i18n="footer.hours">De 8h00 à 20h00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div
+                class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-500">
+                <div class="flex gap-6">
+                    <a href="accessibility.html" class="hover:text-white transition-colors"
+                        data-i18n="footer.accessibility">Accessibilité</a>
+                    <a href="#" class="hover:text-white transition-colors" data-i18n="footer.report">Signaler un
+                        problème</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div
+                class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+                <p>&copy; 2026 Jungfrau-Aletsch. Tous droits réservés.</p>
+                <div class="flex gap-6">
+                    <a href="mentions-legales.html" class="hover:text-slate-400 transition-colors"
+                        data-i18n="footer.legal">Mentions légales</a>
+                    <a href="confidentialite.html" class="hover:text-slate-400 transition-colors"
+                        data-i18n="footer.confidentiality">Confidentialité</a>
+                    <a href="notreequipe.html"
+                        class="hover:text-slate-400 transition-colors underline decoration-slate-700"
+                        data-i18n="footer.team">Équipe</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════ SCRIPTS ═══════════ -->
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/signaler.js"></script>
+
+    <script src="assets/js/accessibility-widget.js"></script>
+</body>
+
+</html>

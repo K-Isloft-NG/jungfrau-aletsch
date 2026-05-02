@@ -1,0 +1,15 @@
+{
+  "name": "jungfrau-aletschv14-signaler",
+  "version": "1.0.0",
+  "description": "``` ✅ parcours.html            # Page complète (à la racine) ✅ parcours.css             # Styles personnalisés ✅ parcours.js              # Logique JavaScript ✅ trails.json              # Données des 8 sentiers ✅ DOCUMENTATION.md         # Documentation technique complète ✅ README.md                # Ce fichier ```",
+  "main": "check_errors.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsdom": "^29.0.1"
+  }
+}

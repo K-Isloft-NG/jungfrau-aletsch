@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Administration — Jungfrau-Aletsch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <style>
+        .modal-overlay { background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(2px); }
+        .resource-row:hover { background-color: #f1f5f9; }
+        .type-filter.active { background: #2563eb; color: white; border-color: #2563eb; }
+        .preview-thumb {
+            width: 56px; height: 56px; border-radius: 0.5rem;
+            object-fit: cover; background: #f1f5f9;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/accessibility-widget.css">
+</head>
+<body class="antialiased bg-slate-50">
+
+    <!-- ═══════════ LOGIN SCREEN ═══════════ -->
+    <div id="login-screen" class="min-h-screen bg-slate-50 flex items-center justify-center px-4">
+        <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 w-full max-w-sm">
+            <div class="text-center mb-6">
+                <img src="assets/images/logomcnnoir.svg" alt="MCN" class="h-12 mx-auto mb-4">
+                <h1 class="text-xl font-bold text-slate-900">Administration</h1>
+                <p class="text-sm text-slate-500 mt-1">Accès réservé aux propriétaires</p>
+            </div>
+            <form id="login-form">
+                <label class="block text-sm font-medium text-slate-700 mb-1" for="login-email">Email</label>
+                <input type="email" id="login-email" class="w-full px-4 py-2 border border-slate-300 rounded-lg mb-4 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" placeholder="admin@..." required autocomplete="email">
+
+                <label class="block text-sm font-medium text-slate-700 mb-1" for="login-password">Mot de passe</label>
+                <input type="password" id="login-password" class="w-full px-4 py-2 border border-slate-300 rounded-lg mb-4 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" placeholder="••••••" required autocomplete="current-password">
+
+                <p id="login-error" class="text-red-500 text-sm mb-3 hidden">Identifiants incorrects</p>
+
+                <button type="submit" id="login-btn" class="w-full bg-blue-600 text-white font-bold py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+                    <span id="login-btn-text">Se connecter</span>
+                    <svg id="login-btn-spinner" class="animate-spin w-4 h-4 hidden" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.25"/><path fill="currentColor" d="M4 12a8 8 0 0 1 8-8v3a5 5 0 0 0-5 5H4z"/></svg>
+                </button>
+            </form>
+            <div class="mt-6 pt-5 border-t border-slate-100 text-center">
+                <a href="index.html" class="text-xs text-slate-400 hover:text-blue-600 transition-colors inline-flex items-center gap-1">
+                    <i data-lucide="arrow-left" class="w-3 h-3"></i>
+                    Retour au site public
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ ADMIN DASHBOARD ═══════════ -->
+    <div id="admin-dashboard" class="hidden">
+
+        <!-- Top bar -->
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+            <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <img src="assets/images/logomcnnoir.svg" alt="MCN" class="h-8">
+                    <span class="text-slate-300">/</span>
+                    <span class="font-bold text-slate-900 text-sm">Administration</span>
+                    <span id="admin-user-badge" class="hidden md:inline-flex ml-3 px-2 py-0.5 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full"></span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-slate-600 hover:text-blue-600 hover:bg-slate-50 rounded-lg transition-colors">
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Voir le site</span>
+                    </a>
+                    <button type="button" id="logout-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Déconnexion</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-6 py-8">
+
+            <!-- Titre -->
+            <div class="mb-8">
+                <h1 class="text-2xl md:text-3xl font-bold text-slate-900 mb-1">Gestion des ressources</h1>
+                <p class="text-sm text-slate-500">Images, vidéos, PDF et autres fichiers référencés sur le site.</p>
+            </div>
+
+            <!-- Statistiques -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" id="stats-grid">
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                            <i data-lucide="database" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Total</span>
+                    </div>
+                    <div class="text-2xl font-bold text-slate-900" data-stat="total">—</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                            <i data-lucide="image" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Images</span>
+                    </div>
+                    <div class="text-2xl font-bold text-slate-900" data-stat="images">—</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-9 h-9 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
+                            <i data-lucide="film" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Vidéos / PDF</span>
+                    </div>
+                    <div class="text-2xl font-bold text-slate-900" data-stat="videos-pdfs">—</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                            <i data-lucide="hard-drive" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Taille totale</span>
+                    </div>
+                    <div class="text-2xl font-bold text-slate-900" data-stat="size">—</div>
+                </div>
+            </div>
+
+            <!-- Actions bar -->
+            <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 mb-6">
+                <div class="flex flex-wrap gap-2" id="type-filters">
+                    <button type="button" class="type-filter active px-3 py-1.5 text-sm font-semibold rounded-full border border-slate-200 bg-white text-slate-700 hover:border-blue-600 transition-colors" data-type="all">Tous</button>
+                    <button type="button" class="type-filter px-3 py-1.5 text-sm font-semibold rounded-full border border-slate-200 bg-white text-slate-700 hover:border-blue-600 transition-colors" data-type="image">Images</button>
+                    <button type="button" class="type-filter px-3 py-1.5 text-sm font-semibold rounded-full border border-slate-200 bg-white text-slate-700 hover:border-blue-600 transition-colors" data-type="video">Vidéos</button>
+                    <button type="button" class="type-filter px-3 py-1.5 text-sm font-semibold rounded-full border border-slate-200 bg-white text-slate-700 hover:border-blue-600 transition-colors" data-type="pdf">PDF</button>
+                    <button type="button" class="type-filter px-3 py-1.5 text-sm font-semibold rounded-full border border-slate-200 bg-white text-slate-700 hover:border-blue-600 transition-colors" data-type="other">Autres</button>
+                </div>
+                <button type="button" id="upload-open-btn" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white font-bold text-sm rounded-lg hover:bg-blue-700 transition-colors shadow-sm">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    Ajouter une ressource
+                </button>
+            </div>
+
+            <!-- Tableau -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider text-xs">
+                            <tr>
+                                <th class="px-4 py-3 text-left font-semibold">Aperçu</th>
+                                <th class="px-4 py-3 text-left font-semibold">Nom</th>
+                                <th class="px-4 py-3 text-left font-semibold">Type</th>
+                                <th class="px-4 py-3 text-left font-semibold">Catégorie</th>
+                                <th class="px-4 py-3 text-left font-semibold">Page</th>
+                                <th class="px-4 py-3 text-left font-semibold">Taille</th>
+                                <th class="px-4 py-3 text-right font-semibold">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resources-tbody">
+                            <tr>
+                                <td colspan="7" class="px-4 py-12 text-center text-slate-400">
+                                    <div class="inline-flex items-center gap-2">
+                                        <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.25"/><path fill="currentColor" d="M4 12a8 8 0 0 1 8-8v3a5 5 0 0 0-5 5H4z"/></svg>
+                                        Chargement…
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ═══════════ MODAL : UPLOAD ═══════════ -->
+    <div id="upload-modal" class="fixed inset-0 z-50 modal-overlay items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="upload-title">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+                <h2 id="upload-title" class="text-lg font-bold text-slate-900">Nouvelle ressource</h2>
+                <button type="button" class="modal-close text-slate-400 hover:text-slate-700 transition-colors" data-modal="upload-modal" aria-label="Fermer">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form id="upload-form" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="upload-file">Fichier <span class="text-red-500">*</span></label>
+                    <input type="file" id="upload-file" class="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-50 file:text-blue-700 file:font-semibold hover:file:bg-blue-100 cursor-pointer" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="upload-name">Nom</label>
+                    <input type="text" id="upload-name" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" placeholder="Nom descriptif (optionnel)">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="upload-description">Description</label>
+                    <textarea id="upload-description" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" placeholder="Courte description"></textarea>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="upload-category">Catégorie</label>
+                        <select id="upload-category" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-white">
+                            <option value="general">Général</option>
+                            <option value="hero">Hero</option>
+                            <option value="sites">Sites</option>
+                            <option value="parcours">Parcours</option>
+                            <option value="branding">Identité</option>
+                            <option value="icons">Icônes</option>
+                            <option value="technical">Technique</option>
+                            <option value="equipe">Équipe</option>
+                            <option value="documents">Documents</option>
+                            <option value="videos">Vidéos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="upload-page">Page de référence</label>
+                        <select id="upload-page" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-white">
+                            <option value="">—</option>
+                            <option value="index">Accueil</option>
+                            <option value="sites">Sites</option>
+                            <option value="parcours">Parcours</option>
+                            <option value="timeline">Histoire</option>
+                            <option value="notreequipe">Équipe</option>
+                            <option value="temoignages">Témoignages</option>
+                            <option value="accessibility">Accessibilité</option>
+                            <option value="faq">FAQ</option>
+                            <option value="all">Toutes</option>
+                            <option value="multiple">Multiple</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="upload-alt">Texte alternatif</label>
+                    <input type="text" id="upload-alt" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" placeholder="Description accessible de l'image">
+                </div>
+                <p id="upload-error" class="text-red-500 text-sm hidden"></p>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button type="button" class="modal-close px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition-colors" data-modal="upload-modal">Annuler</button>
+                    <button type="submit" id="upload-submit" class="inline-flex items-center gap-2 px-5 py-2 bg-blue-600 text-white font-bold text-sm rounded-lg hover:bg-blue-700 transition-colors">
+                        <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                        <span id="upload-submit-text">Uploader</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ═══════════ MODAL : EDIT ═══════════ -->
+    <div id="edit-modal" class="fixed inset-0 z-50 modal-overlay items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="edit-title">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+                <h2 id="edit-title" class="text-lg font-bold text-slate-900">Modifier la ressource</h2>
+                <button type="button" class="modal-close text-slate-400 hover:text-slate-700 transition-colors" data-modal="edit-modal" aria-label="Fermer">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form id="edit-form" class="p-6 space-y-4">
+                <input type="hidden" id="edit-id">
+                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                    <div id="edit-preview" class="preview-thumb"></div>
+                    <div class="min-w-0">
+                        <div id="edit-filename" class="text-xs text-slate-500 truncate"></div>
+                        <div class="text-xs text-slate-400">Le fichier ne peut pas être remplacé — seules les métadonnées sont modifiables.</div>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="edit-name">Nom</label>
+                    <input type="text" id="edit-name" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="edit-description">Description</label>
+                    <textarea id="edit-description" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"></textarea>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="edit-category">Catégorie</label>
+                        <select id="edit-category" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-white">
+                            <option value="general">Général</option>
+                            <option value="hero">Hero</option>
+                            <option value="sites">Sites</option>
+                            <option value="parcours">Parcours</option>
+                            <option value="branding">Identité</option>
+                            <option value="icons">Icônes</option>
+                            <option value="technical">Technique</option>
+                            <option value="equipe">Équipe</option>
+                            <option value="documents">Documents</option>
+                            <option value="videos">Vidéos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="edit-page">Page de référence</label>
+                        <input type="text" id="edit-page" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" placeholder="ex. index, sites, all">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="edit-alt">Texte alternatif</label>
+                    <input type="text" id="edit-alt" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+                </div>
+                <p id="edit-error" class="text-red-500 text-sm hidden"></p>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button type="button" class="modal-close px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition-colors" data-modal="edit-modal">Annuler</button>
+                    <button type="submit" id="edit-submit" class="inline-flex items-center gap-2 px-5 py-2 bg-blue-600 text-white font-bold text-sm rounded-lg hover:bg-blue-700 transition-colors">
+                        <i data-lucide="save" class="w-4 h-4"></i>
+                        Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/db.js"></script>
+    <script>
+        // ─── État local ──────────────────────────────────────
+        var adminState = {
+            resources: [],
+            typeFilter: 'all'
+        };
+
+        // ─── Auth ─────────────────────────────────────────────
+        async function checkSession() {
+            if (!window.JA_DB || !window.JA_DB.client) return null;
+            var res = await window.JA_DB.client.auth.getSession();
+            return res.data.session;
+        }
+
+        function showLogin() {
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('admin-dashboard').classList.add('hidden');
+        }
+
+        function showDashboard(session) {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('admin-dashboard').classList.remove('hidden');
+            var badge = document.getElementById('admin-user-badge');
+            if (badge && session && session.user) {
+                badge.textContent = session.user.email;
+                badge.classList.remove('hidden');
+            }
+            loadDashboard();
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var email = document.getElementById('login-email').value.trim();
+            var password = document.getElementById('login-password').value;
+            var errorEl = document.getElementById('login-error');
+            var btn = document.getElementById('login-btn');
+            var btnText = document.getElementById('login-btn-text');
+            var spinner = document.getElementById('login-btn-spinner');
+
+            errorEl.classList.add('hidden');
+            btn.disabled = true;
+            btnText.textContent = 'Connexion…';
+            spinner.classList.remove('hidden');
+
+            var result = await window.JA_DB.client.auth.signInWithPassword({ email: email, password: password });
+
+            btn.disabled = false;
+            btnText.textContent = 'Se connecter';
+            spinner.classList.add('hidden');
+
+            if (result.error) {
+                errorEl.textContent = result.error.message || 'Identifiants incorrects';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            showDashboard(result.data.session);
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', async function () {
+            await window.JA_DB.client.auth.signOut();
+            location.reload();
+        });
+
+        // ─── Dashboard ────────────────────────────────────────
+        async function loadDashboard() {
+            await loadStats();
+            await loadResources();
+            if (window.lucide) window.lucide.createIcons();
+        }
+
+        async function loadStats() {
+            var stats = await window.JA_DB.getStats();
+            setStat('total', stats.total);
+            setStat('images', stats.images);
+            setStat('videos-pdfs', (stats.videos + stats.pdfs));
+            setStat('size', stats.totalSizeFormatted);
+        }
+
+        function setStat(key, value) {
+            var el = document.querySelector('[data-stat="' + key + '"]');
+            if (el) el.textContent = value;
+        }
+
+        async function loadResources() {
+            adminState.resources = await window.JA_DB.getAll();
+            renderResources();
+        }
+
+        function renderResources() {
+            var tbody = document.getElementById('resources-tbody');
+            var filtered = adminState.typeFilter === 'all'
+                ? adminState.resources
+                : adminState.resources.filter(function (r) {
+                    if (adminState.typeFilter === 'other') {
+                        return !['image', 'video', 'pdf'].includes(r.type);
+                    }
+                    return r.type === adminState.typeFilter;
+                });
+
+            if (!filtered.length) {
+                tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-12 text-center text-slate-400">Aucune ressource.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(function (r) {
+                var preview = r.type === 'image' && r.public_url
+                    ? '<img src="' + escapeHtml(r.public_url) + '" alt="' + escapeHtml(r.alt_text || r.name) + '" class="preview-thumb" loading="lazy" onerror="this.outerHTML=\'<div class=preview-thumb><span>' + window.JA_DB.getTypeIcon(r.type) + '</span></div>\'">'
+                    : '<div class="preview-thumb"><span class="text-xl">' + window.JA_DB.getTypeIcon(r.type) + '</span></div>';
+
+                return '<tr class="resource-row border-b border-slate-100 last:border-0" data-id="' + r.id + '">'
+                    + '<td class="px-4 py-3">' + preview + '</td>'
+                    + '<td class="px-4 py-3"><div class="font-semibold text-slate-900 max-w-[220px] truncate">' + escapeHtml(r.name) + '</div><div class="text-xs text-slate-400 max-w-[220px] truncate">' + escapeHtml(r.filename || '') + '</div></td>'
+                    + '<td class="px-4 py-3"><span class="inline-flex items-center gap-1 px-2 py-0.5 bg-slate-100 text-slate-700 text-xs font-semibold rounded-full">' + window.JA_DB.getTypeIcon(r.type) + ' ' + escapeHtml(r.type) + '</span></td>'
+                    + '<td class="px-4 py-3 text-slate-600">' + escapeHtml(window.JA_DB.getCategoryLabel(r.category)) + '</td>'
+                    + '<td class="px-4 py-3 text-slate-600">' + escapeHtml(r.page_reference || '—') + '</td>'
+                    + '<td class="px-4 py-3 text-slate-600">' + window.JA_DB.formatSize(r.size_bytes) + '</td>'
+                    + '<td class="px-4 py-3 text-right whitespace-nowrap">'
+                        + '<button type="button" class="edit-btn inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-blue-700 hover:bg-blue-50 rounded-md transition-colors" data-id="' + r.id + '"><i data-lucide="pencil" class="w-3.5 h-3.5"></i>Modifier</button>'
+                        + '<button type="button" class="delete-btn inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-red-600 hover:bg-red-50 rounded-md transition-colors ml-1" data-id="' + r.id + '"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i>Supprimer</button>'
+                    + '</td>'
+                    + '</tr>';
+            }).join('');
+
+            tbody.querySelectorAll('.edit-btn').forEach(function (b) {
+                b.addEventListener('click', function () { openEditModal(b.dataset.id); });
+            });
+            tbody.querySelectorAll('.delete-btn').forEach(function (b) {
+                b.addEventListener('click', function () { handleDelete(b.dataset.id); });
+            });
+
+            if (window.lucide) window.lucide.createIcons();
+        }
+
+        function escapeHtml(str) {
+            if (str == null) return '';
+            return String(str)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        // ─── Filtres par type ─────────────────────────────────
+        document.querySelectorAll('#type-filters .type-filter').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('#type-filters .type-filter').forEach(function (b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                adminState.typeFilter = btn.dataset.type;
+                renderResources();
+            });
+        });
+
+        // ─── Modals : open / close ────────────────────────────
+        function openModal(id) {
+            var modal = document.getElementById(id);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        function closeModal(id) {
+            var modal = document.getElementById(id);
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        document.querySelectorAll('.modal-close').forEach(function (b) {
+            b.addEventListener('click', function () { closeModal(b.dataset.modal); });
+        });
+        ['upload-modal', 'edit-modal'].forEach(function (id) {
+            var modal = document.getElementById(id);
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) closeModal(id);
+            });
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                ['upload-modal', 'edit-modal'].forEach(function (id) {
+                    var modal = document.getElementById(id);
+                    if (!modal.classList.contains('hidden')) closeModal(id);
+                });
+            }
+        });
+
+        // ─── Upload ───────────────────────────────────────────
+        document.getElementById('upload-open-btn').addEventListener('click', function () {
+            document.getElementById('upload-form').reset();
+            document.getElementById('upload-error').classList.add('hidden');
+            openModal('upload-modal');
+            if (window.lucide) window.lucide.createIcons();
+        });
+
+        document.getElementById('upload-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var file = document.getElementById('upload-file').files[0];
+            var errorEl = document.getElementById('upload-error');
+            var submitBtn = document.getElementById('upload-submit');
+            var submitText = document.getElementById('upload-submit-text');
+
+            if (!file) {
+                errorEl.textContent = 'Veuillez sélectionner un fichier.';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            var meta = {
+                name:           document.getElementById('upload-name').value.trim() || file.name,
+                description:    document.getElementById('upload-description').value.trim() || null,
+                category:       document.getElementById('upload-category').value,
+                page_reference: document.getElementById('upload-page').value || null,
+                alt_text:       document.getElementById('upload-alt').value.trim() || null
+            };
+
+            errorEl.classList.add('hidden');
+            submitBtn.disabled = true;
+            submitText.textContent = 'Upload…';
+
+            var result = await window.JA_DB.upload(file, meta);
+
+            submitBtn.disabled = false;
+            submitText.textContent = 'Uploader';
+
+            if (!result) {
+                errorEl.textContent = 'Erreur lors de l\'upload. Vérifiez la console pour plus de détails.';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            closeModal('upload-modal');
+            await loadDashboard();
+        });
+
+        // ─── Edit ─────────────────────────────────────────────
+        function openEditModal(id) {
+            var r = adminState.resources.find(function (x) { return String(x.id) === String(id); });
+            if (!r) return;
+
+            document.getElementById('edit-id').value = r.id;
+            document.getElementById('edit-name').value = r.name || '';
+            document.getElementById('edit-description').value = r.description || '';
+            document.getElementById('edit-category').value = r.category || 'general';
+            document.getElementById('edit-page').value = r.page_reference || '';
+            document.getElementById('edit-alt').value = r.alt_text || '';
+            document.getElementById('edit-filename').textContent = r.filename || '—';
+
+            var previewEl = document.getElementById('edit-preview');
+            if (r.type === 'image' && r.public_url) {
+                previewEl.innerHTML = '<img src="' + escapeHtml(r.public_url) + '" alt="" class="preview-thumb" onerror="this.outerHTML=\'<span class=text-xl>' + window.JA_DB.getTypeIcon(r.type) + '</span>\'">';
+            } else {
+                previewEl.innerHTML = '<span class="text-xl">' + window.JA_DB.getTypeIcon(r.type) + '</span>';
+            }
+
+            document.getElementById('edit-error').classList.add('hidden');
+            openModal('edit-modal');
+            if (window.lucide) window.lucide.createIcons();
+        }
+
+        document.getElementById('edit-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var id = document.getElementById('edit-id').value;
+            var errorEl = document.getElementById('edit-error');
+
+            var fields = {
+                name:           document.getElementById('edit-name').value.trim(),
+                description:    document.getElementById('edit-description').value.trim() || null,
+                category:       document.getElementById('edit-category').value,
+                page_reference: document.getElementById('edit-page').value.trim() || null,
+                alt_text:       document.getElementById('edit-alt').value.trim() || null
+            };
+
+            var result = await window.JA_DB.update(id, fields);
+            if (!result) {
+                errorEl.textContent = 'Échec de la mise à jour. Vérifiez la console.';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            closeModal('edit-modal');
+            await loadDashboard();
+        });
+
+        // ─── Delete ───────────────────────────────────────────
+        async function handleDelete(id) {
+            if (!confirm('Désactiver cette ressource ? Elle ne sera plus visible mais reste dans la BDD.')) return;
+            var ok = await window.JA_DB.remove(id);
+            if (!ok) {
+                alert('Erreur lors de la suppression.');
+                return;
+            }
+            await loadDashboard();
+        }
+
+        // ─── Init ─────────────────────────────────────────────
+        (async function init() {
+            if (window.lucide) window.lucide.createIcons();
+            var session = await checkSession();
+            if (session) {
+                showDashboard(session);
+            } else {
+                showLogin();
+            }
+        })();
+    </script>
+    <script src="assets/js/accessibility-widget.js"></script>
+</body>
+</html>

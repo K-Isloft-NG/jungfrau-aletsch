@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-title="legal.page.title">Mentions légales — Jungfrau-Aletsch UNESCO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="assets/css/global.css">
+    <style>
+        .toc-link {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.55rem 0.85rem;
+            border-radius: 0.5rem;
+            font-size: 0.84rem;
+            font-weight: 500;
+            color: #475569;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border-left: 2px solid transparent;
+        }
+        .toc-link:hover { background: #f8fafc; color: #0f172a; }
+        .toc-link.active {
+            background: #eff6ff;
+            color: #2563eb;
+            font-weight: 600;
+            border-left-color: #2563eb;
+        }
+
+        /* Section card */
+        .legal-card {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 1.25rem;
+            padding: 2rem;
+            box-shadow: rgba(0,0,0,0.04) 0px 2px 8px;
+            transition: box-shadow 0.3s ease;
+        }
+        .legal-card:hover { box-shadow: rgba(0,0,0,0.08) 0px 4px 16px; }
+
+        .legal-card h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .legal-card p,
+        .legal-card li {
+            color: #334155;
+            font-size: 0.9rem;
+            line-height: 1.75;
+        }
+
+        .legal-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .legal-card ul li {
+            padding-left: 1.25rem;
+            position: relative;
+            margin-bottom: 0.35rem;
+        }
+        .legal-card ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.65rem;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #cbd5e1;
+        }
+
+        .section-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Table des matières mobile */
+        .toc-mobile {
+            display: none;
+        }
+        @media (max-width: 1023px) {
+            .legal-sidebar { display: none !important; }
+            .toc-mobile { display: block; }
+            .legal-card { padding: 1.5rem; }
+        }
+    
+    </style>
+    <link rel="stylesheet" href="assets/css/accessibility-widget.css">
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- ═══════════ NAVBAR ═══════════ -->
+    <header id="navbar" class="navbar-fixed w-full z-50 bg-white border-b-4 border-blue-600">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="assets/images/logomcnnoir.svg" alt="M.C.N." class="h-12 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Accueil</a>
+                <a href="timeline.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Histoire</a>
+                <a href="sites.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Sites</a>
+                <a href="parcours.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Parcours</a>
+                <a href="temoignages.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.testimonials">Témoignages</a>
+                <a href="notreequipe.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Équipe</a>
+            </nav>
+            <div class="hidden md:flex items-center gap-4">
+                <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 transition-colors" aria-label="Accessibilité">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-7 h-7" viewBox="0 0 16 16" role="img">
+                        <path d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z"/>
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8"/>
+                    </svg>
+                </a>
+                <div class="flex items-center bg-gray-100 rounded-full px-1 py-1 border border-gray-200">
+                    <button type="button" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full inactive" onclick="setLanguage('en')">EN</button>
+                    <button type="button" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full active" onclick="setLanguage('fr')">FR</button>
+                </div>
+            </div>
+            <button type="button" class="md:hidden text-slate-800" onclick="openMobileMenu()" aria-label="Menu"><i data-lucide="menu"></i></button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 overflow-y-auto hidden-menu-state">
+        <button type="button" id="close-menu" class="absolute top-6 right-6 text-slate-800" aria-label="Fermer le menu">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <nav class="flex flex-col gap-6 text-xl font-bold">
+            <a href="index.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.home">Accueil</a>
+            <a href="timeline.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.history">Histoire</a>
+            <a href="sites.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.visite">Sites</a>
+            <a href="parcours.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.parcours">Parcours</a>
+            <a href="temoignages.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.testimonials">Témoignages</a>
+            <a href="notreequipe.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.team">Équipe</a>
+            
+            <div class="border-t border-slate-100 my-2"></div>
+            
+            <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 text-lg flex items-center gap-2 mobile-link">
+                Accessibilité
+            </a>
+            
+            <div class="flex items-center gap-4 mt-2">
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm inactive" onclick="setLanguage('en'); closeMobileMenu()">EN</button>
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm active" onclick="setLanguage('fr'); closeMobileMenu()">FR</button>
+            </div>
+        </nav>
+    </div>
+
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="relative pt-32 pb-20 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wider fade-up">
+                <i data-lucide="scale" class="w-3.5 h-3.5"></i>
+                <span data-i18n="legal.hero.badge">Juridique</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-4 fade-up" style="transition-delay:50ms;">
+                <span data-i18n="legal.hero.title">Mentions légales</span>
+            </h1>
+            <div class="w-16 h-1 bg-blue-600 mx-auto mb-6 fade-up" style="transition-delay:80ms;"></div>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed fade-up" style="transition-delay:100ms;">
+                <span data-i18n="legal.hero.subtitle">Informations légales concernant le site Jungfrau-Aletsch et son utilisation.</span>
+            </p>
+            <p class="text-xs text-slate-400 mt-4 fade-up" style="transition-delay:130ms;">
+                <span data-i18n="legal.hero.date">Dernière mise à jour : mars 2026</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══════════ MAIN CONTENT ═══════════ -->
+    <main class="max-w-7xl mx-auto px-6 py-16">
+
+        <!-- Table des matières mobile -->
+        <div class="toc-mobile mb-10 fade-up">
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3" data-i18n="legal.toc.title">Sommaire</h2>
+                <nav class="flex flex-col gap-1" aria-label="Table des matières">
+                    <a href="#presentation" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="legal.toc.1">1. Présentation du site</a>
+                    <a href="#editeur" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="legal.toc.2">2. Éditeur du site</a>
+                    <a href="#hebergement" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="legal.toc.3">3. Hébergement</a>
+                    <a href="#propriete" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="legal.toc.4">4. Propriété intellectuelle</a>
+                    <a href="#responsabilite" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="legal.toc.5">5. Responsabilité</a>
+                    <a href="#donnees" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="legal.toc.6">6. Protection des données</a>
+                    <a href="#cookies" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="legal.toc.7">7. Cookies</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Layout 2 colonnes -->
+        <div class="lg:grid lg:grid-cols-[220px_1fr] lg:gap-14">
+
+            <!-- Sidebar desktop (sticky) -->
+            <aside class="legal-sidebar fade-up">
+                <nav class="bg-white border border-slate-100 rounded-xl p-3 shadow-sm" aria-label="Table des matières">
+                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 px-3 mb-2" data-i18n="legal.toc.title">Sommaire</p>
+                    <a href="#presentation" class="toc-link active" data-section="presentation" data-i18n="legal.toc.short.1">1. Présentation</a>
+                    <a href="#editeur" class="toc-link" data-section="editeur" data-i18n="legal.toc.short.2">2. Éditeur</a>
+                    <a href="#hebergement" class="toc-link" data-section="hebergement" data-i18n="legal.toc.short.3">3. Hébergement</a>
+                    <a href="#propriete" class="toc-link" data-section="propriete" data-i18n="legal.toc.short.4">4. Propriété intellectuelle</a>
+                    <a href="#responsabilite" class="toc-link" data-section="responsabilite" data-i18n="legal.toc.short.5">5. Responsabilité</a>
+                    <a href="#donnees" class="toc-link" data-section="donnees" data-i18n="legal.toc.short.6">6. Données personnelles</a>
+                    <a href="#cookies" class="toc-link" data-section="cookies" data-i18n="legal.toc.short.7">7. Cookies</a>
+                </nav>
+            </aside>
+
+            <!-- Contenu juridique -->
+            <div class="space-y-8">
+
+                <!-- 1. Présentation du site -->
+                <article id="presentation" class="scroll-offset legal-card fade-up">
+                    <h2>
+                        <span class="section-icon bg-blue-50">
+                            <i data-lucide="globe" class="w-[18px] h-[18px] text-blue-600"></i>
+                        </span>
+                        <span data-i18n="legal.s1.title">Présentation du site</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="legal.s1.body">
+                        <p>Le présent site web a été réalisé dans le cadre d'un projet pédagogique au sein du <strong>BUT Informatique</strong>. Il a pour objectif de présenter et valoriser le site naturel <strong>Jungfrau-Aletsch</strong>, classé au patrimoine mondial de l'UNESCO depuis 2001.</p>
+                        <p>Ce site est à vocation exclusivement éducative et informative. Il ne poursuit aucun but commercial et ne génère aucun revenu publicitaire.</p>
+                        <p>Le contenu proposé s'appuie sur des sources officielles et vérifiées, notamment la documentation de l'UNESCO, les publications de l'Office fédéral de l'environnement suisse (OFEV) et les données de la fondation Jungfrau-Aletsch.</p>
+                    </div>
+                </article>
+
+                <!-- 2. Éditeur du site -->
+                <article id="editeur" class="scroll-offset legal-card fade-up" style="transition-delay:60ms;">
+                    <h2>
+                        <span class="section-icon bg-emerald-50">
+                            <i data-lucide="user-check" class="w-[18px] h-[18px] text-emerald-600"></i>
+                        </span>
+                        <span data-i18n="legal.s2.title">Éditeur du site</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="legal.s2.body">
+                        <p>Ce site est édité par l'équipe projet <strong>M.C.N.</strong> (Médiation Culturelle et Numérique).</p>
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-100 space-y-2 text-sm">
+                            <div class="flex gap-2">
+                                <span class="text-slate-500 font-medium w-44 shrink-0" data-i18n="legal.row.project">Nom du projet</span>
+                                <span class="text-slate-900 font-semibold">Jungfrau-Aletsch — M.C.N.</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-slate-500 font-medium w-44 shrink-0" data-i18n="legal.row.publisher">Responsable de publication</span>
+                                <span class="text-slate-900">Karl Natngam</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-slate-500 font-medium w-44 shrink-0" data-i18n="legal.row.formation">Formation</span>
+                                <span class="text-slate-900" data-i18n="legal.s2.formation.val">BUT Informatique — 1ère année</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-slate-500 font-medium w-44 shrink-0" data-i18n="legal.row.contact">Contact</span>
+                                <a href="mailto:karlnatngam@gmail.com" class="text-blue-600 hover:underline">karlnatngam@gmail.com</a>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-slate-500 font-medium w-44 shrink-0" data-i18n="legal.row.phone">Téléphone</span>
+                                <a href="tel:0762905525" class="text-blue-600 hover:underline">07 62 90 55 25</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. Hébergement -->
+                <article id="hebergement" class="scroll-offset legal-card fade-up" style="transition-delay:120ms;">
+                    <h2>
+                        <span class="section-icon bg-violet-50">
+                            <i data-lucide="server" class="w-[18px] h-[18px] text-violet-600"></i>
+                        </span>
+                        <span data-i18n="legal.s3.title">Hébergement</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="legal.s3.body">
+                        <p data-i18n="legal.s3.intro">Le site est hébergé par :</p>
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-100 space-y-2 text-sm">
+                            <div class="flex gap-2">
+                                <span class="text-slate-500 font-medium w-44 shrink-0">Hébergeur</span>
+                                <span class="text-slate-900 font-semibold" data-i18n="legal.s3.row1.val">Netlify</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-slate-500 font-medium w-44 shrink-0">Société</span>
+                                <span class="text-slate-900" data-i18n="legal.s3.row2.val">Netlify, Inc.</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-slate-500 font-medium w-44 shrink-0">Adresse</span>
+                                <span class="text-slate-900" data-i18n="legal.s3.row3.val">2325 3rd Street, Suite 215, San Francisco, CA 94107, USA</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-slate-500 font-medium w-44 shrink-0">Site web</span>
+                                <a href="https://netlify.com" target="_blank" rel="noopener" class="text-blue-600 hover:underline" data-i18n="legal.s3.row4.val">netlify.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4. Propriété intellectuelle -->
+                <article id="propriete" class="scroll-offset legal-card fade-up" style="transition-delay:180ms;">
+                    <h2>
+                        <span class="section-icon bg-amber-50">
+                            <i data-lucide="shield-check" class="w-[18px] h-[18px] text-amber-600"></i>
+                        </span>
+                        <span data-i18n="legal.s4.title">Propriété intellectuelle</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="legal.s4.body">
+                        <p>L'ensemble du contenu de ce site (textes, mise en page, code source, éléments graphiques) est protégé par le droit d'auteur et reste la propriété de l'équipe projet M.C.N., sauf mention contraire.</p>
+                        <p>Toute reproduction, représentation ou diffusion, intégrale ou partielle, du contenu de ce site est interdite sans autorisation écrite préalable de l'éditeur.</p>
+                        <p class="font-medium text-slate-800">Sources et crédits :</p>
+                        <ul>
+                            <li><strong>Photographies</strong> — Les images utilisées proviennent principalement d'<a href="https://unsplash.com" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Unsplash</a> (licence libre) et sont créditées à leurs auteurs respectifs lorsque requis.</li>
+                            <li><strong>Données scientifiques</strong> — Les informations factuelles sur le site UNESCO sont issues des publications officielles de l'<a href="https://whc.unesco.org" target="_blank" rel="noopener" class="text-blue-600 hover:underline">UNESCO</a> et de l'OFEV.</li>
+                            <li><strong>Cartographie</strong> — Les fonds de carte utilisent les tuiles <a href="https://carto.com" target="_blank" rel="noopener" class="text-blue-600 hover:underline">CartoDB</a> basées sur les données <a href="https://www.openstreetmap.org" target="_blank" rel="noopener" class="text-blue-600 hover:underline">OpenStreetMap</a> (licence ODbL).</li>
+                            <li><strong>Icônes</strong> — Icônes fournies par <a href="https://lucide.dev" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Lucide Icons</a> (licence ISC).</li>
+                        </ul>
+                        <p>Ce site est réalisé à des fins pédagogiques dans le cadre d'un cursus universitaire. L'utilisation des ressources tierces respecte le cadre du droit à la citation et de l'usage éducatif non commercial.</p>
+                    </div>
+                </article>
+
+                <!-- 5. Responsabilité -->
+                <article id="responsabilite" class="scroll-offset legal-card fade-up" style="transition-delay:240ms;">
+                    <h2>
+                        <span class="section-icon bg-rose-50">
+                            <i data-lucide="alert-triangle" class="w-[18px] h-[18px] text-rose-600"></i>
+                        </span>
+                        <span data-i18n="legal.s5.title">Responsabilité</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="legal.s5.body">
+                        <p>Les informations publiées sur ce site sont fournies à titre indicatif et informatif. L'équipe M.C.N. s'efforce de maintenir des données exactes et à jour, mais ne saurait garantir l'exhaustivité ou l'exactitude permanente des contenus.</p>
+                        <p>L'utilisation des informations disponibles sur ce site se fait sous l'entière responsabilité de l'utilisateur. L'éditeur ne pourra être tenu responsable des dommages directs ou indirects résultant de l'accès au site ou de l'utilisation de son contenu.</p>
+                        <p>Les liens hypertextes pointant vers des sites extérieurs ne sauraient engager la responsabilité de l'éditeur quant au contenu de ces sites tiers.</p>
+                        <p>Les conditions météorologiques, les accès aux sentiers et les informations pratiques concernant le site Jungfrau-Aletsch sont susceptibles d'évoluer. Il est recommandé de vérifier ces informations auprès des autorités locales avant toute visite.</p>
+                    </div>
+                </article>
+
+                <!-- 6. Protection des données -->
+                <article id="donnees" class="scroll-offset legal-card fade-up" style="transition-delay:300ms;">
+                    <h2>
+                        <span class="section-icon bg-cyan-50">
+                            <i data-lucide="lock" class="w-[18px] h-[18px] text-cyan-600"></i>
+                        </span>
+                        <span data-i18n="legal.s6.title">Protection des données personnelles</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="legal.s6.body">
+                        <p>Ce site <strong>ne collecte aucune donnée personnelle</strong> de manière automatique. Aucun formulaire d'inscription, système de compte utilisateur ou mécanisme de traçage publicitaire n'est mis en place.</p>
+                        <p>Les seules données éventuellement transmises sont celles fournies volontairement par l'utilisateur lorsqu'il nous contacte par email. Ces informations sont utilisées exclusivement pour répondre aux demandes et ne sont en aucun cas transmises à des tiers.</p>
+                        <p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles. Pour exercer ces droits, adressez votre demande à <a href="mailto:karlnatngam@gmail.com" class="text-blue-600 hover:underline">karlnatngam@gmail.com</a>.</p>
+                    </div>
+                </article>
+
+                <!-- 7. Cookies -->
+                <article id="cookies" class="scroll-offset legal-card fade-up" style="transition-delay:360ms;">
+                    <h2>
+                        <span class="section-icon bg-orange-50">
+                            <i data-lucide="cookie" class="w-[18px] h-[18px] text-orange-600"></i>
+                        </span>
+                        <span data-i18n="legal.s7.title">Cookies</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="legal.s7.body">
+                        <p>Ce site <strong>n'utilise aucun cookie publicitaire ni cookie de suivi</strong>.</p>
+                        <p>Seul un cookie technique minimal peut être utilisé par le service d'hébergement (Netlify) pour assurer le bon fonctionnement du site. Ce cookie ne collecte aucune donnée personnelle et ne permet aucun profilage.</p>
+                        <p>Le stockage local du navigateur (localStorage) est utilisé uniquement pour mémoriser votre préférence d'affichage sur la page Parcours (mode carte/liste). Cette donnée reste exclusivement sur votre appareil et n'est jamais transmise à un serveur.</p>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ═══════════ CTA CONTACT ═══════════ -->
+    <section class="max-w-7xl mx-auto px-6 pb-24 fade-up">
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 p-10 md:p-14 text-center">
+            <i data-lucide="mail-question" class="w-10 h-10 text-blue-600 mx-auto mb-4"></i>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3" data-i18n="legal.cta.title">Une question concernant ces mentions ?</h2>
+            <p class="text-slate-600 max-w-lg mx-auto mb-8">
+                <span data-i18n="legal.cta.text">N'hésitez pas à nous contacter pour toute question relative aux informations juridiques présentées sur cette page.</span>
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="mailto:karlnatngam@gmail.com" class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors shadow-sm">
+                    <i data-lucide="mail" class="w-4 h-4"></i>
+                    <span data-i18n="legal.cta.btn1">Nous contacter</span>
+                </a>
+                <a href="faq.html" class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white border border-slate-200 text-slate-700 font-semibold text-sm hover:border-blue-600 hover:text-blue-600 transition-all shadow-sm">
+                    <i data-lucide="help-circle" class="w-4 h-4"></i>
+                    <span data-i18n="legal.cta.btn2">Consulter la FAQ</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer id="footer" class="bg-slate-950 text-slate-400 pt-16 text-sm border-t border-slate-900">
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+            <div class="flex flex-col">
+                <span class="text-white font-bold text-lg uppercase tracking-widest mb-4">Jungfrau-Aletsch</span>
+                <p class="leading-relaxed mb-6 text-slate-500" data-i18n="footer.desc">
+                    Site du patrimoine mondial UNESCO depuis 2001. Préserver et valoriser ce joyau des Alpes pour les
+                    générations futures.
+                </p>
+                <div class="flex gap-4 mt-auto">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin"
+                            class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col2">Explorer
+                </h3>
+                <ul class="space-y-3">
+                    <li><a href="#home" class="hover:text-blue-400 transition-colors" data-i18n="nav.home">Accueil</a>
+                    </li>
+                    <li><a href="timeline.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.history">Histoire</a></li>
+                    <li><a href="sites.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.visite">Sites</a></li>
+                    <li><a href="parcours.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.parcours">Parcours</a></li>
+                    <li><a href="temoignages.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.testimonials">Témoignages</a></li>
+                    <li><a href="notreequipe.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.team">Équipe</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col3">
+                    Informations</h3>
+                <ul class="space-y-3">
+                    <li><a href="accessibility.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="footer.accessibility">Accessibilité</a></li>
+                    <li><a href="faq.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.faq">FAQ</a></li>
+                    <li><a href="mentions-legales.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.legal">Mentions
+                            légales</a></li>
+                    <li><a href="confidentialite.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.privacy">Politique
+                            de confidentialité</a></li>
+                    <li><a href="sitemap.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.sitemap">Plan du
+                            site</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col4">Nous
+                    contacter</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="mailto:karlnatngam@gmail.com"
+                            class="hover:text-white transition-colors break-all">karlnatngam@gmail.com</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="phone" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="tel:0762905525" class="hover:text-white transition-colors">07 62 90 55 25</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <span data-i18n="footer.hours">De 8h00 à 20h00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div
+                class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-500">
+                <div class="flex gap-6">
+                    <a href="accessibility.html" class="hover:text-white transition-colors"
+                        data-i18n="footer.accessibility">Accessibilité</a>
+                    <a href="signaler-probleme.html" class="hover:text-white transition-colors" data-i18n="footer.report">Signaler un
+                        problème</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div
+                class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+                <p>&copy; 2026 Jungfrau-Aletsch. Tous droits réservés.</p>
+                <div class="flex gap-6">
+                    <a href="mentions-legales.html" class="hover:text-slate-400 transition-colors" data-i18n="footer.legal">Mentions
+                        légales</a>
+                    <a href="confidentialite.html" class="hover:text-slate-400 transition-colors"
+                        data-i18n="footer.confidentiality">Confidentialité</a>
+                    <a href="notreequipe.html"
+                        class="hover:text-slate-400 transition-colors underline decoration-slate-700"
+                        data-i18n="footer.team">Équipe</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════ SCRIPTS ═══════════ -->
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/legal.js"></script>
+
+
+
+    <script src="assets/js/accessibility-widget.js"></script>
+</body>
+</html>

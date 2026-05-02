@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan du site — Jungfrau-Aletsch UNESCO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="assets/css/global.css">
+    <style>
+        .sitemap-link {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.65rem 0.85rem; border-radius: 0.6rem;
+            color: #475569; font-size: 0.9rem; font-weight: 500;
+            text-decoration: none; transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        .sitemap-link:hover { background: #f8fafc; color: #2563eb; border-color: #e2e8f0; }
+        .sitemap-link .link-icon {
+            width: 34px; height: 34px; border-radius: 0.5rem;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; transition: all 0.2s ease;
+        }
+        .sitemap-link:hover .link-icon { transform: scale(1.05); }
+        .sitemap-link .link-arrow {
+            margin-left: auto; opacity: 0; transition: opacity 0.2s, transform 0.2s; color: #94a3b8;
+        }
+        .sitemap-link:hover .link-arrow { opacity: 1; transform: translateX(2px); }
+    </style>
+    <link rel="stylesheet" href="assets/css/accessibility-widget.css">
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- ═══════════ NAVBAR ═══════════ -->
+    <header id="navbar" class="navbar-fixed w-full z-50 bg-white border-b-4 border-blue-600">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="assets/images/logomcnnoir.svg" alt="M.C.N." class="h-12 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Accueil</a>
+                <a href="timeline.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Histoire</a>
+                <a href="sites.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Sites</a>
+                <a href="parcours.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Parcours</a>
+                <a href="temoignages.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.testimonials">Témoignages</a>
+                <a href="notreequipe.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Équipe</a>
+            </nav>
+            <div class="hidden md:flex items-center gap-4">
+                <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 transition-colors" aria-label="Accessibilité">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-7 h-7" viewBox="0 0 16 16" role="img">
+                        <path d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z"/>
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8"/>
+                    </svg>
+                </a>
+                <div class="flex items-center bg-gray-100 rounded-full px-1 py-1 border border-gray-200">
+                    <button type="button" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full inactive" onclick="setLanguage('en')">EN</button>
+                    <button type="button" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full active" onclick="setLanguage('fr')">FR</button>
+                </div>
+            </div>
+            <button type="button" class="md:hidden text-slate-800" onclick="openMobileMenu()" aria-label="Menu"><i data-lucide="menu"></i></button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 overflow-y-auto hidden-menu-state">
+        <button type="button" id="close-menu" class="absolute top-6 right-6 text-slate-800" aria-label="Fermer le menu">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <nav class="flex flex-col gap-6 text-xl font-bold">
+            <a href="index.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.home">Accueil</a>
+            <a href="timeline.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.history">Histoire</a>
+            <a href="sites.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.visite">Sites</a>
+            <a href="parcours.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.parcours">Parcours</a>
+            <a href="temoignages.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.testimonials">Témoignages</a>
+            <a href="notreequipe.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.team">Équipe</a>
+            
+            <div class="border-t border-slate-100 my-2"></div>
+            
+            <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 text-lg flex items-center gap-2 mobile-link">
+                Accessibilité
+            </a>
+            
+            <div class="flex items-center gap-4 mt-2">
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm inactive" onclick="setLanguage('en'); closeMobileMenu()">EN</button>
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm active" onclick="setLanguage('fr'); closeMobileMenu()">FR</button>
+            </div>
+        </nav>
+    </div>
+
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="relative pt-32 pb-20 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+
+            <!-- Breadcrumb -->
+            <nav class="flex items-center justify-center gap-2 text-xs text-slate-400 mb-8 fade-up" aria-label="Fil d'Ariane">
+                <a href="index.html" class="hover:text-blue-600 transition-colors">Accueil</a>
+                <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                <span class="text-slate-600 font-medium">Plan du site</span>
+            </nav>
+
+            <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wider fade-up" style="transition-delay:30ms;">
+                <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+                Navigation
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-4 fade-up" style="transition-delay:60ms;">
+                <span data-i18n="sitemap.hero.title">Plan du site</span>
+            </h1>
+            <div class="w-16 h-1 bg-blue-600 mx-auto mb-6 fade-up" style="transition-delay:90ms;"></div>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed fade-up" style="transition-delay:120ms;">
+                Retrouvez l'ensemble des pages du site Jungfrau-Aletsch
+                et accédez rapidement aux différentes sections.
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══════════ MAIN ═══════════ -->
+    <main class="max-w-6xl mx-auto px-6 py-16">
+
+        <!-- Introduction -->
+        <p class="max-w-3xl mx-auto text-center text-slate-500 mb-14 fade-up">
+            <span data-i18n="sitemap.hero.subtitle">Cette page présente l'organisation complète du site. Elle permet d'accéder rapidement à l'ensemble des contenus et de comprendre la structure de navigation.</span>
+        </p>
+
+        <!-- Grille 3 colonnes -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- ── Explorer ── -->
+            <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm fade-up" style="transition-delay:50ms;">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+                        <i data-lucide="compass" class="w-5 h-5 text-blue-600"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900" data-i18n="sitemap.col1.title">Explorer</h2>
+                </div>
+                <p class="text-sm text-slate-500 mb-5" data-i18n="sitemap.col1.desc">Les pages principales du site Jungfrau-Aletsch.</p>
+                <nav class="flex flex-col gap-1" aria-label="Pages principales">
+                    <a href="index.html" class="sitemap-link">
+                        <span class="link-icon bg-slate-50"><i data-lucide="home" class="w-4 h-4 text-slate-500"></i></span>
+                        <span data-i18n="sitemap.link.home">Accueil</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="index.html#patrimoine" class="sitemap-link">
+                        <span class="link-icon bg-slate-50"><i data-lucide="book-open" class="w-4 h-4 text-slate-500"></i></span>
+                        <span data-i18n="sitemap.link.presentation">Présentation</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="timeline.html" class="sitemap-link">
+                        <span class="link-icon bg-amber-50"><i data-lucide="clock" class="w-4 h-4 text-amber-600"></i></span>
+                        <span data-i18n="sitemap.link.history">Histoire</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="sites.html" class="sitemap-link">
+                        <span class="link-icon bg-emerald-50"><i data-lucide="map-pin" class="w-4 h-4 text-emerald-600"></i></span>
+                        <span data-i18n="sitemap.link.sites">Sites</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="parcours.html" class="sitemap-link">
+                        <span class="link-icon bg-orange-50"><i data-lucide="footprints" class="w-4 h-4 text-orange-600"></i></span>
+                        <span data-i18n="sitemap.link.parcours">Parcours</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="temoignages.html" class="sitemap-link">
+                        <span class="link-icon bg-blue-50"><i data-lucide="message-circle" class="w-4 h-4 text-blue-600"></i></span>
+                        <span data-i18n="nav.testimonials">Témoignages</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="notreequipe.html" class="sitemap-link">
+                        <span class="link-icon bg-violet-50"><i data-lucide="users" class="w-4 h-4 text-violet-600"></i></span>
+                        <span data-i18n="sitemap.link.team">Notre équipe</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- ── Informations ── -->
+            <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm fade-up" style="transition-delay:120ms;">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+                        <i data-lucide="file-text" class="w-5 h-5 text-emerald-600"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900" data-i18n="sitemap.col2.title">Informations</h2>
+                </div>
+                <p class="text-sm text-slate-500 mb-5" data-i18n="sitemap.col2.desc">Pages juridiques, aide et accessibilité.</p>
+                <nav class="flex flex-col gap-1" aria-label="Pages informations">
+                    <a href="faq.html" class="sitemap-link">
+                        <span class="link-icon bg-blue-50"><i data-lucide="help-circle" class="w-4 h-4 text-blue-600"></i></span>
+                        <span data-i18n="sitemap.link.faq">FAQ</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="mentions-legales.html" class="sitemap-link">
+                        <span class="link-icon bg-amber-50"><i data-lucide="scale" class="w-4 h-4 text-amber-600"></i></span>
+                        <span data-i18n="sitemap.link.legal">Mentions légales</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="confidentialite.html" class="sitemap-link">
+                        <span class="link-icon bg-rose-50"><i data-lucide="shield" class="w-4 h-4 text-rose-600"></i></span>
+                        <span data-i18n="sitemap.link.privacy">Politique de confidentialité</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="sitemap.html" class="sitemap-link" aria-current="page">
+                        <span class="link-icon bg-cyan-50"><i data-lucide="layout-grid" class="w-4 h-4 text-cyan-600"></i></span>
+                        <span data-i18n="sitemap.link.sitemap" class="text-blue-600 font-semibold">Plan du site</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="accessibility.html" class="sitemap-link">
+                        <span class="link-icon bg-violet-50"><i data-lucide="accessibility" class="w-4 h-4 text-violet-600"></i></span>
+                        <span data-i18n="sitemap.link.accessibility">Accessibilité</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="signaler-probleme.html" class="sitemap-link">
+                        <span class="link-icon bg-rose-50"><i data-lucide="flag" class="w-4 h-4 text-rose-600"></i></span>
+                        <span data-i18n="sitemap.link.report">Signaler un problème</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- ── Contact ── -->
+            <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm fade-up" style="transition-delay:190ms;">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center">
+                        <i data-lucide="mail" class="w-5 h-5 text-rose-600"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900" data-i18n="sitemap.col3.title">Contact</h2>
+                </div>
+                <p class="text-sm text-slate-500 mb-5" data-i18n="sitemap.col3.desc">Nous joindre et retrouver notre équipe.</p>
+                <nav class="flex flex-col gap-1" aria-label="Contact">
+                    <a href="notreequipe.html" class="sitemap-link">
+                        <span class="link-icon bg-violet-50"><i data-lucide="users" class="w-4 h-4 text-violet-600"></i></span>
+                        <span data-i18n="sitemap.link.team">Notre équipe</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="mailto:karlnatngam@gmail.com" class="sitemap-link">
+                        <span class="link-icon bg-blue-50"><i data-lucide="at-sign" class="w-4 h-4 text-blue-600"></i></span>
+                        <span>karlnatngam@gmail.com</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="tel:0762905525" class="sitemap-link">
+                        <span class="link-icon bg-emerald-50"><i data-lucide="phone" class="w-4 h-4 text-emerald-600"></i></span>
+                        <span>07 62 90 55 25</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <div class="sitemap-link cursor-default">
+                        <span class="link-icon bg-amber-50"><i data-lucide="clock" class="w-4 h-4 text-amber-600"></i></span>
+                        <span data-i18n="footer.hours">De 8h00 à 20h00</span>
+                    </div>
+                </nav>
+
+                <!-- Réseaux sociaux -->
+                <div class="mt-6 pt-5 border-t border-slate-100">
+                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3" data-i18n="sitemap.social">Réseaux sociaux</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all" aria-label="Instagram"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all" aria-label="Facebook"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Sites détaillés ── -->
+            <div class="md:col-span-2 lg:col-span-3 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm fade-up" style="transition-delay:260ms;">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+                        <i data-lucide="map" class="w-5 h-5 text-emerald-600"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900">Sites détaillés</h2>
+                </div>
+                <p class="text-sm text-slate-500 mb-5">Pages dédiées aux thématiques du patrimoine Jungfrau-Aletsch.</p>
+                <nav class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1" aria-label="Pages dédiées">
+                    <a href="page-jungfrau.html" class="sitemap-link">
+                        <span class="link-icon bg-blue-50"><i data-lucide="mountain" class="w-4 h-4 text-blue-600"></i></span>
+                        <span>La Jungfrau</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="page-flore.html" class="sitemap-link">
+                        <span class="link-icon bg-green-50"><i data-lucide="flower-2" class="w-4 h-4 text-green-600"></i></span>
+                        <span>Flore Alpine</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="page-randonnees.html" class="sitemap-link">
+                        <span class="link-icon bg-slate-100"><i data-lucide="footprints" class="w-4 h-4 text-slate-600"></i></span>
+                        <span>Randonnées</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="page-faune.html" class="sitemap-link">
+                        <span class="link-icon bg-amber-50"><i data-lucide="paw-print" class="w-4 h-4 text-amber-600"></i></span>
+                        <span>Faune Alpine</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="page-geologie.html" class="sitemap-link">
+                        <span class="link-icon bg-gray-100"><i data-lucide="layers" class="w-4 h-4 text-gray-600"></i></span>
+                        <span>Géologie</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                    <a href="page-glacier.html" class="sitemap-link">
+                        <span class="link-icon bg-cyan-50"><i data-lucide="snowflake" class="w-4 h-4 text-cyan-600"></i></span>
+                        <span>Glacier d'Aletsch</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 link-arrow"></i>
+                    </a>
+                </nav>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ═══════════ CTA ═══════════ -->
+    <section class="max-w-7xl mx-auto px-6 pb-24 fade-up">
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 p-10 md:p-14 text-center">
+            <i data-lucide="search" class="w-10 h-10 text-blue-600 mx-auto mb-4"></i>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3">Vous cherchez une information spécifique ?</h2>
+            <p class="text-slate-600 max-w-lg mx-auto mb-8">
+                Explorez directement les sections les plus consultées du site Jungfrau-Aletsch.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="sites.html" class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors shadow-sm">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                    Explorer les sites
+                </a>
+                <a href="parcours.html" class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white border border-slate-200 text-slate-700 font-semibold text-sm hover:border-blue-600 hover:text-blue-600 transition-all shadow-sm">
+                    <i data-lucide="footprints" class="w-4 h-4"></i>
+                    Découvrir les parcours
+                </a>
+                <a href="faq.html" class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white border border-slate-200 text-slate-700 font-semibold text-sm hover:border-blue-600 hover:text-blue-600 transition-all shadow-sm">
+                    <i data-lucide="help-circle" class="w-4 h-4"></i>
+                    Consulter la FAQ
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer id="footer" class="bg-slate-950 text-slate-400 pt-16 text-sm border-t border-slate-900">
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+            <div class="flex flex-col">
+                <span class="text-white font-bold text-lg uppercase tracking-widest mb-4">Jungfrau-Aletsch</span>
+                <p class="leading-relaxed mb-6 text-slate-500" data-i18n="footer.desc">
+                    Site du patrimoine mondial UNESCO depuis 2001. Préserver et valoriser ce joyau des Alpes pour les
+                    générations futures.
+                </p>
+                <div class="flex gap-4 mt-auto">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin"
+                            class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col2">Explorer
+                </h3>
+                <ul class="space-y-3">
+                    <li><a href="#home" class="hover:text-blue-400 transition-colors" data-i18n="nav.home">Accueil</a>
+                    </li>
+                    <li><a href="timeline.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.history">Histoire</a></li>
+                    <li><a href="sites.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.visite">Sites</a></li>
+                    <li><a href="parcours.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.parcours">Parcours</a></li>
+                    <li><a href="temoignages.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.testimonials">Témoignages</a></li>
+                    <li><a href="notreequipe.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.team">Équipe</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col3">
+                    Informations</h3>
+                <ul class="space-y-3">
+                    <li><a href="accessibility.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="footer.accessibility">Accessibilité</a></li>
+                    <li><a href="faq.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.faq">FAQ</a></li>
+                    <li><a href="mentions-legales.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.legal">Mentions
+                            légales</a></li>
+                    <li><a href="confidentialite.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.privacy">Politique
+                            de confidentialité</a></li>
+                    <li><a href="sitemap.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.sitemap">Plan du
+                            site</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col4">Nous
+                    contacter</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="mailto:karlnatngam@gmail.com"
+                            class="hover:text-white transition-colors break-all">karlnatngam@gmail.com</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="phone" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="tel:0762905525" class="hover:text-white transition-colors">07 62 90 55 25</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <span data-i18n="footer.hours">De 8h00 à 20h00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div
+                class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-500">
+                <div class="flex gap-6">
+                    <a href="accessibility.html" class="hover:text-white transition-colors"
+                        data-i18n="footer.accessibility">Accessibilité</a>
+                    <a href="signaler-probleme.html" class="hover:text-white transition-colors" data-i18n="footer.report">Signaler un
+                        problème</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div
+                class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+                <p>&copy; 2026 Jungfrau-Aletsch. Tous droits réservés.</p>
+                <div class="flex gap-6">
+                    <a href="mentions-legales.html" class="hover:text-slate-400 transition-colors" data-i18n="footer.legal">Mentions
+                        légales</a>
+                    <a href="confidentialite.html" class="hover:text-slate-400 transition-colors"
+                        data-i18n="footer.confidentiality">Confidentialité</a>
+                    <a href="notreequipe.html"
+                        class="hover:text-slate-400 transition-colors underline decoration-slate-700"
+                        data-i18n="footer.team">Équipe</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════ SCRIPTS ═══════════ -->
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/animations.js"></script>
+
+    <script src="assets/js/accessibility-widget.js"></script>
+</body>
+</html>

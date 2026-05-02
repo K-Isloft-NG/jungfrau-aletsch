@@ -1,0 +1,57 @@
+━━━━━━ accessibility.html ━━━━━━
+
+━━━━━━ admin.html ━━━━━━
+
+━━━━━━ confidentialite.html ━━━━━━
+
+━━━━━━ faq.html ━━━━━━
+
+━━━━━━ index.html ━━━━━━
+
+━━━━━━ mentions-legales.html ━━━━━━
+
+━━━━━━ notreequipe.html ━━━━━━
+
+━━━━━━ page-faune.html ━━━━━━
+
+━━━━━━ page-flore.html ━━━━━━
+:155.159-155.163: error: End tag “h3” seen, but there were open elements.
+:159.161-159.165: error: End tag “h3” seen, but there were open elements.
+:163.168-163.172: error: End tag “h3” seen, but there were open elements.
+:167.164-167.168: error: End tag “h3” seen, but there were open elements.
+:155.29-155.70: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ page-geologie.html ━━━━━━
+:106.9-106.33: info warning: Section lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all sections, or else use a “div” element instead for any cases where no heading is needed.
+
+━━━━━━ page-glacier.html ━━━━━━
+
+━━━━━━ page-jungfrau.html ━━━━━━
+
+━━━━━━ page-randonnees.html ━━━━━━
+
+━━━━━━ parcours.html ━━━━━━
+:247.17-247.112: error: The heading “h3” (with computed level 3) follows the heading “h1” (with computed level 1), skipping 1 heading level.
+
+━━━━━━ ressources.html ━━━━━━
+:191.5-191.39: info warning: Section lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all sections, or else use a “div” element instead for any cases where no heading is needed.
+:352.21-352.81: info warning: Empty heading.
+
+━━━━━━ signaler-probleme.html ━━━━━━
+
+━━━━━━ sitemap.html ━━━━━━
+
+━━━━━━ sites.html ━━━━━━
+
+━━━━━━ temoignages.html ━━━━━━
+:89.9-89.33: info warning: Section lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all sections, or else use a “div” element instead for any cases where no heading is needed.
+:119.17-119.134: info warning: Article lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all articles.
+:140.17-140.164: info warning: Article lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all articles.
+:161.17-161.165: info warning: Article lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all articles.
+:182.17-182.165: info warning: Article lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all articles.
+:203.17-203.165: info warning: Article lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all articles.
+:224.17-224.165: info warning: Article lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all articles.
+:116.9-116.17: info warning: Section lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all sections, or else use a “div” element instead for any cases where no heading is needed.
+
+━━━━━━ timeline.html ━━━━━━
+

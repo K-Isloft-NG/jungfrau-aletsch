@@ -1,0 +1,562 @@
+🔥 MEGA PROMPT — PAGE “SIGNALER UN PROBLÈME”
+
+(Version premium conforme à la DA globale du site Jungfrau-Aletsch)
+
+Tu es un Senior Front-End Engineer spécialisé dans la conception d’interfaces premium, de formulaires UX modernes et de design systems cohérents pour des sites institutionnels et culturels.
+
+Tu travailles actuellement sur le site :
+
+Jungfrau-Aletsch — plateforme pédagogique valorisant un site classé au patrimoine mondial de l’UNESCO.
+
+Le site comporte déjà plusieurs pages :
+
+Accueil
+
+Présentation
+
+Histoire
+
+Sites
+
+Parcours
+
+FAQ
+
+Mentions légales
+
+Politique de confidentialité
+
+Plan du site
+
+Il existe dans le footer un lien :
+
+“Signaler un problème”
+
+Cette page doit maintenant être créée.
+
+Elle doit être accessible depuis :
+
+Footer → Signaler un problème
+
+Ta mission est de concevoir une page moderne, claire, rassurante et fonctionnelle, permettant à l’utilisateur de remonter un problème rencontré sur le site, tout en respectant strictement la Direction Artistique globale du site.
+
+1 — Direction Artistique du site (à respecter strictement)
+Typographie
+
+Police globale :
+
+font-family: Inter, sans-serif
+
+Titre principal :
+
+text-4xl md:text-5xl
+font-black
+text-slate-900
+
+Titres sections :
+
+text-2xl md:text-3xl
+font-bold
+text-slate-900
+
+Texte principal :
+
+text-slate-700
+leading-relaxed
+text-sm md:text-base
+
+Labels :
+
+text-xs uppercase tracking-wider font-bold text-slate-500
+2 — Palette de couleurs
+
+Couleur primaire :
+
+#2563eb (blue-600)
+
+Fond principal :
+
+bg-white
+
+Fond alterné :
+
+bg-slate-50
+
+Texte principal :
+
+text-slate-900
+
+Texte secondaire :
+
+text-slate-600
+
+Footer :
+
+rgb(15,23,42)
+3 — Objectif UX de la page
+
+La page Signaler un problème doit permettre à un utilisateur de signaler facilement :
+
+un bug technique
+
+un lien cassé
+
+un problème d’affichage
+
+une erreur de contenu
+
+un dysfonctionnement sur mobile
+
+un problème d’accessibilité
+
+La page doit inspirer :
+
+confiance
+
+simplicité
+
+sérieux
+
+efficacité
+
+Elle doit éviter :
+
+l’effet formulaire administratif froid
+
+le mur de champs inutile
+
+la surcharge visuelle
+
+4 — Structure UX recommandée
+
+La page doit être organisée ainsi :
+
+Hero
+Introduction
+Cards types de problèmes
+Formulaire principal
+Bloc aide / contact complémentaire
+Message de confirmation UX
+5 — HERO DE PAGE
+
+Structure :
+
+Titre
+Sous-titre
+Décoration graphique
+
+Titre :
+
+Signaler un problème
+
+Sous-titre :
+
+Vous avez rencontré une erreur, un bug ou un problème d’affichage sur le site ?
+Aidez-nous à améliorer l’expérience en nous le signalant.
+
+Design :
+
+pt-32 pb-20
+bg-slate-50
+border-b border-slate-200
+text-center
+
+Décoration sous le H1 :
+
+<div class="w-16 h-1 bg-blue-600 mx-auto mt-4"></div>
+6 — INTRODUCTION COURTE
+
+Ajouter un court paragraphe rassurant expliquant :
+
+que les retours utilisateurs sont utiles
+
+que le formulaire permet d’améliorer la qualité du site
+
+que le signalement peut concerner un problème technique ou de contenu
+
+Exemple de ton :
+
+sobre, institutionnel, humain, professionnel
+
+7 — SECTION “TYPES DE PROBLÈMES”
+
+Ajouter une rangée ou grille de cartes permettant de visualiser rapidement les catégories de problèmes.
+
+Catégories proposées :
+
+Problème technique
+
+Erreur de contenu
+
+Lien cassé
+
+Problème d’affichage mobile
+
+Accessibilité
+
+Autre
+
+Design des cards :
+
+bg-white
+border border-slate-100
+rounded-2xl
+p-6
+shadow-sm
+hover:shadow-md
+hover:-translate-y-1
+transition-all
+
+Icône + titre + courte description.
+
+Exemple :
+
+Problème technique
+Bug, chargement lent, action qui ne fonctionne pas
+
+Erreur de contenu
+Texte incorrect, information inexacte, faute visible
+
+Accessibilité
+Contraste, navigation clavier, lecture difficile, etc.
+
+8 — FORMULAIRE PRINCIPAL
+
+Créer un formulaire premium, moderne et cohérent avec la DA du site.
+
+Champs recommandés
+1. Type de problème
+
+Champ :
+
+select
+
+Options :
+
+Problème technique
+
+Erreur de contenu
+
+Lien cassé
+
+Affichage mobile
+
+Accessibilité
+
+Autre
+
+2. Page concernée
+
+Champ :
+
+input text
+
+Placeholder :
+
+Ex. : page Parcours, page FAQ, Accueil…
+3. Description du problème
+
+Champ :
+
+textarea
+
+Placeholder :
+
+Décrivez précisément le problème rencontré…
+4. Étapes pour reproduire le problème
+
+Champ :
+
+textarea
+
+Placeholder :
+
+Indiquez les étapes si le problème peut être reproduit
+(ex. : cliquer sur..., aller sur..., ouvrir depuis mobile...)
+5. Appareil / environnement
+
+Champ :
+
+input text
+
+Placeholder :
+
+Ex. : iPhone 13, Chrome, Windows 11, Firefox…
+6. Email (optionnel)
+
+Champ :
+
+input email
+
+Placeholder :
+
+Votre adresse email (facultatif)
+
+Texte d’aide :
+
+Uniquement si vous souhaitez être recontacté.
+7. Capture d’écran (optionnel)
+
+Champ :
+
+file upload
+
+Avec texte helper :
+
+Ajoutez une capture si cela peut aider à comprendre le problème.
+9 — DESIGN DU FORMULAIRE
+
+Le formulaire doit être présenté dans une carte élégante.
+
+Container :
+
+max-w-4xl mx-auto
+bg-white
+border border-slate-100
+rounded-3xl
+shadow-sm
+p-8 md:p-10
+
+Styles des champs :
+
+w-full
+rounded-xl
+border border-slate-200
+bg-white
+px-4 py-3
+text-slate-900
+placeholder:text-slate-400
+focus:outline-none
+focus:ring-2 focus:ring-blue-600/20
+focus:border-blue-600
+transition
+
+Labels :
+
+text-sm font-semibold text-slate-900
+mb-2
+
+Espacement :
+
+space-y-6
+
+Bouton principal :
+
+rounded-full
+px-8 py-3
+bg-blue-600
+text-white
+font-semibold
+hover:bg-blue-700
+transition
+
+Bouton secondaire éventuel :
+
+bg-white
+border border-slate-200
+text-slate-700
+10 — UX PREMIUM À INTÉGRER
+
+Ajouter plusieurs raffinements UX :
+
+A. Champs bien hiérarchisés
+
+Le formulaire doit être simple à scanner.
+
+B. Indications utiles
+
+Ajouter de petits textes d’aide discrets sous certains champs.
+
+C. Message de rassurance
+
+Ajouter au-dessus du bouton :
+
+Nous lisons attentivement les signalements afin d’améliorer le site.
+D. États visuels
+
+Prévoir :
+
+hover
+
+focus
+
+erreur
+
+succès
+
+11 — MESSAGE DE CONFIRMATION
+
+Prévoir un état de confirmation élégant après envoi du formulaire.
+
+Message exemple :
+
+Merci pour votre signalement.
+Votre retour a bien été pris en compte et nous aidera à améliorer le site.
+
+Design du message :
+
+bg-blue-50
+border border-blue-100
+text-slate-800
+rounded-2xl
+p-6
+
+Icône validation discrète.
+
+12 — BLOC D’AIDE COMPLÉMENTAIRE
+
+Ajouter sous le formulaire un petit bloc secondaire :
+
+Titre :
+
+Besoin d’une autre aide ?
+
+Texte :
+
+Pour toute demande générale ou question ne concernant pas un bug,
+vous pouvez également utiliser la page de contact.
+
+Bouton :
+
+Nous contacter
+
+Design :
+
+bg-slate-50
+border border-slate-200
+rounded-2xl
+p-8
+text-center
+13 — ACCESSIBILITÉ
+
+Respecter impérativement :
+
+HTML sémantique
+labels associés aux champs
+messages d’erreur lisibles
+navigation clavier
+contraste suffisant
+aria attributes si nécessaire
+
+Pour l’upload et les champs, penser à une UX accessible.
+
+14 — ANIMATIONS
+
+Utiliser le système global du site :
+
+.fade-up
+IntersectionObserver
+
+Appliquer aux sections :
+
+intro
+
+cartes de types de problèmes
+
+formulaire
+
+bloc aide
+
+Animation :
+
+opacity: 0 → 1
+transform: translateY(20px) → translateY(0)
+transition: 0.8s ease-out
+15 — RESPONSIVE
+
+Mobile :
+
+cards en 1 colonne
+
+formulaire pleine largeur
+
+boutons bien dimensionnés
+
+bons espacements tactiles
+
+Tablet / desktop :
+
+mise en page plus respirante
+
+largeur centrée
+
+hiérarchie claire
+
+16 — LIVRABLE ATTENDU
+
+Produire :
+
+signaler-probleme.html
+signaler-probleme.css
+signaler-probleme.js
+
+Code attendu :
+
+propre
+
+modulaire
+
+commenté
+
+cohérent avec le reste du site
+
+facilement intégrable
+
+17 — OBJECTIF FINAL
+
+Créer une page “Signaler un problème” :
+
+élégante
+
+premium
+
+sérieuse
+
+rassurante
+
+pratique
+
+Elle doit s’intégrer parfaitement à l’univers du site Jungfrau-Aletsch et donner l’impression d’un site institutionnel moderne, bien conçu et attentif à la qualité d’expérience utilisateur.
+
+18 — BONUS UX / DESIGN PREMIUM
+
+Ajouter en option :
+
+A. Pré-remplissage automatique
+
+Si l’utilisateur arrive depuis une page donnée, permettre de pré-remplir “Page concernée”.
+
+B. Mini FAQ d’assistance
+
+Sous le formulaire, ajouter 2 ou 3 questions rapides :
+
+Comment décrire un bug efficacement ?
+
+Puis-je joindre une capture d’écran ?
+
+Vais-je recevoir une réponse ?
+
+C. Badge sobre dans le hero
+
+Exemple :
+
+Support & amélioration continue
+
+Style :
+
+bg-blue-50
+text-blue-700
+rounded-full
+px-4 py-2
+text-xs font-bold uppercase tracking-wider
+
+💡 Recommandation premium en plus pour ton site
+
+Pour cette page, je te conseille un ton un peu plus humain que pour les pages juridiques, parce que c’est une page de support UX.
+Donc il faut garder la sobriété du site, mais avec une sensation :
+
+d’écoute
+
+de fiabilité
+
+de collaboration avec l’utilisateur

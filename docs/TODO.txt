@@ -1,0 +1,197 @@
+09 / 03 / 2026 - corriger le problème de la carte interactive qui apparaît puis disparaît = CHECKED
+
+11 / 03 - corriger les problèmes restants sur la carte, PB résiduelles = CHECKED
+        - rendre la page "Parcours" conforme à la DA du site = CHECKED
+        - retirer le bouton : "Explorer le sentier" = CHECKED
+
+13 / 03 - Créer la page "FAQ" conforme à la DA du site web = CHECKED
+
+        - Créer la page "Mentions légales" conforme à la DA du site web = CHECKED
+
+        - Créer la page "Politique de confidentialité" conforme à la DA du site web = CHECKED
+
+        - Créer la page "Plan du site" conforme à la DA du site web = CHECKED
+
+        - Créer la page "Signaler un problème" conforme à la DA du site web = CHECKED
+        ---> intégrer un formulaire d'avis, problèmes rencontré 
+
+        ----------------------------- Conformité
+
+        - rendre responsive le site = CHECKED
+
+        - rendre conforme à la norme W3C = CHECKED
+
+        ----------------------------- Traduction
+
+        - Intégrer la version traduite en anglais de la page "Parcours" = CHECKED
+
+        - Intégrer la version traduite en anglais des 5 pages footer (faq, mentions-legales, 
+        confidentialite, sitemap, signaler-probleme) = CHECKED
+
+        ----------------------------- Organisation
+
+        - réorganiser tout le code des fichiers pour avoir le CSS, HTML, javascript séparé 
+          dans des dossiers = CHECKED
+
+16 / 09 : 
+        - Implémenter la remarque d'Ilyesse : Pour le site web, je pense pour la configuration 
+          bento-design je pense qu'il faudrait que chaque image amène vers une page web différente
+          avec BEAUCOUP d'informations, là on a pas assez d'information sur chaque 
+          catégorie = CHECKED
+
+        - classer les niveaux de difficultés de manière croissante = CHECKED
+
+        - Dans les mentions légales, dans la partie hébergement : netlify à la place de
+          github = CHECKED
+
+        - Rajouter un filtre gratuit ou payant dans les parcours = NO
+
+1 / 04 :
+        - modifier la configuration bento design pour qu'il soit conforme au wireframe
+        figma = CHECKED
+        - Témoignage voyageur sur le patrimoine = NO
+
+24 / 04 :
+        - Intégrer le base de données du site qui réunira toutes les ressources comme les 
+        images, vidéos, fichiers PDF = CHECKED
+        
+        - Remarque Julien : "Sur la page "parcours" dans la description de certaines 
+        randonnées, le texte n'est pas complet" = CHECKED
+        
+        - Remarque : "mettre un indicateur sous la section actuelle pour indiquer sur quelle
+        page nous sommes" = CHECKED
+
+        - Correction de l'alternance texte/image dans sites.html (sections #glacier et
+        #geologie) pour respecter le pattern gauche/droite alterné = CHECKED
+
+        - Mise à jour de la section "Un Patrimoine Exceptionnel" (index.html) pour
+        s'aligner sur la maquette Figma : sous-titre, textes des 3 cartes, icône
+        glacier (snowflake → mountain) et palette unifiée en bleu (i18n FR/EN) = CHECKED
+
+        - Swap des cartes Faune et Flore dans le bento grid "Découvrez les Sites"
+        (index.html rangée 2) : Faune 2/5 à gauche, Flore 3/5 à droite = CHECKED
+
+        - Uniformisation des footers des 6 pages dédiées (page-jungfrau, page-flore,
+        page-randonnees, page-faune, page-geologie, page-glacier) avec le footer
+        4 colonnes de index.html (Explorer, Informations, Contact, réseaux) = CHECKED
+
+        - Audit UX multi-pages V14 (7 bugs) = CHECKED
+        ---> Bug 1 : bento rangée 2 inversée — Faune 3/5 (rectangle gauche) / Flore 2/5
+             (carré droite)
+        ---> Bug 2 : suppression du lien parasite "En savoir plus sur le patrimoine"
+             dans sites.html section #glacier
+        ---> Bug 3 : les 6 cartes bento d'index.html pointent désormais vers
+             sites.html#section au lieu de page-*.html
+        ---> Bug 4 : uniformisation "Explorer aussi" sur 6 pages — style images
+             miniatures partout (remplacement des icônes sur jungfrau/flore/randonnees)
+        ---> Bug 5 : suppression du lien "Présentation" dans la navbar des 5 pages
+             footer (confidentialite, faq, mentions-legales, signaler-probleme, sitemap)
+        ---> Bug 6 : description Géologie dans le bento = "400 millions d'années
+             d'histoire" (i18n FR/EN mis à jour)
+        ---> Bug 7 : sitemap.html complété avec une nouvelle section "Sites détaillés"
+             listant les 6 pages dédiées
+
+        - Intégration d'un message écologique sur sites.html : badge "Site protégé"
+        sous le sous-titre hero + bandeau "Protégeons ce patrimoine" en bas de page
+        (dégradé emerald/cyan, 3 pills règles : sentiers / zéro déchet / silence) ;
+        6 clés i18n FR+EN ajoutées (sites_page.hero.eco, sites_page.eco.*) = CHECKED
+
+        - Personnalisation des 6 liens "En savoir plus" dans sites.html : remplacement
+        de la clé générique sites.cta par 6 clés uniques (sites.cta.jungfrau/flore/
+        randonnees/faune/glacier/geologie) avec textes contextuels FR+EN. La clé
+        sites.cta générique est conservée pour index.html (bento) = CHECKED
+
+        - Création de temoignages.html : page dédiée aux témoignages voyageurs (6
+        témoignages 5★ : Sophie, Marc, Claire & Thomas, Kenji, Marie-Thérèse, Philippe)
+        + stats (4.7/5, 1M+, 2001) + 3 vidéos YouTube (UNESCO, Jungfraujoch 4K,
+        Exploring Jungfraujoch) en lazy loading + CTA vers signaler-probleme.html ;
+        lien "Témoignages" ajouté dans la navbar desktop + mobile + footer Explorer
+        de 18 pages (entre Parcours et Équipe) ; ressources.html et main content
+        sitemap.html également mis à jour ; 6 clés i18n FR+EN ajoutées (nav.testimonials,
+        testimonials.hero.title/subtitle, videos.title, cta.title/button) ; entrée
+        ajoutée dans assets/data/schema.sql = CHECKED
+
+        - Swap des cartes Jungfrau et Randonnées dans le bento grid rangée 1
+        (index.html) : Randonnées 2/5 à gauche, Jungfrau 3/5 à droite = CHECKED
+
+        - Ajout du filtre Prix dans la page Parcours : nouveau dropdown "Tous les
+        prix / Gratuit / Moins de CHF 30 / CHF 30-100 / Plus de CHF 100" (parcours.html),
+        filtrage cumulatif avec difficulté et région (parcours.js getFilteredTrails),
+        badge prix vert "Gratuit" ou ambre "CHF XX" sur chaque card, champs price +
+        priceLabel ajoutés à trails.json et TRAILS_DATA inline (+ traductions EN) ;
+        fix z-index dropdowns (.filter-controls-row 50→300, .filter-dropdown.is-open
+        400, .map-container z-index:0 pour enfermer les z-index internes de Leaflet)
+        pour qu'ils apparaissent au-dessus de la carte Leaflet ; explication CHF
+        ajoutée sous les filtres (info icon + tooltip) = CHECKED
+
+        - Création d'une interface admin cachée (admin.html) pour gérer les
+        ressources Supabase : login email/password via supabase.auth, dashboard avec
+        4 stat cards (total / images / vidéos+PDF / taille), filtres par type,
+        tableau responsive (aperçu/nom/type/catégorie/page/taille/actions), modal
+        upload (fichier + métadonnées), modal edit (métadonnées uniquement), soft
+        delete via JA_DB.remove ; 2 nouvelles fonctions dans db.js (update +
+        getAllAdmin) ; 2 policies RLS ajoutées au schema.sql (UPDATE + DELETE
+        réservés aux utilisateurs authentifiés) + entrée Page Admin. Page non
+        référencée dans la nav/footer/sitemap — accès par URL directe uniquement.
+        Actions manuelles Supabase à effectuer : créer user admin@jungfrau-aletsch.ch
+        avec Auto Confirm + exécuter les 2 policies SQL dans SQL Editor = CHECKED
+
+        - Audit responsive complet (3 viewports : 375/768/1280px) sur les 20 pages
+        du site. Détection statique via grep Tailwind + inspection ciblée. 2 bugs
+        bloquants corrigés (admin.html 2× grid-cols-2 → grid-cols-1 sm:grid-cols-2
+        dans les modals upload/edit) + 5 sections py-24 → py-16 md:py-24 sur
+        index/accessibility pour meilleur mobile. 330 classes responsive Tailwind
+        présentes, menu hamburger 20/20, media queries custom 480/768/1024px.
+        Rapport dans docs/RESPONSIVE_RAPPORT.md = CHECKED
+
+        - Audit accessibilité équivalent axe-core statique sur les 20 pages.
+        Avant : ~65 violations critiques (liens sociaux footer sans aria-label ×57,
+        inputs sans label ×5). Après : 0 violation critique. Corrections : aria-label
+        Instagram/Facebook/LinkedIn sur 19 footers, aria-label sur inputs (faq-search,
+        ressources search/file/upload-name/upload-alt, signaler-probleme report-file).
+        Score axe-core estimé : 88 → 96/100. Points résiduels (non bloquants) :
+        text-slate-400 ratio 3.4:1 (sous WCAG AA 4.5:1) sur ~199 occurrences de texte
+        secondaire — compensé par le widget accessibilité (mode contraste élevé).
+        Rapport dans docs/A11Y_RAPPORT.md avec recommandation Lighthouse = CHECKED
+
+        - Audit conformité W3C HTML5 (validator.w3.org/nu/) sur les 20 pages du
+        site. Avant audit : ~40 erreurs bloquantes réparties sur 15 pages (heading
+        skips h2→h4, aria-label sur div sans role, role=tab sans tablist, src=""
+        vide, etc.). Après corrections : 0 erreur bloquante sur les 20 pages.
+        Corrections : h4 footer→h3 (19 pages), h4 content→h3 (page-flore/jungfrau/
+        randonnees), sr-only h2 (parcours, notreequipe, timeline), role=img sur
+        les div aria-label (temoignages stars × 6, timeline media-placeholder × 2),
+        role=tablist + tabpanel + aria-controls/labelledby (timeline tabs),
+        frameborder retiré (iframes YouTube), src="" → data URI transparent
+        (ressources modal-img), classe .sr-only ajoutée à global.css. Rapport
+        complet dans docs/W3C_RAPPORT.md. Fichiers bruts validation : w3c-raw.txt,
+        w3c-after.txt, w3c-final.txt = CHECKED
+
+        - Widget d'accessibilité WCAG 2.2 (assets/js/accessibility-widget.js +
+        assets/css/accessibility-widget.css) : bouton flottant bas-gauche + panneau
+        avec 10 modes (agrandir texte 3 niveaux, contraste élevé, police Dyslexie,
+        espacement accru, mode daltonien, souligner liens, curseur agrandi, stopper
+        animations, masque de lecture, focus clavier visible) + bouton Réinitialiser.
+        Persistance localStorage (a11y-prefs). Respect auto de prefers-reduced-motion
+        et prefers-contrast au premier chargement. Widget auto-injecté dans 20 pages
+        via PowerShell (CSS dans head, JS avant body close). Info malentendants :
+        note sur les sous-titres YouTube intégrés aux vidéos = CHECKED
+
+------------------------------------------------------------------------------------
+
+TODO :
+
+- implémenter les images d'illustrations dans les 2 timelines (WhatsApp Mohamed) = NO
+
+- vérifier si les images correspondent bien à la description : cf sections : "Site" 
+et "Parcours" = NO
+
+25 / 04 / 2026
+RECAP :
+- ajouter une photo de chaque membre de l’équipe = NO
+
+- La fonctionnalité stopper les animations bug. Ça stoppe pas vraiment (cf vidéo whatsapp Mohamed) = NO
+
+- dans la page sites dans la section faune quand je clique sur “en savoir plus” il manque une image = NO
+
+- actualiser le mail de contact par celui du site web, ne plus avoir karlnatngam@gmail.com comme e mail de contact = NO

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcours — Jungfrau-Aletsch UNESCO</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/parcours.css">
+    <link rel="stylesheet" href="assets/css/accessibility-widget.css">
+</head>
+
+<body class="antialiased overflow-x-hidden">
+
+    <!-- ═══════════ NAVBAR (identique sites.html) ═══════════ -->
+    <header id="navbar" class="fixed top-0 w-full z-50 bg-white border-b-4 border-blue-600 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+
+            <a href="index.html" class="flex items-center">
+                <img src="assets/images/logomcnnoir.svg" alt="M.C.N. Médiation Culturelle et Numérique"
+                    class="h-12 w-auto">
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.home">Accueil</a>
+                <a href="timeline.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.history">Histoire</a>
+                <a href="sites.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.visite">Sites</a>
+                <a href="parcours.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.parcours">Parcours</a>
+                <a href="temoignages.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.testimonials">Témoignages</a>
+                <a href="notreequipe.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.team">Équipe</a>
+            </nav>
+
+            <div class="hidden md:flex items-center gap-4">
+                <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 transition-colors"
+                   aria-label="Accessibilité">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="w-7 h-7" viewBox="0 0 16 16" role="img">
+                        <path d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z" />
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8" />
+                    </svg>
+                </a>
+                <div class="flex items-center bg-gray-100 rounded-full px-1 py-1 border border-gray-200">
+                    <button type="button" id="btn-en" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full inactive"
+                        onclick="setLanguage('en')">EN</button>
+                    <button type="button" id="btn-fr" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full active"
+                        onclick="setLanguage('fr')">FR</button>
+                </div>
+            </div>
+
+            <button type="button" class="md:hidden text-slate-800" onclick="openMobileMenu()" aria-label="Menu">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 overflow-y-auto hidden-menu-state">
+        <button type="button" id="close-menu" class="absolute top-6 right-6 text-slate-800" aria-label="Fermer le menu">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <nav class="flex flex-col gap-6 text-xl font-bold">
+            <a href="index.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.home">Accueil</a>
+            <a href="timeline.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.history">Histoire</a>
+            <a href="sites.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.visite">Sites</a>
+            <a href="parcours.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.parcours">Parcours</a>
+            <a href="temoignages.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.testimonials">Témoignages</a>
+            <a href="notreequipe.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.team">Équipe</a>
+            
+            <div class="border-t border-slate-100 my-2"></div>
+            
+            <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 text-lg flex items-center gap-2 mobile-link">
+                Accessibilité
+            </a>
+            
+            <div class="flex items-center gap-4 mt-2">
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm inactive" onclick="setLanguage('en'); closeMobileMenu()">EN</button>
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm active" onclick="setLanguage('fr'); closeMobileMenu()">FR</button>
+            </div>
+        </nav>
+    </div>
+
+
+    <!-- ═══════════ MAIN ═══════════ -->
+    <main class="pt-20">
+
+        <h2 class="sr-only">Carte interactive et liste des sentiers</h2>
+
+        <!-- ══ HERO (pattern sites.html : bg-slate-50, texte sombre) ══ -->
+        <section class="relative pt-32 pb-20 bg-slate-50 border-b border-slate-200" aria-label="En-tête de la page Parcours">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+
+                <!-- H1 : font-black text-slate-900 (DA #9) + underline bleue (#R2) -->
+                <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-4 fade-up" data-i18n="parcours.hero.title">
+                    Les Parcours
+                </h1>
+                <div class="w-16 h-1 bg-blue-600 mx-auto mb-6 fade-up" style="transition-delay: 50ms;"></div>
+
+                <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-10 fade-up" style="transition-delay: 100ms;" data-i18n="parcours.hero.subtitle">
+                    Découvrez les 8 sentiers balisés du patrimoine mondial Jungfrau-Aletsch.<br>Des balades faciles aux aventures alpines exigeantes.
+                </p>
+
+                <!-- Stats : bg-white card, monochrome (#3, #14) -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm fade-up" style="transition-delay: 150ms;">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" data-stat="trails">8</div>
+                            <div class="stat-label" data-i18n="parcours.stats.trails">Sentiers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" data-stat="distance">75.1 <span class="stat-unit">km</span></div>
+                            <div class="stat-label" data-i18n="parcours.stats.dist">Distance totale</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" data-stat="elevation">3700 <span class="stat-unit">m</span></div>
+                            <div class="stat-label" data-i18n="parcours.stats.alt">Altitude max</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" data-stat="regions">6</div>
+                            <div class="stat-label" data-i18n="parcours.stats.reg">Régions</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Barre de filtres sticky (extraite de la section contenu pour éviter
+             que les dropdowns soient masqués par la carte Leaflet) -->
+        <div class="filter-sticky-bar">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 flex-wrap">
+
+                <!-- Toggle : light theme (#7) -->
+                <div class="toggle-buttons">
+                    <button type="button" class="toggle-btn active" data-mode="split" title="Carte + Liste">
+                        <i data-lucide="columns-2" class="w-4 h-4 mr-1"></i>
+                        <span class="hidden sm:inline" data-i18n="parcours.filters.map_list">Carte + Liste</span>
+                    </button>
+                    <button type="button" class="toggle-btn" data-mode="list" title="Liste seule">
+                        <i data-lucide="list" class="w-4 h-4 mr-1"></i>
+                        <span class="hidden sm:inline" data-i18n="parcours.filters.list">Liste</span>
+                    </button>
+                    <button type="button" class="toggle-btn" data-mode="map" title="Carte seule">
+                        <i data-lucide="map" class="w-4 h-4 mr-1"></i>
+                        <span class="hidden sm:inline" data-i18n="parcours.filters.map">Carte</span>
+                    </button>
+                </div>
+
+                <!-- Filtres custom pill-dropdowns : DA #8 -->
+                <div class="filter-group flex-wrap md:flex-nowrap gap-2">
+                    <!-- Dropdown Difficulté -->
+                    <div class="filter-dropdown" id="filter-diff-wrap" role="group" aria-label="Filtrer par difficulté">
+                        <button type="button" class="filter-pill" id="filter-diff-btn" aria-haspopup="listbox" aria-expanded="false"
+                                aria-label="Filtrer par difficulté">
+                            <span class="filter-dot hidden" id="filter-diff-dot"></span>
+                            <span class="filter-label" id="filter-diff-label" data-i18n="parcours.filters.diff_all">Toutes difficultés</span>
+                            <svg class="filter-chevron" width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                                <path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427z"/>
+                            </svg>
+                        </button>
+                        <ul class="filter-panel" id="filter-diff-panel" role="listbox" aria-label="Difficultés disponibles"></ul>
+                    </div>
+                    <!-- Dropdown Région -->
+                    <div class="filter-dropdown" id="filter-reg-wrap" role="group" aria-label="Filtrer par région">
+                        <button type="button" class="filter-pill" id="filter-reg-btn" aria-haspopup="listbox" aria-expanded="false"
+                                aria-label="Filtrer par région">
+                            <i data-lucide="map-pin" class="filter-icon" aria-hidden="true"></i>
+                            <span class="filter-label" id="filter-reg-label" data-i18n="parcours.filters.reg_all">Toutes régions</span>
+                            <svg class="filter-chevron" width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                                <path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427z"/>
+                            </svg>
+                        </button>
+                        <ul class="filter-panel" id="filter-reg-panel" role="listbox" aria-label="Régions disponibles"></ul>
+                    </div>
+                    <!-- Dropdown Prix -->
+                    <div class="filter-dropdown" id="filter-price-wrap" role="group" aria-label="Filtrer par prix">
+                        <button type="button" class="filter-pill" id="filter-price-btn" aria-haspopup="listbox" aria-expanded="false"
+                                aria-label="Filtrer par prix (CHF = franc suisse)"
+                                title="CHF = franc suisse, monnaie officielle de la Suisse">
+                            <i data-lucide="wallet" class="filter-icon" aria-hidden="true"></i>
+                            <span class="filter-label" id="filter-price-label" data-i18n="parcours.filters.price_all">Tous les prix</span>
+                            <svg class="filter-chevron" width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                                <path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427z"/>
+                            </svg>
+                        </button>
+                        <ul class="filter-panel" id="filter-price-panel" role="listbox" aria-label="Prix disponibles"></ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ══ CONTENU PRINCIPAL (fond blanc, DA #11) ══ -->
+        <section class="bg-white pb-20" aria-label="Carte et liste des parcours">
+
+            <!-- Carte interactive Leaflet -->
+            <div class="max-w-7xl mx-auto px-6 pt-8">
+                <!-- Explication CHF (franc suisse) -->
+                <p class="mb-4 flex items-center gap-1.5 text-xs text-slate-500 italic" data-i18n="parcours.filters.chf_info">
+                    <i data-lucide="info" class="w-3.5 h-3.5 shrink-0"></i>
+                    <span><strong class="text-slate-700 not-italic">CHF</strong> désigne le franc suisse, monnaie officielle de la Suisse. Les parcours sont gratuits : le tarif indiqué correspond à l'accès au point de départ (télécabine ou train).</span>
+                </p>
+                <div class="map-container mb-10 fade-up" style="transition-delay: 250ms;">
+                    <div id="leaflet-map"></div>
+                </div>
+            </div>
+
+            <!-- Liste des sentiers -->
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="trails-list-wrapper fade-up" style="transition-delay: 300ms;">
+                    <div class="trails-list">
+                        <!-- Généré par JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ═══════════ FOOTER (identique site) ═══════════ -->
+    <footer id="footer" class="bg-slate-950 text-slate-400 pt-16 text-sm border-t border-slate-900">
+        
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            
+            <div class="flex flex-col">
+                <span class="text-white font-bold text-lg uppercase tracking-widest mb-4">Jungfrau-Aletsch</span>
+                <p class="leading-relaxed mb-6 text-slate-500" data-i18n="footer.desc">
+                    Site du patrimoine mondial UNESCO depuis 2001. Préserver et valoriser ce joyau des Alpes pour les générations futures.
+                </p>
+                <div class="flex gap-4 mt-auto">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col2">Explorer</h3>
+                <ul class="space-y-3">
+                    <li><a href="index.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.home">Accueil</a></li>
+                    <li><a href="timeline.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.history">Histoire</a></li>
+                    <li><a href="sites.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.visite">Sites</a></li>
+                    <li><a href="parcours.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.parcours">Parcours</a></li>
+                    <li><a href="temoignages.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.testimonials">Témoignages</a></li>
+                    <li><a href="notreequipe.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.team">Équipe</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col3">Informations</h3>
+                <ul class="space-y-3">
+                    <li><a href="accessibility.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.accessibility">Accessibilité</a></li>
+                    <li><a href="faq.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.faq">FAQ</a></li>
+                    <li><a href="mentions-legales.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.legal">Mentions légales</a></li>
+                    <li><a href="confidentialite.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.privacy">Politique de confidentialité</a></li>
+                    <li><a href="sitemap.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.sitemap">Plan du site</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col4">Nous contacter</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="mailto:karlnatngam@gmail.com" class="hover:text-white transition-colors break-all">karlnatngam@gmail.com</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="phone" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="tel:0762905525" class="hover:text-white transition-colors">07 62 90 55 25</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <span data-i18n="footer.hours">De 8h00 à 20h00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-500">
+                <div class="flex gap-6">
+                    <a href="accessibility.html" class="hover:text-white transition-colors" data-i18n="footer.accessibility">Accessibilité</a>
+                    <a href="signaler-probleme.html" class="hover:text-white transition-colors" data-i18n="footer.report">Signaler un problème</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+                <p>&copy; 2026 Jungfrau-Aletsch. Tous droits réservés.</p>
+                <div class="flex gap-6">
+                    <a href="mentions-legales.html" class="hover:text-slate-400 transition-colors" data-i18n="footer.legal">Mentions légales</a>
+                    <a href="confidentialite.html" class="hover:text-slate-400 transition-colors" data-i18n="footer.confidentiality">Confidentialité</a>
+                    <a href="notreequipe.html" class="hover:text-slate-400 transition-colors underline decoration-slate-700" data-i18n="footer.team">Équipe</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════ Scripts ═══════════ -->
+    <script src="assets/js/parcours.js"></script>
+
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/animations.js"></script>
+
+    <script src="assets/js/accessibility-widget.js"></script>
+</body>
+</html>

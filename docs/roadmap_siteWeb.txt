@@ -1,0 +1,48 @@
+REMARQUES : 
+
+I le prix remporté par les gagnants : TRES IMPORTANT 
+
+--- 
+
+NASSIM : 
+
+N ajouter la faune alpine dans la configuration en bento design
+
+N manque le logo UNESCO, logo cliquable qui renvoi vers leur site 
+
+--- 
+
+KARL : 
+
+Y ajouter l'aspects géologique = CHECKED
+
+---
+Y implémenter la timeline en lien avec le site, se poser les questions des dates pertinentes pour les visiteurs = CHECKED
+
+W implémenter la timeline Géologique avec illustrations = WORKING
+--- 
+
+N implémenter éventuellement un formulaire de contact pour chaque membre de l'équipe  = NO
+
+Y mettre un lien LinkedIn pour chacun des membres de l'équipe ainsi que le portfolio = CHECKED
+
+--- 
+
+ILYESSE : 
+
+Y dans la timeline, on fera par dates, grandes aires des informations dans les grandes lignes = CHECKED 
+
+--- 
+
+JULIEN : 
+
+Y compléter les sous sections : "FAQ", "Mentions légales" etc... dans le footer pour les rendres toutes opérationnelles = CHECKED
+
+---
+
+MOHAMED : 
+
+Y améliorations : notion de parcours, des filtres permettant de générer des parcours interactif dans une carte interactive avec le niveau de difficultés avec le temps = CHECKED
+
+Y les points de vu dans tel parcours ou autres, ce que l'on peut voir = CHECKED
+

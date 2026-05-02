@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Jungfrau - Jungfrau-Aletsch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/accessibility-widget.css">
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <header id="navbar" class="navbar-fixed w-full z-50 bg-white border-b-4 border-blue-600">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="assets/images/logomcnnoir.svg" alt="M.C.N." class="h-12 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.home">Accueil</a>
+                <a href="timeline.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.history">Histoire</a>
+                <a href="sites.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.visite">Sites</a>
+                <a href="parcours.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.parcours">Parcours</a>
+                <a href="temoignages.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.testimonials">Témoignages</a>
+                <a href="notreequipe.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.team">Équipe</a>
+            </nav>
+            <div class="hidden md:flex items-center gap-4">
+                <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-universal-access-circle w-7 h-7" viewBox="0 0 16 16" aria-label="Accessibilité" role="img">
+                        <path d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z"/>
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8"/>
+                    </svg>
+                </a>
+                <div class="flex items-center bg-gray-100 rounded-full px-1 py-1 border border-gray-200">
+                    <button type="button" id="btn-en" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full" onclick="setLanguage('en')">EN</button>
+                    <button type="button" id="btn-fr" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full" onclick="setLanguage('fr')">FR</button>
+                </div>
+            </div>
+            <button type="button" class="md:hidden text-slate-800" onclick="openMobileMenu()" aria-label="Menu">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 overflow-y-auto hidden-menu-state">
+        <button type="button" id="close-menu" class="absolute top-6 right-6 text-slate-800" aria-label="Fermer le menu">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <nav class="flex flex-col gap-6 text-xl font-bold">
+            <a href="index.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.home">Accueil</a>
+            <a href="timeline.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.history">Histoire</a>
+            <a href="sites.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.visite">Sites</a>
+            <a href="parcours.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.parcours">Parcours</a>
+            <a href="temoignages.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.testimonials">Témoignages</a>
+            <a href="notreequipe.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.team">Équipe</a>
+            <div class="border-t border-slate-100 my-2"></div>
+            <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 text-lg flex items-center gap-2 mobile-link">Accessibilité</a>
+            <div class="flex items-center gap-4 mt-2">
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm inactive" onclick="setLanguage('en'); closeMobileMenu()">EN</button>
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm active" onclick="setLanguage('fr'); closeMobileMenu()">FR</button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero -->
+    <section class="relative pt-32 pb-20 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <a href="sites.html" class="inline-flex items-center gap-2 text-slate-500 hover:text-slate-700 text-sm mb-8 transition-colors">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                <span>Retour aux Sites</span>
+            </a>
+            <div class="text-center">
+                <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wider fade-up">
+                    <i data-lucide="mountain" class="w-4 h-4"></i>
+                    <span>Sommet Emblématique</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-6 fade-up" style="transition-delay:100ms">La Jungfrau</h1>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed fade-up" style="transition-delay:200ms">
+                    Culminant à 4 158 mètres dans les Alpes bernoises, la Jungfrau forme avec l'Eiger et le Mönch un trio légendaire inscrit au patrimoine mondial de l'UNESCO depuis 2001.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-6 py-16 space-y-20">
+
+        <!-- Intro + Stats -->
+        <section class="fade-up">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6">Le Sommet des Alpes Bernoises</h2>
+                    <p class="text-slate-600 text-lg leading-relaxed mb-4">
+                        La Jungfrau culmine à 4 158 mètres d'altitude dans les Alpes bernoises, à la limite entre les cantons du Valais et de Berne. Son nom signifie "jeune femme" en allemand, en référence aux augustiniennes qui possédaient des alpages au nord-ouest de la montagne.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed">
+                        Avec l'Eiger (3 967 m) et le Mönch (4 107 m), elle forme un trio légendaire visible à des dizaines de kilomètres. Ces trois sommets constituent la silhouette la plus reconnaissable des Alpes suisses.
+                    </p>
+                </div>
+                <div class="h-72 md:h-[400px] rounded-2xl overflow-hidden shadow-xl">
+                    <img src="assets/images/site-jungfrau.png" alt="La Jungfrau vue depuis la vallée" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-12">
+                <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 text-center">
+                    <span class="block text-2xl font-bold text-blue-700 mb-1">4 158 m</span>
+                    <span class="text-xs text-slate-500 uppercase tracking-wide">Altitude</span>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
+                    <span class="block text-2xl font-bold text-slate-900 mb-1">1811</span>
+                    <span class="text-xs text-slate-500 uppercase tracking-wide">1ère ascension</span>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
+                    <span class="block text-2xl font-bold text-slate-900 mb-1">3 454 m</span>
+                    <span class="text-xs text-slate-500 uppercase tracking-wide">Gare Jungfraujoch</span>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
+                    <span class="block text-2xl font-bold text-slate-900 mb-1">+1 M</span>
+                    <span class="text-xs text-slate-500 uppercase tracking-wide">Visiteurs/an</span>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-center col-span-2 sm:col-span-1">
+                    <span class="block text-2xl font-bold text-slate-900 mb-1">2001</span>
+                    <span class="text-xs text-slate-500 uppercase tracking-wide">UNESCO</span>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-100">
+
+        <!-- Jungfraujoch -->
+        <section class="fade-up">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="h-72 md:h-[400px] rounded-2xl overflow-hidden shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" alt="Vue panoramique depuis le Jungfraujoch" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+                <div>
+                    <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wider">
+                        <i data-lucide="train" class="w-4 h-4"></i>
+                        <span>Top of Europe</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6">Le Jungfraujoch — "Top of Europe"</h2>
+                    <p class="text-slate-600 leading-relaxed mb-4">
+                        Le Jungfraujoch est un col à 3 463 m d'altitude entre le Mönch et la Jungfrau. Il abrite la gare de chemin de fer la plus haute d'Europe (3 454 m). Depuis 1912, le Jungfraubahn conduit les visiteurs via un tunnel de 7 km creusé sous l'Eiger et le Mönch.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        Plus d'un million de visiteurs s'y rendent chaque année, attirés par les panoramas incomparables sur le glacier d'Aletsch et les sommets environnants.
+                    </p>
+                    <div class="bg-blue-50 border border-blue-100 p-5 rounded-xl">
+                        <h3 class="font-bold text-blue-800 mb-3 flex items-center gap-2">
+                            <i data-lucide="star" class="w-4 h-4"></i>
+                            Ce qu'il faut voir au Jungfraujoch
+                        </h3>
+                        <ul class="space-y-2 text-sm text-blue-700">
+                            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 shrink-0"></i> L'Observatoire du Sphinx (3 571 m) et sa plateforme panoramique</li>
+                            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 shrink-0"></i> Le Palais de Glace — le plus haut du monde</li>
+                            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 shrink-0"></i> La chocolaterie Lindt la plus haute du monde</li>
+                            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 shrink-0"></i> Le bureau de poste le plus élevé d'Europe (code postal 3081)</li>
+                            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 shrink-0"></i> Vue directe sur le glacier d'Aletsch</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-100">
+
+        <!-- Construction du Jungfraubahn -->
+        <section class="fade-up">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-bold uppercase tracking-wider">
+                        <i data-lucide="hard-hat" class="w-4 h-4"></i>
+                        <span>1896 – 1912</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6">La Construction du Jungfraubahn</h2>
+                    <p class="text-slate-600 leading-relaxed mb-4">
+                        L'industriel suisse Adolf Guyer-Zeller a imaginé ce projet en 1893. La construction a débuté en 1896 et s'est achevée le 21 février 1912 après 16 ans de travaux dans des conditions extrêmes.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        Le chantier a connu six grèves, huit changements de direction et 30 ouvriers y ont perdu la vie lors d'accidents de dynamitage. Le tunnel de 7 km, percé entièrement dans la roche sous l'Eiger et le Mönch, reste l'une des prouesses techniques les plus remarquables du XX<sup>e</sup> siècle.
+                    </p>
+                    <div class="bg-amber-50 border border-amber-100 p-5 rounded-xl text-sm text-amber-800 font-medium">
+                        Le projet initial prévoyait d'atteindre le sommet de la Jungfrau, mais s'est finalement arrêté au Jungfraujoch pour des raisons techniques et financières.
+                    </div>
+                </div>
+                <div class="h-72 md:h-[400px] rounded-2xl overflow-hidden shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80" alt="Paysage alpin des Alpes bernoises" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-100">
+
+        <!-- Histoire de l'alpinisme -->
+        <section class="fade-up">
+            <h2 class="text-3xl font-bold text-slate-900 mb-10 text-center">Histoire de l'Alpinisme</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white border border-slate-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-blue-600 font-black text-xl">1811</span>
+                        <div class="h-px flex-1 bg-blue-100"></div>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-2">Première ascension</h3>
+                    <p class="text-sm text-slate-600">Par les frères Meyer (Johann Rudolf et Hieronymus) avec Joseph Bortis et Alois Volker — 3 jours d'ascension depuis Grindelwald.</p>
+                </div>
+                <div class="bg-white border border-slate-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-blue-600 font-black text-xl">1874</span>
+                        <div class="h-px flex-1 bg-blue-100"></div>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-2">Première ascension hivernale</h3>
+                    <p class="text-sm text-slate-600">Par Margaret Brevoort et William Coolidge, dans des conditions extrêmes de froid et de vent sur l'arête nord-est.</p>
+                </div>
+                <div class="bg-white border border-slate-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-blue-600 font-black text-xl">1881</span>
+                        <div class="h-px flex-1 bg-blue-100"></div>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-2">Première ascension sans guide</h3>
+                    <p class="text-sm text-slate-600">Par Frederick Gardiner, marquant une étape dans l'évolution de l'alpinisme vers l'autonomie des grimpeurs.</p>
+                </div>
+                <div class="bg-white border border-slate-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-blue-600 font-black text-xl">1926</span>
+                        <div class="h-px flex-1 bg-blue-100"></div>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-2">Première ascension de la face nord</h3>
+                    <p class="text-sm text-slate-600">Par Hans Lauper — une paroi redoutée longtemps jugée infranchissable par les alpinistes de l'époque.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Explorer aussi -->
+    <section class="bg-slate-50 py-16 mt-10 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-2xl font-bold text-slate-900 mb-8 text-center fade-up">Explorer aussi</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <a href="page-flore.html" class="group fade-up bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div class="h-28 overflow-hidden">
+                        <img src="assets/images/site-flore.png" alt="Flore alpine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-3 text-center">
+                        <span class="text-xs font-bold text-green-700 uppercase tracking-wide">Flore</span>
+                    </div>
+                </a>
+                <a href="page-randonnees.html" class="group fade-up bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:-translate-y-1" style="transition-delay:50ms">
+                    <div class="h-28 overflow-hidden">
+                        <img src="assets/images/site-randonnees.png" alt="Randonnées" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-3 text-center">
+                        <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">Randonnées</span>
+                    </div>
+                </a>
+                <a href="page-faune.html" class="group fade-up bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:-translate-y-1" style="transition-delay:100ms">
+                    <div class="h-28 overflow-hidden">
+                        <img src="assets/images/site-faune.png" alt="Faune alpine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-3 text-center">
+                        <span class="text-xs font-bold text-amber-700 uppercase tracking-wide">Faune</span>
+                    </div>
+                </a>
+                <a href="page-geologie.html" class="group fade-up bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:-translate-y-1" style="transition-delay:150ms">
+                    <div class="h-28 overflow-hidden">
+                        <img src="assets/images/site-geologie.png" alt="Géologie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-3 text-center">
+                        <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">Géologie</span>
+                    </div>
+                </a>
+                <a href="page-glacier.html" class="group fade-up bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:-translate-y-1 col-span-2 md:col-span-1" style="transition-delay:200ms">
+                    <div class="h-28 overflow-hidden">
+                        <img src="assets/images/site-glacier.png" alt="Glacier d'Aletsch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-3 text-center">
+                        <span class="text-xs font-bold text-cyan-700 uppercase tracking-wide">Glacier</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer" class="bg-slate-950 text-slate-400 pt-16 text-sm border-t border-slate-900">
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+            <div class="flex flex-col">
+                <span class="text-white font-bold text-lg uppercase tracking-widest mb-4">Jungfrau-Aletsch</span>
+                <p class="leading-relaxed mb-6 text-slate-500" data-i18n="footer.desc">
+                    Site du patrimoine mondial UNESCO depuis 2001. Préserver et valoriser ce joyau des Alpes pour les
+                    générations futures.
+                </p>
+                <div class="flex gap-4 mt-auto">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col2">Explorer</h3>
+                <ul class="space-y-3">
+                    <li><a href="index.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.home">Accueil</a></li>
+                    <li><a href="timeline.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.history">Histoire</a></li>
+                    <li><a href="sites.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.visite">Sites</a></li>
+                    <li><a href="parcours.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.parcours">Parcours</a></li>
+                    <li><a href="temoignages.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.testimonials">Témoignages</a></li>
+                    <li><a href="notreequipe.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.team">Équipe</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col3">Informations</h3>
+                <ul class="space-y-3">
+                    <li><a href="accessibility.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.accessibility">Accessibilité</a></li>
+                    <li><a href="faq.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.faq">FAQ</a></li>
+                    <li><a href="mentions-legales.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.legal">Mentions légales</a></li>
+                    <li><a href="confidentialite.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.privacy">Politique de confidentialité</a></li>
+                    <li><a href="sitemap.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.sitemap">Plan du site</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col4">Nous contacter</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="mailto:karlnatngam@gmail.com" class="hover:text-white transition-colors break-all">karlnatngam@gmail.com</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="phone" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="tel:0762905525" class="hover:text-white transition-colors">07 62 90 55 25</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <span data-i18n="footer.hours">De 8h00 à 20h00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-500">
+                <div class="flex gap-6">
+                    <a href="accessibility.html" class="hover:text-white transition-colors" data-i18n="footer.accessibility">Accessibilité</a>
+                    <a href="signaler-probleme.html" class="hover:text-white transition-colors" data-i18n="footer.report">Signaler un problème</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+                <p>&copy; 2026 Jungfrau-Aletsch. Tous droits réservés.</p>
+                <div class="flex gap-6">
+                    <a href="mentions-legales.html" class="hover:text-slate-400 transition-colors" data-i18n="footer.legal">Mentions légales</a>
+                    <a href="confidentialite.html" class="hover:text-slate-400 transition-colors" data-i18n="footer.confidentiality">Confidentialité</a>
+                    <a href="notreequipe.html" class="hover:text-slate-400 transition-colors underline decoration-slate-700" data-i18n="footer.team">Équipe</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/accessibility-widget.js"></script>
+</body>
+</html>

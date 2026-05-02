@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Médiathèque — Jungfrau-Aletsch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/global.css">
+
+    <style>
+        /* ── Hero ── */
+        .hero-resources {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+            min-height: 40vh;
+        }
+
+        /* ── Filter tabs ── */
+        .filter-tab {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .filter-tab.active {
+            background-color: #2563eb;
+            color: white;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+        }
+
+        .filter-tab:not(.active):hover {
+            background-color: #f1f5f9;
+        }
+
+        /* ── Resource card ── */
+        .resource-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.10);
+        }
+
+        .resource-thumb {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: #f1f5f9;
+        }
+
+        .resource-thumb-placeholder {
+            width: 100%;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            font-size: 2.5rem;
+        }
+
+        /* ── Drag & drop zone ── */
+        .drop-zone {
+            border: 2px dashed #cbd5e1;
+            transition: all 0.2s ease;
+        }
+
+        .drop-zone.dragover {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+        }
+
+        /* ── Badge type ── */
+        .badge-image { background: #dbeafe; color: #1d4ed8; }
+        .badge-video { background: #fce7f3; color: #be185d; }
+        .badge-pdf   { background: #fef9c3; color: #854d0e; }
+        .badge-other { background: #f1f5f9; color: #475569; }
+
+        /* ── Loading skeleton ── */
+        .skeleton {
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.4s infinite;
+            border-radius: 0.5rem;
+        }
+
+        @keyframes shimmer {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            transform: translateY(6rem);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+    </style>
+    <link rel="stylesheet" href="assets/css/accessibility-widget.css">
+</head>
+
+<body class="antialiased overflow-x-hidden">
+
+    <!-- ── Navbar (identique au site) ── -->
+    <header id="navbar" class="fixed top-0 w-full z-50 bg-white border-b-4 border-blue-600 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+
+            <a href="index.html" class="flex items-center">
+                <img src="assets/images/logomcnnoir.svg" alt="M.C.N. Médiation Culturelle et Numérique" class="h-12 w-auto">
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html"            class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.home">Accueil</a>
+                <a href="timeline.html"         class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.history">Histoire</a>
+                <a href="sites.html"            class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.visite">Sites</a>
+                <a href="parcours.html"         class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.parcours">Parcours</a>
+                <a href="temoignages.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.testimonials">Témoignages</a>
+                <a href="notreequipe.html"      class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.team">Équipe</a>
+                <a href="ressources.html"       class="text-blue-600 font-bold text-sm border-b-2 border-blue-600">Médiathèque</a>
+            </nav>
+
+            <div class="hidden md:flex items-center gap-4">
+                <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-7 h-7" viewBox="0 0 16 16" aria-label="Accessibilité" role="img">
+                        <path d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z"/>
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8"/>
+                    </svg>
+                </a>
+                <div class="flex items-center bg-gray-100 rounded-full px-1 py-1 border border-gray-200">
+                    <button type="button" id="btn-en" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full inactive" onclick="setLanguage('en')">EN</button>
+                    <button type="button" id="btn-fr" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full active"  onclick="setLanguage('fr')">FR</button>
+                </div>
+            </div>
+
+            <button type="button" class="md:hidden text-slate-800" onclick="openMobileMenu()" aria-label="Menu">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 overflow-y-auto hidden-menu-state">
+        <button type="button" id="close-menu" class="absolute top-6 right-6 text-slate-800" aria-label="Fermer le menu">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <nav class="flex flex-col gap-6 text-xl font-bold">
+            <a href="index.html"            class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.home">Accueil</a>
+            <a href="timeline.html"         class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.history">Histoire</a>
+            <a href="sites.html"            class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.visite">Sites</a>
+            <a href="parcours.html"         class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.parcours">Parcours</a>
+            <a href="temoignages.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.testimonials">Témoignages</a>
+            <a href="notreequipe.html"      class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.team">Équipe</a>
+            <a href="ressources.html"       class="text-blue-600 mobile-link">Médiathèque</a>
+            <div class="border-t border-slate-100 my-2"></div>
+            <div class="flex items-center gap-4 mt-2">
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm inactive" onclick="setLanguage('en'); closeMobileMenu()">EN</button>
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm active"   onclick="setLanguage('fr'); closeMobileMenu()">FR</button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- ── Hero ── -->
+    <section class="hero-resources flex items-center justify-center pt-20">
+        <div class="text-center text-white px-4 max-w-4xl mx-auto py-16">
+
+            <div class="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-white/10 backdrop-blur-md rounded-md border border-white/20 fade-up">
+                <i data-lucide="database" class="w-4 h-4 text-blue-300"></i>
+                <span class="text-xs font-medium tracking-wider uppercase text-blue-100">Base de données Supabase</span>
+            </div>
+
+            <h1 class="text-5xl md:text-6xl font-black tracking-tight mb-4 fade-up" style="transition-delay:100ms">
+                Médiathèque
+            </h1>
+
+            <p class="text-lg text-white/80 max-w-xl mx-auto leading-relaxed fade-up" style="transition-delay:200ms">
+                Toutes les ressources du site centralisées — images, vidéos et documents PDF
+            </p>
+
+        </div>
+    </section>
+
+    <!-- ── Stats ── -->
+    <section class="bg-slate-950 py-8" aria-labelledby="res-stats-title">
+        <h2 id="res-stats-title" class="sr-only">Statistiques de la médiathèque</h2>
+        <div class="max-w-5xl mx-auto px-6">
+            <div id="stats-bar" class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+                <!-- rempli par JS -->
+                <div class="skeleton h-14 col-span-1"></div>
+                <div class="skeleton h-14 col-span-1"></div>
+                <div class="skeleton h-14 col-span-1"></div>
+                <div class="skeleton h-14 col-span-1"></div>
+                <div class="skeleton h-14 col-span-1"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Main ── -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+
+        <!-- Filtres -->
+        <div class="fade-up flex flex-wrap items-center gap-3 mb-8">
+            <span class="text-sm font-semibold text-slate-500 mr-2">Filtrer :</span>
+            <button type="button" class="filter-tab active px-5 py-2 rounded-full text-sm font-semibold border border-slate-200" data-filter="all">Tout</button>
+            <button type="button" class="filter-tab px-5 py-2 rounded-full text-sm font-semibold border border-slate-200 bg-white" data-filter="image">Images</button>
+            <button type="button" class="filter-tab px-5 py-2 rounded-full text-sm font-semibold border border-slate-200 bg-white" data-filter="video">Vidéos</button>
+            <button type="button" class="filter-tab px-5 py-2 rounded-full text-sm font-semibold border border-slate-200 bg-white" data-filter="pdf">PDF</button>
+            <button type="button" class="filter-tab px-5 py-2 rounded-full text-sm font-semibold border border-slate-200 bg-white" data-filter="other">Autres</button>
+
+            <div class="ml-auto flex items-center gap-3">
+                <input id="search-input" aria-label="Rechercher une ressource" type="text" placeholder="Rechercher une ressource…"
+                    class="border border-slate-200 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-blue-500 w-full sm:w-56">
+                <span id="count-label" class="text-xs text-slate-400 whitespace-nowrap"></span>
+            </div>
+        </div>
+
+        <!-- Grille ressources -->
+        <div id="resources-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-12">
+            <!-- Skeletons de chargement -->
+            <div class="skeleton h-60 rounded-xl"></div>
+            <div class="skeleton h-60 rounded-xl"></div>
+            <div class="skeleton h-60 rounded-xl"></div>
+            <div class="skeleton h-60 rounded-xl"></div>
+            <div class="skeleton h-60 rounded-xl"></div>
+            <div class="skeleton h-60 rounded-xl"></div>
+            <div class="skeleton h-60 rounded-xl"></div>
+            <div class="skeleton h-60 rounded-xl"></div>
+        </div>
+
+        <!-- État vide -->
+        <div id="empty-state" class="hidden text-center py-16">
+            <div class="text-5xl mb-4">📂</div>
+            <p class="text-slate-500 font-medium">Aucune ressource trouvée</p>
+            <p class="text-slate-400 text-sm mt-1">Essayez un autre filtre ou ajoutez des ressources ci-dessous</p>
+        </div>
+
+        <!-- ── Section upload ── -->
+        <div class="fade-up mt-4 bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+            <div class="bg-slate-50 border-b border-slate-200 px-6 py-4 flex items-center gap-3">
+                <i data-lucide="upload-cloud" class="w-5 h-5 text-blue-600"></i>
+                <h2 class="font-bold text-slate-800">Ajouter une ressource</h2>
+            </div>
+
+            <div class="p-6">
+                <div id="drop-zone"
+                    class="drop-zone rounded-xl p-8 text-center cursor-pointer mb-6 bg-slate-50 hover:bg-blue-50 transition-colors"
+                    onclick="document.getElementById('file-input').click()">
+                    <i data-lucide="upload" class="w-10 h-10 text-slate-400 mx-auto mb-3"></i>
+                    <p class="font-semibold text-slate-600 mb-1">Glissez vos fichiers ici ou cliquez pour sélectionner</p>
+                    <p class="text-sm text-slate-400">Images (JPG, PNG, SVG, WebP), Vidéos (MP4, WebM), PDF — Max 50 MB</p>
+                    <input type="file" id="file-input" aria-label="Sélectionner un fichier à uploader" class="hidden"
+                        accept="image/*,video/*,.pdf,.gpx,.geojson"
+                        multiple>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1 uppercase tracking-wide">Nom de la ressource</label>
+                        <input type="text" id="upload-name" aria-label="Nom de la ressource" placeholder="Ex: Panorama Aletsch"
+                            class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1 uppercase tracking-wide">Catégorie</label>
+                        <select id="upload-category" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 bg-white">
+                            <option value="general">Général</option>
+                            <option value="hero">Hero</option>
+                            <option value="sites">Sites</option>
+                            <option value="parcours">Parcours</option>
+                            <option value="equipe">Équipe</option>
+                            <option value="branding">Identité / Branding</option>
+                            <option value="documents">Documents</option>
+                            <option value="icons">Icônes</option>
+                            <option value="videos">Vidéos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1 uppercase tracking-wide">Page concernée</label>
+                        <select id="upload-page" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 bg-white">
+                            <option value="">— Aucune spécifique —</option>
+                            <option value="all">Toutes les pages</option>
+                            <option value="index">Accueil</option>
+                            <option value="timeline">Histoire</option>
+                            <option value="sites">Sites</option>
+                            <option value="parcours">Parcours</option>
+                            <option value="notreequipe">Équipe</option>
+                            <option value="accessibility">Accessibilité</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1 uppercase tracking-wide">Texte alternatif (accessibilité)</label>
+                    <input type="text" id="upload-alt" aria-label="Texte alternatif de l'image" placeholder="Description courte de l'image pour les lecteurs d'écran"
+                        class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div class="mb-5">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1 uppercase tracking-wide">Description</label>
+                    <textarea id="upload-desc" rows="2" placeholder="Description optionnelle…"
+                        class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 resize-none"></textarea>
+                </div>
+
+                <!-- Fichier sélectionné -->
+                <div id="selected-file-info" class="hidden mb-4 p-3 bg-blue-50 border border-blue-100 rounded-lg flex items-center gap-3">
+                    <i data-lucide="file" class="w-5 h-5 text-blue-500 shrink-0"></i>
+                    <div class="min-w-0">
+                        <p id="selected-file-name" class="text-sm font-semibold text-slate-700 truncate"></p>
+                        <p id="selected-file-size" class="text-xs text-slate-500"></p>
+                    </div>
+                    <button type="button" onclick="clearFileSelection()" class="ml-auto text-slate-400 hover:text-slate-600 shrink-0">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Barre progression -->
+                <div id="upload-progress-wrap" class="hidden mb-4">
+                    <div class="flex justify-between text-xs text-slate-500 mb-1">
+                        <span>Upload en cours…</span>
+                        <span id="progress-pct">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-2">
+                        <div id="progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width:0%"></div>
+                    </div>
+                </div>
+
+                <button type="button" id="upload-btn"
+                    class="w-full md:w-auto bg-blue-600 text-white px-8 py-3 rounded-full font-bold text-sm hover:bg-blue-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2"
+                    disabled>
+                    <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                    <span>Envoyer vers Supabase</span>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ── Modal détail ressource ── -->
+    <div id="resource-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden">
+            <div id="modal-thumb-wrap" class="bg-slate-100 h-52 flex items-center justify-center overflow-hidden">
+                <img id="modal-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" class="w-full h-full object-cover hidden">
+                <div id="modal-icon" class="text-6xl hidden"></div>
+            </div>
+            <div class="p-6">
+                <div class="flex items-start justify-between gap-3 mb-3">
+                    <h3 id="modal-name" class="font-bold text-xl text-slate-800" aria-label="Nom de la ressource"></h3>
+                    <span id="modal-badge" class="text-xs font-bold px-3 py-1 rounded-full shrink-0"></span>
+                </div>
+                <p id="modal-desc" class="text-slate-500 text-sm mb-4"></p>
+                <dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                    <dt class="text-slate-400 font-medium">Catégorie</dt>  <dd id="modal-cat" class="text-slate-700 font-semibold"></dd>
+                    <dt class="text-slate-400 font-medium">Page</dt>       <dd id="modal-page" class="text-slate-700"></dd>
+                    <dt class="text-slate-400 font-medium">Taille</dt>     <dd id="modal-size" class="text-slate-700"></dd>
+                    <dt class="text-slate-400 font-medium">Ajoutée le</dt> <dd id="modal-date" class="text-slate-700"></dd>
+                </dl>
+                <div class="mt-4 p-3 bg-slate-50 rounded-lg">
+                    <p class="text-xs text-slate-400 font-medium mb-1 uppercase tracking-wide">URL publique</p>
+                    <p id="modal-url" class="text-xs text-blue-600 break-all font-mono"></p>
+                </div>
+                <div class="flex gap-3 mt-5">
+                    <a id="modal-download" href="#" target="_blank"
+                        class="flex-1 bg-blue-600 text-white text-sm font-bold py-2.5 rounded-full text-center hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="external-link" class="w-4 h-4"></i> Ouvrir
+                    </a>
+                    <button type="button" onclick="closeModal()"
+                        class="flex-1 bg-slate-100 text-slate-700 text-sm font-bold py-2.5 rounded-full hover:bg-slate-200 transition-colors">
+                        Fermer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Toast notification ── -->
+    <div id="toast" class="toast">
+        <div class="flex items-center gap-3 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl text-sm font-medium">
+            <i id="toast-icon" data-lucide="check-circle" class="w-5 h-5 text-green-400 shrink-0"></i>
+            <span id="toast-msg"></span>
+        </div>
+    </div>
+
+    <!-- ── Footer ── -->
+    <footer id="footer" class="bg-slate-950 text-slate-400 pt-16 text-sm border-t border-slate-900 mt-12">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+            <div class="flex flex-col">
+                <span class="text-white font-bold text-lg uppercase tracking-widest mb-4">Jungfrau-Aletsch</span>
+                <p class="leading-relaxed mb-6 text-slate-500" data-i18n="footer.desc">
+                    Site du patrimoine mondial UNESCO depuis 2001.
+                </p>
+                <div class="flex gap-4 mt-auto">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook"  class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin"  class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col2">Explorer</h3>
+                <ul class="space-y-3">
+                    <li><a href="index.html"    class="hover:text-blue-400 transition-colors" data-i18n="nav.home">Accueil</a></li>
+                    <li><a href="timeline.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.history">Histoire</a></li>
+                    <li><a href="sites.html"    class="hover:text-blue-400 transition-colors" data-i18n="nav.visite">Sites</a></li>
+                    <li><a href="parcours.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.parcours">Parcours</a></li>
+                    <li><a href="temoignages.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.testimonials">Témoignages</a></li>
+                    <li><a href="ressources.html" class="hover:text-blue-400 transition-colors text-blue-400">Médiathèque</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col3">Informations</h3>
+                <ul class="space-y-3">
+                    <li><a href="accessibility.html"    class="hover:text-blue-400 transition-colors" data-i18n="footer.accessibility">Accessibilité</a></li>
+                    <li><a href="faq.html"               class="hover:text-blue-400 transition-colors" data-i18n="footer.faq">FAQ</a></li>
+                    <li><a href="mentions-legales.html"  class="hover:text-blue-400 transition-colors" data-i18n="footer.legal">Mentions légales</a></li>
+                    <li><a href="confidentialite.html"   class="hover:text-blue-400 transition-colors" data-i18n="footer.privacy">Confidentialité</a></li>
+                    <li><a href="sitemap.html"           class="hover:text-blue-400 transition-colors" data-i18n="footer.sitemap">Plan du site</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col4">Nous contacter</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="mailto:karlnatngam@gmail.com" class="hover:text-white transition-colors break-all">karlnatngam@gmail.com</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <span data-i18n="footer.hours">De 8h00 à 20h00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+                <p>&copy; 2026 Jungfrau-Aletsch. Tous droits réservés.</p>
+                <div class="flex gap-6">
+                    <a href="mentions-legales.html" class="hover:text-slate-400 transition-colors" data-i18n="footer.legal">Mentions légales</a>
+                    <a href="confidentialite.html"  class="hover:text-slate-400 transition-colors" data-i18n="footer.confidentiality">Confidentialité</a>
+                    <a href="notreequipe.html"       class="hover:text-slate-400 transition-colors underline decoration-slate-700" data-i18n="footer.team">Équipe</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ── Scripts ── -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/db.js"></script>
+
+    <script>
+        lucide.createIcons();
+
+        // ── État local ────────────────────────────────────────────────
+        let allResources = [];
+        let currentFilter = 'all';
+        let selectedFile = null;
+
+        // ── Initialisation ────────────────────────────────────────────
+        async function init() {
+            await loadStats();
+            await loadResources();
+            setupFilters();
+            setupUpload();
+            setupSearch();
+        }
+
+        // ── Stats bar ─────────────────────────────────────────────────
+        async function loadStats() {
+            const stats = await JA_DB.getStats();
+            document.getElementById('stats-bar').innerHTML = `
+                <div class="text-center">
+                    <div class="text-3xl font-black text-white">${stats.total}</div>
+                    <div class="text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">Total</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-black text-blue-400">${stats.images}</div>
+                    <div class="text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">Images</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-black text-pink-400">${stats.videos}</div>
+                    <div class="text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">Vidéos</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-black text-yellow-400">${stats.pdfs}</div>
+                    <div class="text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">PDF</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-xl font-black text-slate-300">${stats.totalSizeFormatted}</div>
+                    <div class="text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">Taille totale</div>
+                </div>
+            `;
+        }
+
+        // ── Chargement grille ─────────────────────────────────────────
+        async function loadResources() {
+            allResources = await JA_DB.getAll();
+            renderGrid(allResources);
+        }
+
+        function renderGrid(resources) {
+            const grid = document.getElementById('resources-grid');
+            const empty = document.getElementById('empty-state');
+            const countLabel = document.getElementById('count-label');
+
+            countLabel.textContent = `${resources.length} ressource${resources.length !== 1 ? 's' : ''}`;
+
+            if (resources.length === 0) {
+                grid.innerHTML = '';
+                empty.classList.remove('hidden');
+                return;
+            }
+            empty.classList.add('hidden');
+
+            grid.innerHTML = resources.map(r => buildCard(r)).join('');
+            lucide.createIcons();
+        }
+
+        function buildCard(r) {
+            const badgeClass = { image: 'badge-image', video: 'badge-video', pdf: 'badge-pdf' }[r.type] || 'badge-other';
+            const typeLabel  = { image: 'Image', video: 'Vidéo', pdf: 'PDF', data: 'Data', other: 'Fichier' }[r.type] || r.type;
+            const icon       = JA_DB.getTypeIcon(r.type);
+            const catLabel   = JA_DB.getCategoryLabel(r.category);
+
+            const isImage = r.type === 'image';
+            const thumbHtml = isImage
+                ? `<img src="${r.public_url}" alt="${r.alt_text || r.name}"
+                        class="resource-thumb"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                   <div class="resource-thumb-placeholder" style="display:none">${icon}</div>`
+                : `<div class="resource-thumb-placeholder">${icon}</div>`;
+
+            return `
+                <article class="resource-card bg-white border border-slate-100 rounded-xl overflow-hidden shadow-sm cursor-pointer"
+                         onclick="openModal('${r.id}')">
+                    <div class="overflow-hidden">${thumbHtml}</div>
+                    <div class="p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-800 text-sm leading-snug line-clamp-2">${r.name}</h3>
+                            <span class="badge-${r.type || 'other'} ${badgeClass} text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0">${typeLabel}</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-3 line-clamp-2">${r.description || '—'}</p>
+                        <div class="flex items-center justify-between text-[11px] text-slate-400">
+                            <span class="bg-slate-100 px-2 py-0.5 rounded font-medium">${catLabel}</span>
+                            <span>${JA_DB.formatSize(r.size_bytes)}</span>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        // ── Filtres ───────────────────────────────────────────────────
+        function setupFilters() {
+            document.querySelectorAll('.filter-tab').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.filter;
+                    applyFilters();
+                });
+            });
+        }
+
+        function applyFilters() {
+            const q = document.getElementById('search-input').value.toLowerCase().trim();
+            let filtered = allResources;
+
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(r => r.type === currentFilter);
+            }
+            if (q) {
+                filtered = filtered.filter(r =>
+                    r.name.toLowerCase().includes(q) ||
+                    (r.description || '').toLowerCase().includes(q) ||
+                    (r.category || '').toLowerCase().includes(q)
+                );
+            }
+            renderGrid(filtered);
+        }
+
+        function setupSearch() {
+            document.getElementById('search-input').addEventListener('input', applyFilters);
+        }
+
+        // ── Modal ─────────────────────────────────────────────────────
+        async function openModal(id) {
+            const r = allResources.find(x => x.id === id) || await JA_DB.getById(id);
+            if (!r) return;
+
+            const badgeClass = { image: 'badge-image', video: 'badge-video', pdf: 'badge-pdf' }[r.type] || 'badge-other';
+            const typeLabel  = { image: 'Image', video: 'Vidéo', pdf: 'PDF', other: 'Fichier' }[r.type] || r.type;
+
+            document.getElementById('modal-name').textContent = r.name;
+            document.getElementById('modal-desc').textContent = r.description || 'Aucune description';
+            document.getElementById('modal-cat').textContent  = JA_DB.getCategoryLabel(r.category);
+            document.getElementById('modal-page').textContent = r.page_reference || '—';
+            document.getElementById('modal-size').textContent = JA_DB.formatSize(r.size_bytes);
+            document.getElementById('modal-date').textContent = new Date(r.created_at).toLocaleDateString('fr-FR');
+            document.getElementById('modal-url').textContent  = r.public_url;
+            document.getElementById('modal-download').href    = r.public_url;
+
+            const badge = document.getElementById('modal-badge');
+            badge.textContent = typeLabel;
+            badge.className = `text-xs font-bold px-3 py-1 rounded-full shrink-0 ${badgeClass}`;
+
+            const img  = document.getElementById('modal-img');
+            const icon = document.getElementById('modal-icon');
+            if (r.type === 'image') {
+                img.src = r.public_url;
+                img.alt = r.alt_text || r.name;
+                img.classList.remove('hidden');
+                icon.classList.add('hidden');
+            } else {
+                img.classList.add('hidden');
+                icon.textContent = JA_DB.getTypeIcon(r.type);
+                icon.classList.remove('hidden');
+            }
+
+            document.getElementById('resource-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            document.getElementById('resource-modal').classList.add('hidden');
+        }
+
+        document.getElementById('resource-modal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        // ── Upload ────────────────────────────────────────────────────
+        function setupUpload() {
+            const fileInput = document.getElementById('file-input');
+            const dropZone  = document.getElementById('drop-zone');
+            const uploadBtn = document.getElementById('upload-btn');
+
+            fileInput.addEventListener('change', e => {
+                if (e.target.files[0]) handleFileSelect(e.target.files[0]);
+            });
+
+            dropZone.addEventListener('dragover', e => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+            dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+            dropZone.addEventListener('drop', e => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                if (e.dataTransfer.files[0]) handleFileSelect(e.dataTransfer.files[0]);
+            });
+
+            uploadBtn.addEventListener('click', doUpload);
+        }
+
+        function handleFileSelect(file) {
+            selectedFile = file;
+            document.getElementById('selected-file-info').classList.remove('hidden');
+            document.getElementById('selected-file-name').textContent = file.name;
+            document.getElementById('selected-file-size').textContent = JA_DB.formatSize(file.size);
+
+            if (!document.getElementById('upload-name').value) {
+                document.getElementById('upload-name').value = file.name.replace(/\.[^.]+$/, '').replace(/[_-]/g, ' ');
+            }
+
+            document.getElementById('upload-btn').disabled = false;
+            lucide.createIcons();
+        }
+
+        function clearFileSelection() {
+            selectedFile = null;
+            document.getElementById('file-input').value = '';
+            document.getElementById('selected-file-info').classList.add('hidden');
+            document.getElementById('upload-btn').disabled = true;
+        }
+
+        async function doUpload() {
+            if (!selectedFile) return;
+
+            const btn = document.getElementById('upload-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> <span>Upload…</span>';
+            lucide.createIcons();
+
+            const progressWrap = document.getElementById('upload-progress-wrap');
+            const progressBar  = document.getElementById('progress-bar');
+            const progressPct  = document.getElementById('progress-pct');
+            progressWrap.classList.remove('hidden');
+
+            // Simulation progression (Supabase SDK n'expose pas d'événements de progression)
+            let pct = 0;
+            const ticker = setInterval(() => {
+                pct = Math.min(pct + 8, 88);
+                progressBar.style.width = pct + '%';
+                progressPct.textContent = pct + '%';
+            }, 200);
+
+            const meta = {
+                name:           document.getElementById('upload-name').value     || selectedFile.name,
+                description:    document.getElementById('upload-desc').value     || null,
+                category:       document.getElementById('upload-category').value || 'general',
+                page_reference: document.getElementById('upload-page').value     || null,
+                alt_text:       document.getElementById('upload-alt').value      || null,
+            };
+
+            const result = await JA_DB.upload(selectedFile, meta);
+
+            clearInterval(ticker);
+            progressBar.style.width = '100%';
+            progressPct.textContent = '100%';
+
+            setTimeout(() => progressWrap.classList.add('hidden'), 600);
+
+            if (result) {
+                showToast('Ressource ajoutée avec succès !', 'success');
+                clearFileSelection();
+                document.getElementById('upload-name').value = '';
+                document.getElementById('upload-desc').value = '';
+                document.getElementById('upload-alt').value  = '';
+                await loadResources();
+                await loadStats();
+            } else {
+                showToast('Erreur lors de l\'upload. Vérifiez la console.', 'error');
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = '<i data-lucide="upload-cloud" class="w-4 h-4"></i> <span>Envoyer vers Supabase</span>';
+            lucide.createIcons();
+        }
+
+        // ── Toast ─────────────────────────────────────────────────────
+        function showToast(msg, type = 'success') {
+            const toast    = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.textContent = msg;
+            toastIcon.setAttribute('data-lucide', type === 'success' ? 'check-circle' : 'alert-circle');
+            toastIcon.className = `w-5 h-5 shrink-0 ${type === 'success' ? 'text-green-400' : 'text-red-400'}`;
+            lucide.createIcons();
+
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        // ── Lancement ─────────────────────────────────────────────────
+        init();
+    </script>
+
+    <script src="assets/js/accessibility-widget.js"></script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flore Alpine - Jungfrau-Aletsch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/accessibility-widget.css">
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <header id="navbar" class="navbar-fixed w-full z-50 bg-white border-b-4 border-blue-600">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="assets/images/logomcnnoir.svg" alt="M.C.N." class="h-12 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.home">Accueil</a>
+                <a href="timeline.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.history">Histoire</a>
+                <a href="sites.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.visite">Sites</a>
+                <a href="parcours.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.parcours">Parcours</a>
+                <a href="temoignages.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.testimonials">Témoignages</a>
+                <a href="notreequipe.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.team">Équipe</a>
+            </nav>
+            <div class="hidden md:flex items-center gap-4">
+                <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-universal-access-circle w-7 h-7" viewBox="0 0 16 16" aria-label="Accessibilité" role="img">
+                        <path d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z"/>
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8"/>
+                    </svg>
+                </a>
+                <div class="flex items-center bg-gray-100 rounded-full px-1 py-1 border border-gray-200">
+                    <button type="button" id="btn-en" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full" onclick="setLanguage('en')">EN</button>
+                    <button type="button" id="btn-fr" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full" onclick="setLanguage('fr')">FR</button>
+                </div>
+            </div>
+            <button type="button" class="md:hidden text-slate-800" onclick="openMobileMenu()" aria-label="Menu">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 overflow-y-auto hidden-menu-state">
+        <button type="button" id="close-menu" class="absolute top-6 right-6 text-slate-800" aria-label="Fermer le menu">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <nav class="flex flex-col gap-6 text-xl font-bold">
+            <a href="index.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.home">Accueil</a>
+            <a href="timeline.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.history">Histoire</a>
+            <a href="sites.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.visite">Sites</a>
+            <a href="parcours.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.parcours">Parcours</a>
+            <a href="temoignages.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.testimonials">Témoignages</a>
+            <a href="notreequipe.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.team">Équipe</a>
+            <div class="border-t border-slate-100 my-2"></div>
+            <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 text-lg flex items-center gap-2 mobile-link">Accessibilité</a>
+            <div class="flex items-center gap-4 mt-2">
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm inactive" onclick="setLanguage('en'); closeMobileMenu()">EN</button>
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm active" onclick="setLanguage('fr'); closeMobileMenu()">FR</button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero -->
+    <section class="relative pt-32 pb-20 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <a href="sites.html" class="inline-flex items-center gap-2 text-slate-500 hover:text-slate-700 text-sm mb-8 transition-colors">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                <span>Retour aux Sites</span>
+            </a>
+            <div class="text-center">
+                <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 bg-green-50 text-green-700 rounded-full text-xs font-bold uppercase tracking-wider fade-up">
+                    <i data-lucide="flower-2" class="w-4 h-4"></i>
+                    <span>Biodiversité</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-6 fade-up" style="transition-delay:100ms">Flore Alpine</h1>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed fade-up" style="transition-delay:200ms">
+                    Plus de 900 espèces végétales réparties sur un dénivelé de 809 m à 4 274 m d'altitude, dans l'un des écosystèmes alpins les plus riches d'Europe.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-6 py-16 space-y-20">
+
+        <!-- Intro + Étages -->
+        <section class="fade-up">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="h-72 md:h-[400px] rounded-2xl overflow-hidden shadow-xl">
+                    <img src="assets/images/site-flore.png" alt="Flore alpine de la région Jungfrau-Aletsch" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6">Un Jardin Vertical Exceptionnel</h2>
+                    <p class="text-slate-600 text-lg leading-relaxed mb-4">
+                        La région Jungfrau-Aletsch abrite plus de 900 espèces végétales réparties sur un dénivelé de 809 m à 4 274 m. Cette diversité exceptionnelle s'explique par la variété des altitudes, des expositions (sèche au sud, humide au nord) et des substrats.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed">
+                        Sur les deux substrats principaux — roches cristallines et roches carbonatées — des écosystèmes divers ont évolué sans intervention importante de l'homme, offrant un patrimoine botanique unique en Europe.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-100">
+
+        <!-- Étages de végétation -->
+        <section class="fade-up">
+            <h2 class="text-3xl font-bold text-slate-900 mb-10 text-center">Les Étages de Végétation</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-green-50 border border-green-100 rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-green-200 text-green-800 flex items-center justify-center font-bold text-xs">1500m</div>
+                        <h3 class="font-bold text-slate-800">Zone montagnarde (jusqu'à 1 500 m)</h3>
+                    </div>
+                    <p class="text-sm text-slate-600">Forêts mixtes de hêtres, sapins et épicéas. Fleurs forestières : muguet, troll. Lieux typiques : vallée de Lauterbrunnen, Grindelwald, Interlaken.</p>
+                </div>
+                <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-emerald-200 text-emerald-800 flex items-center justify-center font-bold text-xs">2000m</div>
+                        <h3 class="font-bold text-slate-800">Zone subalpine (1 500–2 000 m)</h3>
+                    </div>
+                    <p class="text-sm text-slate-600">Forêts de mélèzes et d'aroles. La forêt d'Aletsch, la plus haute forêt d'aroles d'Europe, avec des arbres centenaires. Au-dessus de Mürren.</p>
+                </div>
+                <div class="bg-teal-50 border border-teal-100 rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-teal-200 text-teal-800 flex items-center justify-center font-bold text-xs">3000m</div>
+                        <h3 class="font-bold text-slate-800">Zone alpine (2 000–3 000 m)</h3>
+                    </div>
+                    <p class="text-sm text-slate-600">Tapis alpins, plaines rocheuses. Renoncule des glaciers, gentianes, roses des Alpes, edelweiss. Jungfraujoch, glacier de l'Eiger.</p>
+                </div>
+                <div class="bg-slate-50 border border-slate-100 rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-slate-200 text-slate-800 flex items-center justify-center font-bold text-xs">+3km</div>
+                        <h3 class="font-bold text-slate-800">Zone nivale (au-delà de 3 000 m)</h3>
+                    </div>
+                    <p class="text-sm text-slate-600">Végétation quasi inexistante. Seules quelques plantes pionnières survivent aux conditions extrêmes de neige et de froid permanents.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-100">
+
+        <!-- Espèces emblématiques -->
+        <section class="fade-up">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 bg-green-50 text-green-700 rounded-full text-xs font-bold uppercase tracking-wider">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <span>Espèces protégées</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6">Espèces Emblématiques</h2>
+                    <div class="space-y-4">
+                        <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm">
+                            <h3 class="font-bold text-slate-800 mb-1">Edelweiss <span class="text-xs text-slate-400 font-normal">(Leontopodium alpinum)</span></h3>
+                            <p class="text-sm text-slate-600">La "perle des Alpes", symbole de la montagne suisse. Fleur protégée, elle pousse entre 1 800 et 3 000 m sur les pelouses rocailleuses calcaires.</p>
+                        </div>
+                        <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm">
+                            <h3 class="font-bold text-slate-800 mb-1">Gentiane acaule <span class="text-xs text-slate-400 font-normal">(Gentiana acaulis)</span></h3>
+                            <p class="text-sm text-slate-600">Fleur bleue intense, emblème des Alpes. Fleurit de mai à août dans les prairies alpines.</p>
+                        </div>
+                        <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm">
+                            <h3 class="font-bold text-slate-800 mb-1">Rose des Alpes <span class="text-xs text-slate-400 font-normal">(Rhododendron ferrugineum)</span></h3>
+                            <p class="text-sm text-slate-600">Arbuste aux fleurs rose vif, qui colore les alpages en juin-juillet. Très répandue dans les zones subalpines.</p>
+                        </div>
+                        <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm">
+                            <h3 class="font-bold text-slate-800 mb-1">Arnica des montagnes <span class="text-xs text-slate-400 font-normal">(Arnica montana)</span></h3>
+                            <p class="text-sm text-slate-600">Fleur jaune aux propriétés médicinales reconnues, présente dans les prairies de moyenne altitude.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-72 md:h-[500px] rounded-2xl overflow-hidden shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&q=80" alt="Prairie alpine fleurie" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-100">
+
+        <!-- Forêt d'Aletsch + Schynige Platte -->
+        <section class="fade-up">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="h-72 md:h-[400px] rounded-2xl overflow-hidden shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80" alt="Forêt d'aroles d'Aletsch" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+                <div>
+                    <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 bg-green-50 text-green-700 rounded-full text-xs font-bold uppercase tracking-wider">
+                        <i data-lucide="trees" class="w-4 h-4"></i>
+                        <span>UNESCO</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6">La Forêt d'Aletsch & Schynige Platte</h2>
+                    <p class="text-slate-600 leading-relaxed mb-4">
+                        Joyau du patrimoine UNESCO, la forêt d'Aletsch abrite des aroles, des épicéas et des mélèzes centenaires. Elle joue un rôle crucial dans la prévention de l'érosion et des avalanches. Les sentiers de randonnée (sentier des moraines, circuit du Grünsee) offrent des vues sur le glacier et la flore unique.
+                    </p>
+                    <div class="bg-green-50 border border-green-100 p-5 rounded-xl">
+                        <h3 class="font-bold text-green-800 mb-2 flex items-center gap-2">
+                            <i data-lucide="info" class="w-4 h-4"></i>
+                            Jardin botanique de la Schynige Platte
+                        </h3>
+                        <ul class="space-y-1 text-sm text-green-700">
+                            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 shrink-0"></i> Plus de 800 espèces réunies le long d'un chemin d'environ 1 km</li>
+                            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 shrink-0"></i> Deux tiers de toute la flore alpine concentrée</li>
+                            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 shrink-0"></i> Entrée comprise dans le billet de train</li>
+                            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 shrink-0"></i> Visite guidée publique chaque dimanche</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-100">
+
+        <!-- Saisons de floraison -->
+        <section class="fade-up">
+            <h2 class="text-3xl font-bold text-slate-900 mb-10 text-center">Saisons de Floraison</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white border border-slate-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center mb-4">
+                        <i data-lucide="sun" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-3">Printemps (mai–juin)</h3>
+                    <p class="text-sm text-slate-600">Soldanelles, crocus, auricules, gentianes acaules. Les premières fleurs percent la neige fondante — un spectacle saisissant.</p>
+                </div>
+                <div class="bg-white border border-slate-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border-green-200">
+                    <div class="w-12 h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center mb-4">
+                        <i data-lucide="flower-2" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-3">Été (juillet–août)</h3>
+                    <p class="text-sm text-slate-600">Apogée de la floraison — gentianes, asters alpins, edelweiss, arnica, orchidées. Les prairies ressemblent à un véritable tableau de peinture.</p>
+                </div>
+                <div class="bg-white border border-slate-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4">
+                        <i data-lucide="leaf" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-3">Automne (sept.–oct.)</h3>
+                    <p class="text-sm text-slate-600">Forêts subalpines flamboyantes de couleurs orange et jaune. Premières neiges en altitude, qui annoncent la dormance hivernale.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Explorer aussi -->
+    <section class="bg-slate-50 py-16 mt-10 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-2xl font-bold text-slate-900 mb-8 text-center fade-up">Explorer aussi</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <a href="page-jungfrau.html" class="group fade-up bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div class="h-28 overflow-hidden">
+                        <img src="assets/images/site-jungfrau.png" alt="La Jungfrau" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-3 text-center">
+                        <span class="text-xs font-bold text-blue-700 uppercase tracking-wide">Jungfrau</span>
+                    </div>
+                </a>
+                <a href="page-randonnees.html" class="group fade-up bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:-translate-y-1" style="transition-delay:50ms">
+                    <div class="h-28 overflow-hidden">
+                        <img src="assets/images/site-randonnees.png" alt="Randonnées" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-3 text-center">
+                        <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">Randonnées</span>
+                    </div>
+                </a>
+                <a href="page-faune.html" class="group fade-up bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:-translate-y-1" style="transition-delay:100ms">
+                    <div class="h-28 overflow-hidden">
+                        <img src="assets/images/site-faune.png" alt="Faune alpine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-3 text-center">
+                        <span class="text-xs font-bold text-amber-700 uppercase tracking-wide">Faune</span>
+                    </div>
+                </a>
+                <a href="page-geologie.html" class="group fade-up bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:-translate-y-1" style="transition-delay:150ms">
+                    <div class="h-28 overflow-hidden">
+                        <img src="assets/images/site-geologie.png" alt="Géologie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-3 text-center">
+                        <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">Géologie</span>
+                    </div>
+                </a>
+                <a href="page-glacier.html" class="group fade-up bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:-translate-y-1 col-span-2 md:col-span-1" style="transition-delay:200ms">
+                    <div class="h-28 overflow-hidden">
+                        <img src="assets/images/site-glacier.png" alt="Glacier d'Aletsch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-3 text-center">
+                        <span class="text-xs font-bold text-cyan-700 uppercase tracking-wide">Glacier</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer" class="bg-slate-950 text-slate-400 pt-16 text-sm border-t border-slate-900">
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+            <div class="flex flex-col">
+                <span class="text-white font-bold text-lg uppercase tracking-widest mb-4">Jungfrau-Aletsch</span>
+                <p class="leading-relaxed mb-6 text-slate-500" data-i18n="footer.desc">
+                    Site du patrimoine mondial UNESCO depuis 2001. Préserver et valoriser ce joyau des Alpes pour les
+                    générations futures.
+                </p>
+                <div class="flex gap-4 mt-auto">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col2">Explorer</h3>
+                <ul class="space-y-3">
+                    <li><a href="index.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.home">Accueil</a></li>
+                    <li><a href="timeline.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.history">Histoire</a></li>
+                    <li><a href="sites.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.visite">Sites</a></li>
+                    <li><a href="parcours.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.parcours">Parcours</a></li>
+                    <li><a href="temoignages.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.testimonials">Témoignages</a></li>
+                    <li><a href="notreequipe.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.team">Équipe</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col3">Informations</h3>
+                <ul class="space-y-3">
+                    <li><a href="accessibility.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.accessibility">Accessibilité</a></li>
+                    <li><a href="faq.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.faq">FAQ</a></li>
+                    <li><a href="mentions-legales.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.legal">Mentions légales</a></li>
+                    <li><a href="confidentialite.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.privacy">Politique de confidentialité</a></li>
+                    <li><a href="sitemap.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.sitemap">Plan du site</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col4">Nous contacter</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="mailto:karlnatngam@gmail.com" class="hover:text-white transition-colors break-all">karlnatngam@gmail.com</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="phone" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="tel:0762905525" class="hover:text-white transition-colors">07 62 90 55 25</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <span data-i18n="footer.hours">De 8h00 à 20h00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-500">
+                <div class="flex gap-6">
+                    <a href="accessibility.html" class="hover:text-white transition-colors" data-i18n="footer.accessibility">Accessibilité</a>
+                    <a href="signaler-probleme.html" class="hover:text-white transition-colors" data-i18n="footer.report">Signaler un problème</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+                <p>&copy; 2026 Jungfrau-Aletsch. Tous droits réservés.</p>
+                <div class="flex gap-6">
+                    <a href="mentions-legales.html" class="hover:text-slate-400 transition-colors" data-i18n="footer.legal">Mentions légales</a>
+                    <a href="confidentialite.html" class="hover:text-slate-400 transition-colors" data-i18n="footer.confidentiality">Confidentialité</a>
+                    <a href="notreequipe.html" class="hover:text-slate-400 transition-colors underline decoration-slate-700" data-i18n="footer.team">Équipe</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/accessibility-widget.js"></script>
+</body>
+</html>

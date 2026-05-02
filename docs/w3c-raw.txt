@@ -1,0 +1,89 @@
+━━━━━━ accessibility.html ━━━━━━
+
+━━━━━━ admin.html ━━━━━━
+
+━━━━━━ confidentialite.html ━━━━━━
+:437.17-437.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ faq.html ━━━━━━
+:247.17-247.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ index.html ━━━━━━
+:435.17-435.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ mentions-legales.html ━━━━━━
+:419.17-419.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ notreequipe.html ━━━━━━
+:145.21-145.70: error: The heading “h3” (with computed level 3) follows the heading “h1” (with computed level 1), skipping 1 heading level.
+:274.17-274.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ page-faune.html ━━━━━━
+:354.17-354.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ page-flore.html ━━━━━━
+:155.29-155.70: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+:196.25-196.90: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+:310.17-310.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ page-geologie.html ━━━━━━
+:106.9-106.33: info warning: Section lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all sections, or else use a “div” element instead for any cases where no heading is needed.
+:326.17-326.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ page-glacier.html ━━━━━━
+:350.17-350.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ page-jungfrau.html ━━━━━━
+:148.25-148.89: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+:301.17-301.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ page-randonnees.html ━━━━━━
+:123.33-123.77: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+:220.29-220.93: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+:308.17-308.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ parcours.html ━━━━━━
+:247.17-247.112: error: The heading “h4” (with computed level 4) follows the heading “h1” (with computed level 1), skipping 2 heading levels.
+
+━━━━━━ ressources.html ━━━━━━
+:191.5-191.39: info warning: Section lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all sections, or else use a “div” element instead for any cases where no heading is needed.
+:347.17-347.92: error: Bad value “” for attribute “src” on element “img”: Must be non-empty.
+:352.21-352.81: info warning: Empty heading.
+
+━━━━━━ signaler-probleme.html ━━━━━━
+:563.17-563.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ sitemap.html ━━━━━━
+:355.17-355.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ sites.html ━━━━━━
+:199.25-199.89: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ temoignages.html ━━━━━━
+:89.9-89.33: info warning: Section lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all sections, or else use a “div” element instead for any cases where no heading is needed.
+:120.21-120.94: error: The “aria-label” attribute must not be specified on any “div” element unless the element has a “role” value other than “caption”, “code”, “deletion”, “emphasis”, “generic”, “insertion”, “paragraph”, “presentation”, “strong”, “subscript”, or “superscript”.
+:119.17-119.134: info warning: Article lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all articles.
+:141.21-141.94: error: The “aria-label” attribute must not be specified on any “div” element unless the element has a “role” value other than “caption”, “code”, “deletion”, “emphasis”, “generic”, “insertion”, “paragraph”, “presentation”, “strong”, “subscript”, or “superscript”.
+:140.17-140.164: info warning: Article lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all articles.
+:162.21-162.94: error: The “aria-label” attribute must not be specified on any “div” element unless the element has a “role” value other than “caption”, “code”, “deletion”, “emphasis”, “generic”, “insertion”, “paragraph”, “presentation”, “strong”, “subscript”, or “superscript”.
+:161.17-161.165: info warning: Article lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all articles.
+:183.21-183.94: error: The “aria-label” attribute must not be specified on any “div” element unless the element has a “role” value other than “caption”, “code”, “deletion”, “emphasis”, “generic”, “insertion”, “paragraph”, “presentation”, “strong”, “subscript”, or “superscript”.
+:182.17-182.165: info warning: Article lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all articles.
+:204.21-204.94: error: The “aria-label” attribute must not be specified on any “div” element unless the element has a “role” value other than “caption”, “code”, “deletion”, “emphasis”, “generic”, “insertion”, “paragraph”, “presentation”, “strong”, “subscript”, or “superscript”.
+:203.17-203.165: info warning: Article lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all articles.
+:225.21-225.94: error: The “aria-label” attribute must not be specified on any “div” element unless the element has a “role” value other than “caption”, “code”, “deletion”, “emphasis”, “generic”, “insertion”, “paragraph”, “presentation”, “strong”, “subscript”, or “superscript”.
+:224.17-224.165: info warning: Article lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all articles.
+:116.9-116.17: info warning: Section lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all sections, or else use a “div” element instead for any cases where no heading is needed.
+:260.25-265.44: info warning: The “frameborder” attribute on the “iframe” element is obsolete. Use CSS instead.
+:272.25-277.44: info warning: The “frameborder” attribute on the “iframe” element is obsolete. Use CSS instead.
+:284.25-289.44: info warning: The “frameborder” attribute on the “iframe” element is obsolete. Use CSS instead.
+:334.17-334.112: error: The heading “h4” (with computed level 4) follows the heading “h2” (with computed level 2), skipping 1 heading level.
+
+━━━━━━ timeline.html ━━━━━━
+:602.21-602.112: error: The “aria-label” attribute must not be specified on any “div” element unless the element has a “role” value other than “caption”, “code”, “deletion”, “emphasis”, “generic”, “insertion”, “paragraph”, “presentation”, “strong”, “subscript”, or “superscript”.
+:636.21-636.102: error: The “aria-label” attribute must not be specified on any “div” element unless the element has a “role” value other than “caption”, “code”, “deletion”, “emphasis”, “generic”, “insertion”, “paragraph”, “presentation”, “strong”, “subscript”, or “superscript”.
+:353.17-354.75: error: Every active “role=tab” element must have a corresponding “role=tabpanel” element.
+:353.17-354.75: error: An element with “role=tab” must be contained in, or owned by, an element with the “role” value “tablist”.
+:357.17-358.75: error: An element with “role=tab” must be contained in, or owned by, an element with the “role” value “tablist”.
+:375.25-375.106: error: The heading “h3” (with computed level 3) follows the heading “h1” (with computed level 1), skipping 1 heading level.
+

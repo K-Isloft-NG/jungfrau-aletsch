@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.C.N. - Jungfrau-Aletsch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/accessibility-widget.css">
+</head>
+
+<body class="antialiased overflow-x-hidden">
+
+    <header id="navbar" class="fixed top-0 w-full z-50 bg-white border-b-4 border-blue-600 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+
+            <a href="#" class="flex items-center">
+                <img src="assets/images/logomcnnoir.svg" alt="M.C.N. Médiation Culturelle et Numérique"
+                    class="h-12 w-auto">
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors"
+                    data-i18n="nav.home">Accueil</a>
+                <a href="timeline.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors"
+                    data-i18n="nav.history">Histoire</a>
+                <a href="sites.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors"
+                    data-i18n="nav.visite">Sites</a>
+                <a href="parcours.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors"
+                    data-i18n="nav.parcours">Parcours</a>
+                <a href="temoignages.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.testimonials">Témoignages</a>
+                <a href="notreequipe.html"
+                    class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors"
+                    data-i18n="nav.team">Équipe</a>
+            </nav>
+
+            <div class="hidden md:flex items-center gap-4">
+                <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-universal-access-circle w-7 h-7" viewBox="0 0 16 16" aria-label="Accessibilité"
+                        role="img">
+                        <path
+                            d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z" />
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8" />
+                    </svg>
+                </a>
+
+                <div class="flex items-center bg-gray-100 rounded-full px-1 py-1 border border-gray-200">
+                    <button type="button" id="btn-en" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full"
+                        onclick="setLanguage('en')">EN</button>
+                    <button type="button" id="btn-fr" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full"
+                        onclick="setLanguage('fr')">FR</button>
+                </div>
+            </div>
+
+            <button type="button" class="md:hidden text-slate-800 nav-icon" onclick="openMobileMenu()" aria-label="Menu">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 overflow-y-auto hidden-menu-state">
+        <button type="button" id="close-menu" class="absolute top-6 right-6 text-slate-800" aria-label="Fermer le menu">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <nav class="flex flex-col gap-6 text-xl font-bold">
+            <a href="index.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.home">Accueil</a>
+            <a href="timeline.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.history">Histoire</a>
+            <a href="sites.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.visite">Sites</a>
+            <a href="parcours.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.parcours">Parcours</a>
+            <a href="temoignages.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.testimonials">Témoignages</a>
+            <a href="notreequipe.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.team">Équipe</a>
+            
+            <div class="border-t border-slate-100 my-2"></div>
+            
+            <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 text-lg flex items-center gap-2 mobile-link">
+                Accessibilité
+            </a>
+            
+            <div class="flex items-center gap-4 mt-2">
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm inactive" onclick="setLanguage('en'); closeMobileMenu()">EN</button>
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm active" onclick="setLanguage('fr'); closeMobileMenu()">FR</button>
+            </div>
+        </nav>
+    </div>
+
+
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="assets/images/hero-observatory.jpg" class="w-full h-full object-cover"
+                alt="Panorama Jungfrau Observatory">
+            <div class="absolute inset-0 bg-black/20"></div>
+        </div>
+
+        <div class="relative z-10 text-center text-white px-4 max-w-5xl mx-auto mt-10 flex flex-col items-center">
+
+            <div
+                class="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-white/30 backdrop-blur-md rounded-md border border-white/20 fade-up">
+                <i data-lucide="trophy" class="w-4 h-4 text-white"></i>
+                <span class="text-xs font-medium tracking-wider uppercase text-white" data-i18n="hero.badge">Patrimoine
+                    Mondiale UNESCO</span>
+            </div>
+
+            <h1 class="text-6xl md:text-8xl font-bold tracking-tight mb-4 drop-shadow-lg fade-up"
+                style="transition-delay: 100ms;" data-i18n="hero.title">
+                Jungfrau-Aletsch
+            </h1>
+
+            <p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md fade-up"
+                style="transition-delay: 200ms;" data-i18n="hero.subtitle">
+                Le plus grand glacier des Alpes et un paysage montagneux<br>d'exception
+            </p>
+
+            <a href="#patrimoine"
+                class="fade-up inline-block bg-white text-slate-900 px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300"
+                style="transition-delay: 300ms;" data-i18n="hero.cta">
+                Découvrir
+            </a>
+
+            <div class="mt-16 animate-bounce fade-up" style="transition-delay: 400ms;">
+                <i data-lucide="arrow-down" class="w-6 h-6 text-white"></i>
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-white py-12 border-b border-gray-100 relative z-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center fade-up">
+            <div>
+                <div class="text-3xl md:text-4xl font-black text-slate-900">824 <span
+                        class="text-lg text-slate-400 font-medium">km²</span></div>
+                <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mt-1" data-i18n="stats.surface">
+                    Superficie</div>
+            </div>
+            <div>
+                <div class="text-3xl md:text-4xl font-black text-slate-900">23 <span
+                        class="text-lg text-slate-400 font-medium">km</span></div>
+                <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mt-1" data-i18n="stats.length">
+                    Longueur</div>
+            </div>
+            <div>
+                <div class="text-3xl md:text-4xl font-black text-slate-900">4 158 <span
+                        class="text-lg text-slate-400 font-medium">m</span></div>
+                <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mt-1" data-i18n="stats.altitude">
+                    Altitude Max</div>
+            </div>
+            <div>
+                <div class="text-3xl md:text-4xl font-black text-slate-900">2001</div>
+                <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mt-1" data-i18n="stats.unesco">
+                    Inscription UNESCO</div>
+            </div>
+        </div>
+    </div>
+
+    <section id="patrimoine" class="py-16 md:py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3" data-i18n="patrimoine.title">Un
+                    Patrimoine Exceptionnel</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto" data-i18n="patrimoine.subtitle">Le site Jungfrau-Aletsch
+                    est le premier site naturel des Alpes à être inscrit au patrimoine mondial de l'UNESCO</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="h-64 sm:h-80 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl fade-up group">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Aletsch_Glacier%2C_Bettmeralp%2C_Switzerland_%28Unsplash%29.jpg"
+                        alt="Glacier Aletsch" class="w-full h-full object-cover hover-zoom-img">
+                </div>
+
+                <div class="space-y-6 fade-up" style="transition-delay: 200ms;">
+                    <div
+                        class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex gap-5 hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                            <i data-lucide="mountain" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-1" data-i18n="patrimoine.glacier.title">Le
+                                Glacier d'Aletsch</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed" data-i18n="patrimoine.glacier.text">Avec
+                                ses 23 kilomètres de long, c'est le plus grand glacier des Alpes. Il offre un spectacle
+                                naturel impressionnant et un témoignage unique de l'histoire géologique de notre
+                                planète.</p>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex gap-5 hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                            <i data-lucide="sprout" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-1" data-i18n="patrimoine.bio.title">
+                                Biodiversité Alpine</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed" data-i18n="patrimoine.bio.text">Le site
+                                abrite une biodiversité remarquable avec des espèces végétales et animales adaptées aux
+                                conditions extrêmes de haute montagne.</p>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex gap-5 hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                            <i data-lucide="globe" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-1" data-i18n="patrimoine.value.title">Valeur
+                                Universelle</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed" data-i18n="patrimoine.value.text">Reconnu
+                                pour sa valeur universelle exceptionnelle, le site illustre parfaitement la formation
+                                des Alpes et l'évolution des glaciers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sites" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3" data-i18n="sites.title">Découvrez les
+                    Sites</h2>
+                <p class="text-slate-500 font-medium" data-i18n="sites.subtitle">Une mosaïque de paysages alpins spectaculaires</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+
+                <!-- Rangée 1 : Randonnées 2/5 + Jungfrau 3/5 -->
+                <a href="sites.html#randonnees"
+                    class="md:col-span-2 relative h-72 rounded-2xl overflow-hidden group cursor-pointer block fade-up"
+                    style="transition-delay: 100ms;">
+                    <img src="assets/images/site-randonnees.png"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        alt="Randonnées">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#334155]/90 via-[#334155]/50 to-transparent mix-blend-multiply opacity-90">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8 z-10">
+                        <h3 class="text-white text-2xl font-bold" data-i18n="sites.card3.title">Randonnées</h3>
+                        <p class="text-gray-200 text-sm mt-1" data-i18n="sites.card3.desc">Sentiers panoramiques</p>
+                        <span class="inline-flex items-center gap-1 text-white/75 text-xs font-medium mt-2 group-hover:text-white transition-colors"><span data-i18n="sites.cta">En savoir plus</span><i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+                    </div>
+                </a>
+
+                <a href="sites.html#jungfrau"
+                    class="md:col-span-3 relative h-72 rounded-2xl overflow-hidden group cursor-pointer block fade-up">
+                    <img src="assets/images/site-jungfrau.png"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        alt="La Jungfrau">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#1e3a8a]/90 via-[#1e3a8a]/40 to-transparent mix-blend-multiply opacity-80">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8 z-10">
+                        <h3 class="text-white text-2xl font-bold" data-i18n="sites.card1.title">La Jungfrau</h3>
+                        <p class="text-gray-200 text-sm mt-1" data-i18n="sites.card1.desc">Le sommet emblématique à 4 158 mètres</p>
+                        <span class="inline-flex items-center gap-1 text-white/75 text-xs font-medium mt-2 group-hover:text-white transition-colors"><span data-i18n="sites.cta">En savoir plus</span><i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+                    </div>
+                </a>
+
+                <!-- Rangée 2 : Faune 3/5 + Flore 2/5 -->
+                <a href="sites.html#faune"
+                    class="md:col-span-3 relative h-72 rounded-2xl overflow-hidden group cursor-pointer block fade-up"
+                    style="transition-delay: 200ms;">
+                    <img src="assets/images/site-faune.png"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        alt="Faune Alpine">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#78350f]/90 via-[#78350f]/40 to-transparent mix-blend-multiply opacity-80">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8 z-10">
+                        <h3 class="text-white text-2xl font-bold" data-i18n="sites.card5.title">Faune</h3>
+                        <p class="text-gray-200 text-sm mt-1" data-i18n="sites.card5.desc">Plusieurs centaines d'espèces animales alpines</p>
+                        <span class="inline-flex items-center gap-1 text-white/75 text-xs font-medium mt-2 group-hover:text-white transition-colors"><span data-i18n="sites.cta">En savoir plus</span><i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+                    </div>
+                </a>
+
+                <a href="sites.html#flore"
+                    class="md:col-span-2 relative h-72 rounded-2xl overflow-hidden group cursor-pointer block fade-up"
+                    style="transition-delay: 300ms;">
+                    <img src="assets/images/site-flore.png"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        alt="Flore Alpine">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#14532d]/90 via-[#14532d]/40 to-transparent mix-blend-multiply opacity-80">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8 z-10">
+                        <h3 class="text-white text-2xl font-bold" data-i18n="sites.card2.title">Flore Alpine</h3>
+                        <p class="text-gray-200 text-sm mt-1" data-i18n="sites.card2.desc">Une diversité florissante</p>
+                        <span class="inline-flex items-center gap-1 text-white/75 text-xs font-medium mt-2 group-hover:text-white transition-colors"><span data-i18n="sites.cta">En savoir plus</span><i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+                    </div>
+                </a>
+
+                <!-- Rangée 3 : Géologie 2/5 + Glacier 3/5 -->
+                <a href="sites.html#geologie"
+                    class="md:col-span-2 relative h-72 rounded-2xl overflow-hidden group cursor-pointer block fade-up"
+                    style="transition-delay: 400ms;">
+                    <img src="assets/images/site-geologie.png"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        alt="Géologie Alpine">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#374151]/90 via-[#374151]/40 to-transparent mix-blend-multiply opacity-80">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8 z-10">
+                        <h3 class="text-white text-2xl font-bold" data-i18n="sites.card6.title">Géologie</h3>
+                        <p class="text-gray-200 text-sm mt-1" data-i18n="sites.card6.desc">400 millions d'années d'histoire</p>
+                        <span class="inline-flex items-center gap-1 text-white/75 text-xs font-medium mt-2 group-hover:text-white transition-colors"><span data-i18n="sites.cta">En savoir plus</span><i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+                    </div>
+                </a>
+
+                <a href="sites.html#glacier"
+                    class="md:col-span-3 relative h-72 rounded-2xl overflow-hidden group cursor-pointer block fade-up"
+                    style="transition-delay: 500ms;">
+                    <img src="assets/images/site-glacier.png"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        alt="Le Glacier">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#1f2937]/90 via-[#1f2937]/40 to-transparent mix-blend-multiply opacity-80">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8 z-10">
+                        <h3 class="text-white text-2xl font-bold" data-i18n="sites.card4.title">Le Glacier</h3>
+                        <p class="text-gray-200 text-sm mt-1" data-i18n="sites.card4.desc">23 km de glace millénaire</p>
+                        <span class="inline-flex items-center gap-1 text-white/75 text-xs font-medium mt-2 group-hover:text-white transition-colors"><span data-i18n="sites.cta">En savoir plus</span><i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-6 fade-up">
+            <div class="flex flex-col md:flex-row items-center gap-12 md:gap-20 justify-center">
+
+                <div class="shrink-0">
+                    <img src="assets/images/bx_handicap.png" alt="Accessibilité" class="w-32 h-32 object-contain">
+                </div>
+
+                <div class="text-left max-w-2xl">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6" data-i18n="access.title">Des
+                        infrastructures adaptées</h2>
+                    <p class="text-slate-600 text-lg mb-8 leading-relaxed" data-i18n="access.text">
+                        Le site Jungfrau-Aletsch s'engage pour rendre la montagne accessible à tous. Des parcours
+                        aménagés aux installations dédiées, nous œuvrons pour un tourisme inclusif.
+                    </p>
+                    <a href="accessibility.html"
+                        class="inline-block bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition-colors"
+                        data-i18n="access.btn">
+                        Me renseigner
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="unesco" class="py-16 md:py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12 fade-up">
+
+            <div class="md:w-1/2 text-left">
+                <h2 class="text-4xl font-bold text-slate-900 mb-6" data-i18n="unesco.title">Reconnu par l’UNESCO</h2>
+
+                <p class="text-slate-600 text-lg mb-4 leading-relaxed" data-i18n="unesco.text1">
+                    En 2001, le site Jungfrau-Aletsch est devenu le premier site naturel des Alpes à être inscrit sur la
+                    liste du patrimoine mondial de l'UNESCO.
+                </p>
+                <p class="text-slate-600 text-lg mb-8 leading-relaxed" data-i18n="unesco.text2">
+                    Cette reconnaissance témoigne de sa valeur universelle exceptionnelle et de l'importance de sa
+                    préservation pour les générations futures.
+                </p>
+
+                <ul class="list-disc pl-5 space-y-2 mb-8 text-slate-900 font-bold">
+                    <li data-i18n="unesco.list1">Critères naturels exceptionnels</li>
+                    <li data-i18n="unesco.list2">Biodiversité remarquable</li>
+                    <li data-i18n="unesco.list3">Paysages d’une beauté exceptionnelle</li>
+                </ul>
+
+                <a href="timeline.html"
+                    class="inline-flex items-center gap-2 border border-slate-900 text-slate-900 px-8 py-3 rounded-full font-medium hover:bg-slate-50 transition-colors">
+                    <span data-i18n="unesco.btn">En savoir plus</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="md:w-1/2 flex justify-center md:justify-end">
+                <img src="assets/images/Simplification.png" alt="Logo UNESCO"
+                    class="w-full max-w-sm md:max-w-md object-contain">
+            </div>
+
+        </div>
+    </section>
+
+    <section class="bg-blue-600 py-16 text-center text-white fade-up">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-4" data-i18n="feedback.title">Votre avis compte !</h2>
+            <p class="text-blue-100 mb-8 max-w-xl mx-auto" data-i18n="feedback.text">
+                Aidez-nous à améliorer l'expérience des visiteurs en répondant à notre questionnaire de satisfaction.
+            </p>
+            <a href="https://forms.gle/MkWXmtUe2CvDa4gA8" target="_blank"
+                class="inline-block bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:bg-blue-50 transition-colors shadow-lg">
+                <span data-i18n="feedback.btn">Participer</span>
+            </a>
+        </div>
+    </section>
+
+    <footer id="footer" class="bg-slate-950 text-slate-400 pt-16 text-sm border-t border-slate-900">
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+            <div class="flex flex-col">
+                <span class="text-white font-bold text-lg uppercase tracking-widest mb-4">Jungfrau-Aletsch</span>
+                <p class="leading-relaxed mb-6 text-slate-500" data-i18n="footer.desc">
+                    Site du patrimoine mondial UNESCO depuis 2001. Préserver et valoriser ce joyau des Alpes pour les
+                    générations futures.
+                </p>
+                <div class="flex gap-4 mt-auto">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin"
+                            class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col2">Explorer
+                </h3>
+                <ul class="space-y-3">
+                    <li><a href="#home" class="hover:text-blue-400 transition-colors" data-i18n="nav.home">Accueil</a>
+                    </li>
+                    <li><a href="timeline.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.history">Histoire</a></li>
+                    <li><a href="sites.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.visite">Sites</a></li>
+                    <li><a href="parcours.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.parcours">Parcours</a></li>
+                    <li><a href="temoignages.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.testimonials">Témoignages</a></li>
+                    <li><a href="notreequipe.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.team">Équipe</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col3">
+                    Informations</h3>
+                <ul class="space-y-3">
+                    <li><a href="accessibility.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="footer.accessibility">Accessibilité</a></li>
+                    <li><a href="faq.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.faq">FAQ</a></li>
+                    <li><a href="mentions-legales.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.legal">Mentions
+                            légales</a></li>
+                    <li><a href="confidentialite.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.privacy">Politique
+                            de confidentialité</a></li>
+                    <li><a href="sitemap.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.sitemap">Plan du
+                            site</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col4">Nous
+                    contacter</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="mailto:karlnatngam@gmail.com"
+                            class="hover:text-white transition-colors break-all">karlnatngam@gmail.com</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="phone" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="tel:0762905525" class="hover:text-white transition-colors">07 62 90 55 25</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <span data-i18n="footer.hours">De 8h00 à 20h00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div
+                class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-500">
+                <div class="flex gap-6">
+                    <a href="accessibility.html" class="hover:text-white transition-colors"
+                        data-i18n="footer.accessibility">Accessibilité</a>
+                    <a href="signaler-probleme.html" class="hover:text-white transition-colors" data-i18n="footer.report">Signaler un
+                        problème</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div
+                class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+                <p>&copy; 2026 Jungfrau-Aletsch. Tous droits réservés.</p>
+                <div class="flex gap-6">
+                    <a href="mentions-legales.html" class="hover:text-slate-400 transition-colors" data-i18n="footer.legal">Mentions
+                        légales</a>
+                    <a href="confidentialite.html" class="hover:text-slate-400 transition-colors"
+                        data-i18n="footer.confidentiality">Confidentialité</a>
+                    <a href="notreequipe.html"
+                        class="hover:text-slate-400 transition-colors underline decoration-slate-700"
+                        data-i18n="footer.team">Équipe</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script>
+        // Navbar scroll effect (spécifique à la home)
+        var navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function () {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+
+    <script src="assets/js/accessibility-widget.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+/* ================================================================
+   global.css — Styles partagés — Jungfrau-Aletsch V14
+   Chargé par toutes les pages du site
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+
+/* ── Variables ─────────────────────────────────────────────────── */
+:root {
+    --unesco-blue: #2563eb;
+    --accent-red:  #e60004;
+    --text-primary:   #0f172a;
+    --text-secondary: #64748b;
+    --bg-light: #ffffff;
+    --bg-card:  #f8fafc;
+}
+
+/* ── Reset & Base ──────────────────────────────────────────────── */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+}
+
+/* ── Navbar fixe ───────────────────────────────────────────────── */
+.navbar-fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+    background-color: white;
+    border-bottom: 4px solid var(--unesco-blue);
+    transition: all 0.3s ease;
+}
+
+/* ── Animation Fade-up (IntersectionObserver) ──────────────────── */
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Image hover zoom ──────────────────────────────────────────── */
+.hover-zoom-img {
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.group:hover .hover-zoom-img {
+    transform: scale(1.05);
+}
+
+/* ── Boutons de langue ─────────────────────────────────────────── */
+.lang-btn {
+    transition: all 0.2s ease;
+}
+
+.lang-btn.active {
+    background-color: var(--text-primary);
+    color: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.lang-btn.inactive {
+    background-color: transparent;
+    color: var(--text-secondary);
+}
+
+.lang-btn.inactive:hover {
+    color: var(--text-primary);
+}
+
+/* ── Menu mobile — état caché ──────────────────────────────────── */
+.hidden-menu-state {
+    display: none !important;
+}
+
+.hidden-menu-state:not(.translate-x-full) {
+    display: flex !important;
+}
+
+/* ── Sidebar sticky (FAQ, mentions légales, confidentialité) ───── */
+.faq-sidebar,
+.legal-sidebar {
+    position: sticky;
+    top: 110px;
+    align-self: start;
+}
+
+/* ── Scroll offset pour ancres internes ────────────────────────── */
+.scroll-offset {
+    scroll-margin-top: 120px;
+}
+
+/* ── Indicateur de page active dans la navbar ──────────────────── */
+.nav-active {
+    color: #2563eb !important;
+    position: relative;
+}
+
+.nav-active::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2563eb;
+    border-radius: 1px;
+}
+
+/* ─── Accessibilité : classe sr-only (screen-reader only) ─── */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

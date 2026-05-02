@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de confidentialité — Jungfrau-Aletsch UNESCO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="assets/css/global.css">
+    <style>
+        .toc-link {
+            display: flex; align-items: center; gap: 0.6rem;
+            padding: 0.55rem 0.85rem; border-radius: 0.5rem;
+            font-size: 0.84rem; font-weight: 500; color: #475569;
+            transition: all 0.2s ease; text-decoration: none;
+            border-left: 2px solid transparent;
+        }
+        .toc-link:hover { background: #f8fafc; color: #0f172a; }
+        .toc-link.active {
+            background: #eff6ff; color: #2563eb; font-weight: 600;
+            border-left-color: #2563eb;
+        }
+
+        .scroll-offset { scroll-margin-top: 120px; }
+
+        .legal-card {
+            background: white; border: 1px solid #f1f5f9;
+            border-radius: 1.25rem; padding: 2rem;
+            box-shadow: rgba(0,0,0,0.04) 0px 2px 8px;
+            transition: box-shadow 0.3s ease;
+        }
+        .legal-card:hover { box-shadow: rgba(0,0,0,0.08) 0px 4px 16px; }
+
+        .legal-card h2 {
+            font-size: 1.35rem; font-weight: 700; color: #0f172a;
+            margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;
+        }
+        .legal-card p, .legal-card li {
+            color: #334155; font-size: 0.9rem; line-height: 1.75;
+        }
+        .legal-card ul { list-style: none; padding: 0; }
+        .legal-card ul li {
+            padding-left: 1.25rem; position: relative; margin-bottom: 0.35rem;
+        }
+        .legal-card ul li::before {
+            content: ''; position: absolute; left: 0; top: 0.65rem;
+            width: 6px; height: 6px; border-radius: 50%; background: #cbd5e1;
+        }
+
+        .section-icon {
+            width: 36px; height: 36px; border-radius: 0.6rem;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+
+        /* Bloc "droits" highlight */
+        .rights-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem; margin-top: 1rem;
+        }
+        .right-item {
+            background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem;
+            padding: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;
+        }
+        .right-item .right-icon {
+            width: 32px; height: 32px; border-radius: 0.5rem;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+
+        .toc-mobile { display: none; }
+        @media (max-width: 1023px) {
+            .legal-sidebar { display: none !important; }
+            .toc-mobile { display: block; }
+            .legal-card { padding: 1.5rem; }
+            .rights-grid { grid-template-columns: 1fr; }
+        }
+    
+    </style>
+    <link rel="stylesheet" href="assets/css/accessibility-widget.css">
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- ═══════════ NAVBAR ═══════════ -->
+    <header id="navbar" class="navbar-fixed w-full z-50 bg-white border-b-4 border-blue-600">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="assets/images/logomcnnoir.svg" alt="M.C.N." class="h-12 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Accueil</a>
+                <a href="timeline.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Histoire</a>
+                <a href="sites.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Sites</a>
+                <a href="parcours.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Parcours</a>
+                <a href="temoignages.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors" data-i18n="nav.testimonials">Témoignages</a>
+                <a href="notreequipe.html" class="text-slate-800 font-bold text-sm hover:text-blue-600 transition-colors">Équipe</a>
+            </nav>
+            <div class="hidden md:flex items-center gap-4">
+                <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 transition-colors" aria-label="Accessibilité">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-7 h-7" viewBox="0 0 16 16" role="img">
+                        <path d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z"/>
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8"/>
+                    </svg>
+                </a>
+                <div class="flex items-center bg-gray-100 rounded-full px-1 py-1 border border-gray-200">
+                    <button type="button" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full inactive" onclick="setLanguage('en')">EN</button>
+                    <button type="button" class="lang-btn px-3 py-1 text-[10px] font-bold rounded-full active" onclick="setLanguage('fr')">FR</button>
+                </div>
+            </div>
+            <button type="button" class="md:hidden text-slate-800" onclick="openMobileMenu()" aria-label="Menu"><i data-lucide="menu"></i></button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 overflow-y-auto hidden-menu-state">
+        <button type="button" id="close-menu" class="absolute top-6 right-6 text-slate-800" aria-label="Fermer le menu">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <nav class="flex flex-col gap-6 text-xl font-bold">
+            <a href="index.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.home">Accueil</a>
+            <a href="timeline.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.history">Histoire</a>
+            <a href="sites.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.visite">Sites</a>
+            <a href="parcours.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.parcours">Parcours</a>
+            <a href="temoignages.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.testimonials">Témoignages</a>
+            <a href="notreequipe.html" class="text-slate-800 hover:text-blue-600 mobile-link" data-i18n="nav.team">Équipe</a>
+            
+            <div class="border-t border-slate-100 my-2"></div>
+            
+            <a href="accessibility.html" class="text-slate-800 hover:text-blue-600 text-lg flex items-center gap-2 mobile-link">
+                Accessibilité
+            </a>
+            
+            <div class="flex items-center gap-4 mt-2">
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm inactive" onclick="setLanguage('en'); closeMobileMenu()">EN</button>
+                <button type="button" class="lang-btn px-4 py-2 bg-gray-100 rounded-full font-bold text-sm active" onclick="setLanguage('fr'); closeMobileMenu()">FR</button>
+            </div>
+        </nav>
+    </div>
+
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="relative pt-32 pb-20 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wider fade-up">
+                <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+                <span data-i18n="privacy.hero.badge">RGPD</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-4 fade-up" style="transition-delay:50ms;">
+                <span data-i18n="privacy.hero.title">Politique de confidentialité</span>
+            </h1>
+            <div class="w-16 h-1 bg-blue-600 mx-auto mb-6 fade-up" style="transition-delay:80ms;"></div>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed fade-up" style="transition-delay:100ms;">
+                <span data-i18n="privacy.hero.subtitle">Cette page explique comment les informations relatives aux visiteurs du site Jungfrau-Aletsch sont collectées, utilisées et protégées.</span>
+            </p>
+            <p class="text-xs text-slate-400 mt-4 fade-up" style="transition-delay:130ms;">
+                <span data-i18n="privacy.hero.date">Dernière mise à jour : mars 2026</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══════════ MAIN ═══════════ -->
+    <main class="max-w-7xl mx-auto px-6 py-16">
+
+        <!-- Table des matières mobile -->
+        <div class="toc-mobile mb-10 fade-up">
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3" data-i18n="legal.toc.title">Sommaire</h2>
+                <nav class="flex flex-col gap-1" aria-label="Table des matières">
+                    <a href="#introduction" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="privacy.toc.1">1. Introduction</a>
+                    <a href="#collecte" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="privacy.toc.2">2. Données collectées</a>
+                    <a href="#utilisation" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="privacy.toc.3">3. Utilisation des données</a>
+                    <a href="#cookies" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="privacy.toc.4">4. Cookies</a>
+                    <a href="#conservation" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="privacy.toc.5">5. Durée de conservation</a>
+                    <a href="#protection" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="privacy.toc.6">6. Protection des données</a>
+                    <a href="#droits" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="privacy.toc.7">7. Vos droits</a>
+                    <a href="#contact-rgpd" class="text-sm text-slate-600 hover:text-blue-600 py-1 transition-colors" data-i18n="privacy.toc.8">8. Contact</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Layout 2 colonnes -->
+        <div class="lg:grid lg:grid-cols-[220px_1fr] lg:gap-14">
+
+            <!-- Sidebar desktop -->
+            <aside class="legal-sidebar fade-up">
+                <nav class="bg-white border border-slate-100 rounded-xl p-3 shadow-sm" aria-label="Table des matières">
+                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 px-3 mb-2" data-i18n="legal.toc.title">Sommaire</p>
+                    <a href="#introduction" class="toc-link active" data-section="introduction">1. Introduction</a>
+                    <a href="#collecte" class="toc-link" data-section="collecte">2. Données collectées</a>
+                    <a href="#utilisation" class="toc-link" data-section="utilisation">3. Utilisation</a>
+                    <a href="#cookies" class="toc-link" data-section="cookies">4. Cookies</a>
+                    <a href="#conservation" class="toc-link" data-section="conservation">5. Conservation</a>
+                    <a href="#protection" class="toc-link" data-section="protection">6. Protection</a>
+                    <a href="#droits" class="toc-link" data-section="droits">7. Vos droits</a>
+                    <a href="#contact-rgpd" class="toc-link" data-section="contact-rgpd">8. Contact</a>
+                </nav>
+            </aside>
+
+            <!-- Contenu -->
+            <div class="space-y-8">
+
+                <!-- 1. Introduction -->
+                <article id="introduction" class="scroll-offset legal-card fade-up">
+                    <h2>
+                        <span class="section-icon bg-blue-50"><i data-lucide="info" class="w-[18px] h-[18px] text-blue-600"></i></span>
+                        <span data-i18n="privacy.s1.title">Introduction</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="privacy.s1.body">
+                        <p>L'équipe projet <strong>M.C.N.</strong> (Médiation Culturelle et Numérique), éditrice du site Jungfrau-Aletsch, attache une importance particulière au respect de la vie privée de ses visiteurs.</p>
+                        <p>La présente politique de confidentialité a pour objectif d'informer les utilisateurs du site sur la manière dont leurs données peuvent être collectées, traitées et protégées, conformément au <strong>Règlement Général sur la Protection des Données</strong> (RGPD — Règlement UE 2016/679).</p>
+                        <p>En naviguant sur ce site, vous acceptez les pratiques décrites dans cette politique. Ce site étant réalisé dans un cadre pédagogique universitaire, la collecte de données est extrêmement limitée.</p>
+                    </div>
+                </article>
+
+                <!-- 2. Données collectées -->
+                <article id="collecte" class="scroll-offset legal-card fade-up" style="transition-delay:60ms;">
+                    <h2>
+                        <span class="section-icon bg-emerald-50"><i data-lucide="database" class="w-[18px] h-[18px] text-emerald-600"></i></span>
+                        <span data-i18n="privacy.s2.title">Données collectées</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="privacy.s2.body">
+                        <p>Ce site <strong>ne collecte aucune donnée personnelle de manière active</strong>. Il n'existe aucun formulaire d'inscription, de compte utilisateur ni de système de traçage publicitaire.</p>
+                        <p class="font-medium text-slate-800">Données techniques de navigation :</p>
+                        <p>Comme tout site web, le serveur d'hébergement (Netlify) peut enregistrer automatiquement certaines informations techniques lors de votre visite :</p>
+                        <ul>
+                            <li>Adresse IP (anonymisée par l'hébergeur)</li>
+                            <li>Type et version du navigateur utilisé</li>
+                            <li>Système d'exploitation</li>
+                            <li>Pages consultées et horodatage des accès</li>
+                            <li>URL de provenance (referer)</li>
+                        </ul>
+                        <p>Ces données sont collectées automatiquement par l'infrastructure d'hébergement à des fins techniques et ne sont pas exploitées par l'équipe projet.</p>
+                        <p class="font-medium text-slate-800">Données fournies volontairement :</p>
+                        <p>Si vous nous contactez par email, les informations que vous transmettez (adresse email, contenu du message) sont utilisées exclusivement pour répondre à votre demande.</p>
+                    </div>
+                </article>
+
+                <!-- 3. Utilisation des données -->
+                <article id="utilisation" class="scroll-offset legal-card fade-up" style="transition-delay:120ms;">
+                    <h2>
+                        <span class="section-icon bg-violet-50"><i data-lucide="settings" class="w-[18px] h-[18px] text-violet-600"></i></span>
+                        <span data-i18n="privacy.s3.title">Utilisation des données</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="privacy.s3.body">
+                        <p>Les données techniques éventuellement collectées par l'hébergeur servent uniquement à :</p>
+                        <ul>
+                            <li>Assurer le bon fonctionnement technique du site</li>
+                            <li>Diagnostiquer d'éventuels problèmes de serveur</li>
+                            <li>Prévenir les abus et les accès malveillants</li>
+                        </ul>
+                        <p>Les données transmises par email sont utilisées uniquement pour :</p>
+                        <ul>
+                            <li>Répondre aux questions des visiteurs</li>
+                            <li>Traiter les signalements d'erreurs sur le site</li>
+                        </ul>
+                        <p><strong>Aucune donnée n'est vendue, louée ou transmise à des tiers</strong> à des fins commerciales ou publicitaires.</p>
+                    </div>
+                </article>
+
+                <!-- 4. Cookies -->
+                <article id="cookies" class="scroll-offset legal-card fade-up" style="transition-delay:180ms;">
+                    <h2>
+                        <span class="section-icon bg-orange-50"><i data-lucide="cookie" class="w-[18px] h-[18px] text-orange-600"></i></span>
+                        <span data-i18n="privacy.s4.title">Cookies</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="privacy.s4.body">
+                        <p>Ce site <strong>n'utilise aucun cookie publicitaire, analytique ni de suivi comportemental</strong>.</p>
+                        <p class="font-medium text-slate-800">Cookies techniques :</p>
+                        <p>Le service d'hébergement Netlify peut déposer un cookie technique strictement nécessaire au fonctionnement du site. Ce cookie ne collecte aucune donnée personnelle et ne permet aucun profilage utilisateur.</p>
+                        <p class="font-medium text-slate-800">Stockage local (localStorage) :</p>
+                        <p>La page Parcours utilise le stockage local de votre navigateur pour mémoriser votre préférence d'affichage (mode carte, liste ou les deux). Cette donnée reste exclusivement sur votre appareil et n'est jamais transmise à aucun serveur.</p>
+                        <p class="font-medium text-slate-800">Gestion des cookies :</p>
+                        <p>Vous pouvez à tout moment configurer votre navigateur pour refuser les cookies ou supprimer les cookies existants. Consultez l'aide de votre navigateur pour connaître la procédure applicable. La désactivation des cookies n'affecte pas le fonctionnement de ce site.</p>
+                    </div>
+                </article>
+
+                <!-- 5. Durée de conservation -->
+                <article id="conservation" class="scroll-offset legal-card fade-up" style="transition-delay:240ms;">
+                    <h2>
+                        <span class="section-icon bg-cyan-50"><i data-lucide="clock" class="w-[18px] h-[18px] text-cyan-600"></i></span>
+                        <span data-i18n="privacy.s5.title">Durée de conservation</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="privacy.s5.body">
+                        <p>Les données techniques de navigation (logs serveur) sont conservées par l'hébergeur pour une durée maximale conforme à ses propres politiques de rétention. L'équipe projet n'a pas accès à ces logs et ne les conserve pas.</p>
+                        <p>Les échanges par email sont conservés uniquement le temps nécessaire au traitement de la demande, puis supprimés dans un délai raisonnable ne dépassant pas 12 mois.</p>
+                        <p>Les préférences stockées localement dans votre navigateur (localStorage) persistent jusqu'à ce que vous les effaciez manuellement ou que vous vidiez les données de navigation de votre navigateur.</p>
+                    </div>
+                </article>
+
+                <!-- 6. Protection des données -->
+                <article id="protection" class="scroll-offset legal-card fade-up" style="transition-delay:300ms;">
+                    <h2>
+                        <span class="section-icon bg-rose-50"><i data-lucide="lock" class="w-[18px] h-[18px] text-rose-600"></i></span>
+                        <span data-i18n="privacy.s6.title">Protection des données</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="privacy.s6.body">
+                        <p>L'équipe projet met en œuvre les mesures techniques appropriées pour assurer la sécurité des données :</p>
+                        <ul>
+                            <li><strong>Connexion sécurisée</strong> — Le site est servi exclusivement en HTTPS, garantissant le chiffrement des échanges entre votre navigateur et le serveur</li>
+                            <li><strong>Hébergement fiable</strong> — Netlify bénéficie d'une infrastructure sécurisée et redondante, conforme aux standards de sécurité industriels</li>
+                            <li><strong>Absence de base de données</strong> — Le site étant entièrement statique (HTML/CSS/JS), il ne dispose d'aucune base de données susceptible d'être compromise</li>
+                            <li><strong>Code source public</strong> — Le code du site peut être audité, garantissant la transparence des traitements</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 7. Vos droits -->
+                <article id="droits" class="scroll-offset legal-card fade-up" style="transition-delay:360ms;">
+                    <h2>
+                        <span class="section-icon bg-amber-50"><i data-lucide="user-check" class="w-[18px] h-[18px] text-amber-600"></i></span>
+                        <span data-i18n="privacy.s7.title">Vos droits</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="privacy.s7.body">
+                        <p>Conformément au RGPD, vous disposez des droits suivants concernant vos données personnelles :</p>
+
+                        <div class="rights-grid">
+                            <div class="right-item">
+                                <div class="right-icon bg-blue-50"><i data-lucide="eye" class="w-4 h-4 text-blue-600"></i></div>
+                                <div>
+                                    <p class="font-semibold text-slate-900 text-sm mb-0.5">Droit d'accès</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed">Obtenir une copie des données vous concernant</p>
+                                </div>
+                            </div>
+                            <div class="right-item">
+                                <div class="right-icon bg-emerald-50"><i data-lucide="pencil" class="w-4 h-4 text-emerald-600"></i></div>
+                                <div>
+                                    <p class="font-semibold text-slate-900 text-sm mb-0.5">Droit de rectification</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed">Corriger des données inexactes ou incomplètes</p>
+                                </div>
+                            </div>
+                            <div class="right-item">
+                                <div class="right-icon bg-rose-50"><i data-lucide="trash-2" class="w-4 h-4 text-rose-600"></i></div>
+                                <div>
+                                    <p class="font-semibold text-slate-900 text-sm mb-0.5">Droit à l'effacement</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed">Demander la suppression de vos données</p>
+                                </div>
+                            </div>
+                            <div class="right-item">
+                                <div class="right-icon bg-amber-50"><i data-lucide="hand" class="w-4 h-4 text-amber-600"></i></div>
+                                <div>
+                                    <p class="font-semibold text-slate-900 text-sm mb-0.5">Droit d'opposition</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed">Vous opposer au traitement de vos données</p>
+                                </div>
+                            </div>
+                            <div class="right-item">
+                                <div class="right-icon bg-violet-50"><i data-lucide="download" class="w-4 h-4 text-violet-600"></i></div>
+                                <div>
+                                    <p class="font-semibold text-slate-900 text-sm mb-0.5">Droit à la portabilité</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed">Recevoir vos données dans un format structuré</p>
+                                </div>
+                            </div>
+                            <div class="right-item">
+                                <div class="right-icon bg-cyan-50"><i data-lucide="pause" class="w-4 h-4 text-cyan-600"></i></div>
+                                <div>
+                                    <p class="font-semibold text-slate-900 text-sm mb-0.5">Droit à la limitation</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed">Limiter le traitement dans certains cas</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="mt-4">Pour exercer l'un de ces droits, adressez votre demande par email à <a href="mailto:karlnatngam@gmail.com" class="text-blue-600 hover:underline">karlnatngam@gmail.com</a>. Nous nous engageons à répondre dans un délai maximum de 30 jours.</p>
+                        <p>Vous disposez également du droit d'introduire une réclamation auprès de la <strong>CNIL</strong> (Commission Nationale de l'Informatique et des Libertés) — <a href="https://www.cnil.fr" target="_blank" rel="noopener" class="text-blue-600 hover:underline">www.cnil.fr</a>.</p>
+                    </div>
+                </article>
+
+                <!-- 8. Contact -->
+                <article id="contact-rgpd" class="scroll-offset legal-card fade-up" style="transition-delay:420ms;">
+                    <h2>
+                        <span class="section-icon bg-blue-50"><i data-lucide="mail" class="w-[18px] h-[18px] text-blue-600"></i></span>
+                        <span data-i18n="privacy.s8.title">Contact</span>
+                    </h2>
+                    <div class="space-y-3" data-i18n="privacy.s8.body">
+                        <p>Pour toute question relative à cette politique de confidentialité ou pour exercer vos droits, vous pouvez nous contacter :</p>
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-100 space-y-2 text-sm">
+                            <div class="flex gap-2">
+                                <span class="text-slate-500 font-medium w-36 shrink-0" data-i18n="legal.row.contact.resp">Responsable</span>
+                                <span class="text-slate-900">Karl Natngam — Équipe M.C.N.</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-slate-500 font-medium w-36 shrink-0" data-i18n="legal.row.email">Email</span>
+                                <a href="mailto:karlnatngam@gmail.com" class="text-blue-600 hover:underline">karlnatngam@gmail.com</a>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="text-slate-500 font-medium w-36 shrink-0" data-i18n="legal.row.phone">Téléphone</span>
+                                <a href="tel:0762905525" class="text-blue-600 hover:underline">07 62 90 55 25</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ═══════════ CTA ═══════════ -->
+    <section class="max-w-7xl mx-auto px-6 pb-24 fade-up">
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 p-10 md:p-14 text-center">
+            <i data-lucide="shield-question" class="w-10 h-10 text-blue-600 mx-auto mb-4"></i>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3">Exercer vos droits</h2>
+            <p class="text-slate-600 max-w-lg mx-auto mb-8">
+                Pour toute question relative à la protection de vos données personnelles ou pour exercer vos droits RGPD, contactez-nous directement.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="mailto:karlnatngam@gmail.com" class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors shadow-sm">
+                    <i data-lucide="mail" class="w-4 h-4"></i>
+                    Nous contacter
+                </a>
+                <a href="mentions-legales.html" class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-white border border-slate-200 text-slate-700 font-semibold text-sm hover:border-blue-600 hover:text-blue-600 transition-all shadow-sm">
+                    <i data-lucide="scale" class="w-4 h-4"></i>
+                    Mentions légales
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer id="footer" class="bg-slate-950 text-slate-400 pt-16 text-sm border-t border-slate-900">
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+            <div class="flex flex-col">
+                <span class="text-white font-bold text-lg uppercase tracking-widest mb-4">Jungfrau-Aletsch</span>
+                <p class="leading-relaxed mb-6 text-slate-500" data-i18n="footer.desc">
+                    Site du patrimoine mondial UNESCO depuis 2001. Préserver et valoriser ce joyau des Alpes pour les
+                    générations futures.
+                </p>
+                <div class="flex gap-4 mt-auto">
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin"
+                            class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col2">Explorer
+                </h3>
+                <ul class="space-y-3">
+                    <li><a href="#home" class="hover:text-blue-400 transition-colors" data-i18n="nav.home">Accueil</a>
+                    </li>
+                    <li><a href="timeline.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.history">Histoire</a></li>
+                    <li><a href="sites.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.visite">Sites</a></li>
+                    <li><a href="parcours.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.parcours">Parcours</a></li>
+                    <li><a href="temoignages.html" class="hover:text-blue-400 transition-colors" data-i18n="nav.testimonials">Témoignages</a></li>
+                    <li><a href="notreequipe.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="nav.team">Équipe</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col3">
+                    Informations</h3>
+                <ul class="space-y-3">
+                    <li><a href="accessibility.html" class="hover:text-blue-400 transition-colors"
+                            data-i18n="footer.accessibility">Accessibilité</a></li>
+                    <li><a href="faq.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.faq">FAQ</a></li>
+                    <li><a href="mentions-legales.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.legal">Mentions
+                            légales</a></li>
+                    <li><a href="confidentialite.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.privacy">Politique
+                            de confidentialité</a></li>
+                    <li><a href="sitemap.html" class="hover:text-blue-400 transition-colors" data-i18n="footer.sitemap">Plan du
+                            site</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold mb-6 uppercase text-xs tracking-widest" data-i18n="footer.col4">Nous
+                    contacter</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="mailto:karlnatngam@gmail.com"
+                            class="hover:text-white transition-colors break-all">karlnatngam@gmail.com</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="phone" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <a href="tel:0762905525" class="hover:text-white transition-colors">07 62 90 55 25</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-blue-600 mt-0.5 shrink-0"></i>
+                        <span data-i18n="footer.hours">De 8h00 à 20h00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div
+                class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-500">
+                <div class="flex gap-6">
+                    <a href="accessibility.html" class="hover:text-white transition-colors"
+                        data-i18n="footer.accessibility">Accessibilité</a>
+                    <a href="signaler-probleme.html" class="hover:text-white transition-colors" data-i18n="footer.report">Signaler un
+                        problème</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-900 pt-8 pb-8">
+            <div
+                class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+                <p>&copy; 2026 Jungfrau-Aletsch. Tous droits réservés.</p>
+                <div class="flex gap-6">
+                    <a href="mentions-legales.html" class="hover:text-slate-400 transition-colors" data-i18n="footer.legal">Mentions
+                        légales</a>
+                    <a href="confidentialite.html" class="hover:text-slate-400 transition-colors"
+                        data-i18n="footer.confidentiality">Confidentialité</a>
+                    <a href="notreequipe.html"
+                        class="hover:text-slate-400 transition-colors underline decoration-slate-700"
+                        data-i18n="footer.team">Équipe</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════ SCRIPTS ═══════════ -->
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/legal.js"></script>
+
+
+
+    <script src="assets/js/accessibility-widget.js"></script>
+</body>
+</html>
