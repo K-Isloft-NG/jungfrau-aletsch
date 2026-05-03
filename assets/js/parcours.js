@@ -10,7 +10,7 @@ const TRAILS_DATA = [
         id: 1, name: "Boucle Aletsch Panorama", location: "Fieschertal, Valais", region: "Aletsch",
         distance: 12.4, elevation: 2200, time: "5h 30min", level: 4, difficulty: "Difficile", price: 37, priceLabel: "CHF 37 (télécabine Moosfluh)",
         description: "Randonnée exigeante offrant une vue imprenable sur le plus grand glacier des Alpes. Sentier alpin avec passages techniques le long de la moraine.",
-        image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=400&fit=crop",
+        image: "assets/images/parcours/aletsch-panorama.jpg",
         tags: ["Glacier", "UNESCO", "Alpin"],
         gpxTrack: [
             {lat:46.4200,lng:8.0100},{lat:46.4230,lng:8.0140},{lat:46.4270,lng:8.0170},{lat:46.4310,lng:8.0210},
@@ -25,7 +25,7 @@ const TRAILS_DATA = [
         id: 2, name: "Sentier des Fleurs Alpines", location: "Grindelwald, Berne", region: "Grindelwald",
         distance: 5.2, elevation: 1600, time: "2h 15min", level: 1, difficulty: "Très facile", price: 0, priceLabel: "Gratuit",
         description: "Balade familiale à travers prairies fleuries avec vue sur l'Eiger. Idéal pour une initiation douce à la montagne.",
-        image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&h=400&fit=crop",
+        image: "assets/images/parcours/fleurs-alpines.jpg",
         tags: ["Flore", "Famille", "Panorama"],
         gpxTrack: [
             {lat:46.6245,lng:8.0350},{lat:46.6230,lng:8.0380},{lat:46.6215,lng:8.0410},{lat:46.6200,lng:8.0445},
@@ -39,7 +39,7 @@ const TRAILS_DATA = [
         id: 3, name: "Tour du Jungfraujoch", location: "Lauterbrunnen, Berne", region: "Jungfrau",
         distance: 15.8, elevation: 3700, time: "7h 00min", level: 5, difficulty: "Expert", price: 214, priceLabel: "CHF 214 (train Jungfraubahn)",
         description: "Itinéraire alpin d'exception au pied du Jungfrau. Haute altitude, passages glaciaires. Réservé aux randonneurs confirmés.",
-        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&h=400&fit=crop",
+        image: "assets/images/parcours/jungfraujoch-trail.jpg",
         tags: ["Haute montagne", "Glacier", "Expert"],
         gpxTrack: [
             {lat:46.5365,lng:7.9614},{lat:46.5380,lng:7.9580},{lat:46.5400,lng:7.9550},{lat:46.5430,lng:7.9530},
@@ -54,7 +54,7 @@ const TRAILS_DATA = [
         id: 4, name: "Chemin de la Forêt d'Aletsch", location: "Riederalp, Valais", region: "Aletsch",
         distance: 7.6, elevation: 1800, time: "3h 00min", level: 2, difficulty: "Facile", price: 20, priceLabel: "CHF 20 (télécabine Riederalp)",
         description: "Traversée de la forêt d'Aletsch, la plus haute forêt de pins d'Arolla d'Europe. Sentier ombragé et paisible.",
-        image: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&h=400&fit=crop",
+        image: "assets/images/parcours/foret-aletsch.jpg",
         tags: ["Forêt", "Nature", "UNESCO"],
         gpxTrack: [
             {lat:46.3898,lng:8.0270},{lat:46.3920,lng:8.0300},{lat:46.3945,lng:8.0325},{lat:46.3975,lng:8.0350},
@@ -68,7 +68,7 @@ const TRAILS_DATA = [
         id: 5, name: "Panoramaweg Schynige Platte", location: "Wilderswil, Berne", region: "Schynige Platte",
         distance: 9.3, elevation: 2100, time: "4h 00min", level: 3, difficulty: "Modéré", price: 64, priceLabel: "CHF 64 (train Schynige Platte)",
         description: "Sentier panoramique reliant la Schynige Platte au Faulhorn. Vue à 360° sur les lacs de Thoune et Brienz.",
-        image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop",
+        image: "assets/images/parcours/schynige-platte.jpg",
         tags: ["Panorama", "Lacs", "Crête"],
         gpxTrack: [
             {lat:46.6550,lng:7.9050},{lat:46.6535,lng:7.9080},{lat:46.6520,lng:7.9115},{lat:46.6505,lng:7.9150},
@@ -83,7 +83,7 @@ const TRAILS_DATA = [
         id: 6, name: "Balcon du Lötschental", location: "Blatten, Valais", region: "Lötschental",
         distance: 11.0, elevation: 2400, time: "4h 45min", level: 3, difficulty: "Modéré", price: 0, priceLabel: "Gratuit",
         description: "Sentier en balcon surplombant la vallée du Lötschental. Vues spectaculaires sur les glaciers valaisans.",
-        image: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=600&h=400&fit=crop",
+        image: "assets/images/parcours/lotschental-valley.jpg",
         tags: ["Vallée", "Culture", "Balcon"],
         gpxTrack: [
             {lat:46.4200,lng:7.8600},{lat:46.4225,lng:7.8625},{lat:46.4255,lng:7.8650},{lat:46.4280,lng:7.8680},
@@ -97,7 +97,7 @@ const TRAILS_DATA = [
         id: 7, name: "Sentier du Lac de Bachalp", location: "Grindelwald, Berne", region: "Grindelwald",
         distance: 6.8, elevation: 2265, time: "2h 30min", level: 2, difficulty: "Facile", price: 60, priceLabel: "CHF 60 (télécabine First)",
         description: "Promenade accessible vers le célèbre lac de Bachalp au pied du Wetterhorn. Eaux turquoise inoubliables.",
-        image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&h=400&fit=crop",
+        image: "assets/images/parcours/bachalpsee.jpg",
         tags: ["Lac", "Photographie", "Famille"],
         gpxTrack: [
             {lat:46.6580,lng:8.0580},{lat:46.6570,lng:8.0610},{lat:46.6555,lng:8.0635},{lat:46.6540,lng:8.0660},
@@ -111,7 +111,7 @@ const TRAILS_DATA = [
         id: 8, name: "Traversée Mürren – Gimmelwald", location: "Mürren, Berne", region: "Lauterbrunnen",
         distance: 7.0, elevation: 1650, time: "3h 15min", level: 2, difficulty: "Facile", price: 44, priceLabel: "CHF 44 (télécabine Mürren)",
         description: "Chemin pittoresque reliant deux villages sans voiture. Vue plongeante sur la vallée de Lauterbrunnen.",
-        image: "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=600&h=400&fit=crop",
+        image: "assets/images/parcours/murren-village.jpg",
         tags: ["Villages", "Cascades", "Tradition"],
         gpxTrack: [
             {lat:46.5590,lng:7.8920},{lat:46.5580,lng:7.8940},{lat:46.5565,lng:7.8960},{lat:46.5548,lng:7.8978},

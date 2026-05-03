@@ -199,3 +199,9 @@ il manque une image = NO
 
 - actualiser le mail de contact par celui du site web, ne plus avoir karlnatngam@gmail.com comme e mail 
 de contact mais jungfraualetsch@gmail.com = CHECKED
+
+03 / 05 / 2026
+RECAP :
+- implémenter une fonctionnalité focus sur toutes les images des 6 sites : 
+index.html + faune.html + flore.html + glacier.html + jungfrau.html + randonnees.html
+= NO

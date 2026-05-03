@@ -335,6 +335,80 @@ VALUES
         'assets/images/glacier/eggishorn-vue.jpg',
         'Le glacier d''Aletsch vu depuis le sommet de l''Eggishorn',
         'page-glacier', 0
+    ),
+    -- Images page Jungfrau (locales)
+    (
+        'Jungfraubahn',
+        'Train à crémaillère Jungfraubahn ou gare Kleine Scheidegg',
+        'image', 'jungfrau', 'jungfraubahn.jpg',
+        'assets/images/jungfrau/jungfraubahn.jpg',
+        'Le Jungfraubahn — chemin de fer à crémaillère vers le Jungfraujoch',
+        'page-jungfrau', 0
+    ),
+    -- Images parcours (locales)
+    (
+        'Parcours Aletsch Panorama',
+        'Image du sentier Boucle Aletsch Panorama',
+        'image', 'parcours', 'aletsch-panorama.jpg',
+        'assets/images/parcours/aletsch-panorama.jpg',
+        'Paysage alpin avec vue sur la vallée d''Aletsch',
+        'parcours', 0
+    ),
+    (
+        'Parcours Fleurs Alpines',
+        'Image du Sentier des Fleurs Alpines',
+        'image', 'parcours', 'fleurs-alpines.jpg',
+        'assets/images/parcours/fleurs-alpines.jpg',
+        'Prairie fleurie alpine avec montagnes en arrière-plan',
+        'parcours', 0
+    ),
+    (
+        'Parcours Jungfraujoch',
+        'Image du Tour du Jungfraujoch',
+        'image', 'parcours', 'jungfraujoch-trail.jpg',
+        'assets/images/parcours/jungfraujoch-trail.jpg',
+        'Sentier glaciaire en haute altitude au Jungfraujoch',
+        'parcours', 0
+    ),
+    (
+        'Parcours Forêt Aletsch',
+        'Image du Chemin de la Forêt d''Aletsch',
+        'image', 'parcours', 'foret-aletsch.jpg',
+        'assets/images/parcours/foret-aletsch.jpg',
+        'Forêt brumeuse de conifères dans la forêt d''Aletsch',
+        'parcours', 0
+    ),
+    (
+        'Parcours Schynige Platte',
+        'Image du Panoramaweg Schynige Platte',
+        'image', 'parcours', 'schynige-platte.jpg',
+        'assets/images/parcours/schynige-platte.jpg',
+        'Vue panoramique depuis la Schynige Platte',
+        'parcours', 0
+    ),
+    (
+        'Parcours Lötschental',
+        'Image du Balcon du Lötschental',
+        'image', 'parcours', 'lotschental-valley.jpg',
+        'assets/images/parcours/lotschental-valley.jpg',
+        'Sentier en balcon surplombant la vallée du Lötschental',
+        'parcours', 0
+    ),
+    (
+        'Parcours Bachalpsee',
+        'Image du Sentier du Lac de Bachalp',
+        'image', 'parcours', 'bachalpsee.jpg',
+        'assets/images/parcours/bachalpsee.jpg',
+        'Lac turquoise de Bachalp avec reflets des montagnes',
+        'parcours', 0
+    ),
+    (
+        'Parcours Mürren Gimmelwald',
+        'Image de la Traversée Mürren–Gimmelwald',
+        'image', 'parcours', 'murren-village.jpg',
+        'assets/images/parcours/murren-village.jpg',
+        'Village de Mürren perché face à la vallée de Lauterbrunnen',
+        'parcours', 0
     );
 
 -- 7. Vérification finale
