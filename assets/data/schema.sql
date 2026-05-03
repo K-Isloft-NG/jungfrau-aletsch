@@ -163,6 +163,178 @@ VALUES
         'admin.html',
         'Page administration — gestion des ressources',
         'admin', 0
+    ),
+    -- Timeline Patrimoine
+    (
+        'Timeline 1972 UNESCO HQ',
+        'Siège UNESCO Paris pour la timeline Patrimoine',
+        'image', 'timeline', 'timeline-1972-unesco-hq.jpg',
+        'assets/images/timeline/timeline-1972-unesco-hq.jpg',
+        'Siège de l''UNESCO à Paris avec drapeaux',
+        'timeline', 87694
+    ),
+    (
+        'Timeline 1978 Premiers Sites',
+        'Collage des 4 premiers sites UNESCO inscrits',
+        'image', 'timeline', 'timeline-1978-premiers-sites.jpg',
+        'assets/images/timeline/timeline-1978-premiers-sites.jpg',
+        'Premiers sites UNESCO : Galápagos, Lalibela, Gorée, Yellowstone',
+        'timeline', 65931
+    ),
+    (
+        'Timeline 2001 Jungfrau Panorama',
+        'Panorama Jungfrau pour inscription initiale',
+        'image', 'timeline', 'timeline-2001-jungfrau-panorama.jpg',
+        'assets/images/timeline/timeline-2001-jungfrau-panorama.jpg',
+        'Panorama de la Jungfrau et de l''Eiger',
+        'timeline', 50475
+    ),
+    (
+        'Timeline 2007 Carte Périmètre',
+        'Carte satellite du périmètre UNESCO 2007',
+        'image', 'timeline', 'timeline-2007-carte-perimetre.jpg',
+        'assets/images/timeline/timeline-2007-carte-perimetre.jpg',
+        'Carte du périmètre UNESCO Jungfrau-Aletsch 2007',
+        'timeline', 208984
+    ),
+    (
+        'Timeline 2008 Logo Officiel',
+        'Logo officiel UNESCO Swiss Alps',
+        'image', 'timeline', 'timeline-2008-logo-officiel.png',
+        'assets/images/timeline/timeline-2008-logo-officiel.png',
+        'Logo UNESCO World Heritage Swiss Alps Jungfrau-Aletsch',
+        'timeline', 25353
+    ),
+    (
+        'Timeline 2014 Station Recherche',
+        'Équipe scientifique avec station de surveillance',
+        'image', 'timeline', 'timeline-2014-station-recherche.jpg',
+        'assets/images/timeline/timeline-2014-station-recherche.jpg',
+        'Station de surveillance scientifique en montagne',
+        'timeline', 115407
+    ),
+    (
+        'Timeline Carottage Glaciaire',
+        'Scientifiques réalisant un carottage sur glacier',
+        'image', 'timeline', 'timeline-2020-carottage-glace.jpg',
+        'assets/images/timeline/timeline-2020-carottage-glace.jpg',
+        'Carottage glaciaire par des scientifiques',
+        'timeline', 137711
+    ),
+    -- Timeline Géologie
+    (
+        'Timeline Naissance Alpes',
+        'Sommets alpins au lever du soleil',
+        'image', 'timeline', 'timeline-geo-naissance-alpes.jpg',
+        'assets/images/timeline/timeline-geo-naissance-alpes.jpg',
+        'Sommets alpins émergeant au-dessus des nuages',
+        'timeline', 0
+    ),
+    (
+        'Timeline Roches Anciennes',
+        'Strates rocheuses sédimentaires',
+        'image', 'timeline', 'timeline-geo-roches-anciennes.jpg',
+        'assets/images/timeline/timeline-geo-roches-anciennes.jpg',
+        'Strates rocheuses sédimentaires anciennes',
+        'timeline', 0
+    ),
+    (
+        'Timeline Glaciation',
+        'Glacier massif ère glaciaire',
+        'image', 'timeline', 'timeline-geo-glaciation.jpg',
+        'assets/images/timeline/timeline-geo-glaciation.jpg',
+        'Glacier massif de l''ère glaciaire',
+        'timeline', 0
+    ),
+    (
+        'Timeline Découverte',
+        'Instruments exploration anciens',
+        'image', 'timeline', 'timeline-geo-decouverte.jpg',
+        'assets/images/timeline/timeline-geo-decouverte.jpg',
+        'Instruments de navigation et d''exploration anciens',
+        'timeline', 0
+    ),
+    (
+        'Timeline Tourisme',
+        'Train de montagne Alpes suisses',
+        'image', 'timeline', 'timeline-geo-tourisme.jpg',
+        'assets/images/timeline/timeline-geo-tourisme.jpg',
+        'Train de montagne dans les Alpes suisses',
+        'timeline', 0
+    ),
+    (
+        'Timeline Fonte',
+        'Glacier en recul avec lac',
+        'image', 'timeline', 'timeline-geo-fonte.jpg',
+        'assets/images/timeline/timeline-geo-fonte.jpg',
+        'Glacier en recul avec lac proglaciaire',
+        'timeline', 0
+    ),
+    (
+        'Timeline Climat',
+        'Impact changement climatique sur glacier',
+        'image', 'timeline', 'timeline-geo-climat.jpg',
+        'assets/images/timeline/timeline-geo-climat.jpg',
+        'Paysage montrant les effets du changement climatique sur les glaciers',
+        'timeline', 0
+    ),
+    (
+        'Timeline 2005 Gestion Participative',
+        'Réunion de gestion participative du site UNESCO',
+        'image', 'timeline', 'timeline-2005-gestion-participative.jpg',
+        'assets/images/timeline/timeline-2005-gestion-participative.jpg',
+        'Réunion de gestion participative associant collectivités et scientifiques',
+        'timeline', 0
+    ),
+    -- Images page Faune (locales)
+    (
+        'Bouquetin des Alpes',
+        'Photo de bouquetin pour la page Faune Alpine',
+        'image', 'faune', 'bouquetin.jpg',
+        'assets/images/faune/bouquetin.jpg',
+        'Bouquetin des Alpes avec ses cornes recourbées sur un rocher alpin',
+        'page-faune', 0
+    ),
+    (
+        'Chamois',
+        'Photo de chamois pour la page Faune Alpine',
+        'image', 'faune', 'chamois.jpg',
+        'assets/images/faune/chamois.jpg',
+        'Chamois sur un versant rocheux alpin',
+        'page-faune', 0
+    ),
+    (
+        'Marmotte des Alpes',
+        'Photo de marmotte pour la page Faune Alpine',
+        'image', 'faune', 'marmotte.jpg',
+        'assets/images/faune/marmotte.jpg',
+        'Marmotte alpine dans une prairie de montagne',
+        'page-faune', 0
+    ),
+    (
+        'Aigle Royal',
+        'Photo d''aigle royal pour la page Faune Alpine',
+        'image', 'faune', 'aigle-royal.jpg',
+        'assets/images/faune/aigle-royal.jpg',
+        'Aigle royal en vol au-dessus des sommets',
+        'page-faune', 0
+    ),
+    -- Images page Glacier (locales)
+    (
+        'Konkordiaplatz',
+        'Vue aérienne du confluent glaciaire Konkordiaplatz',
+        'image', 'glacier', 'konkordiaplatz.jpg',
+        'assets/images/glacier/konkordiaplatz.jpg',
+        'Le Konkordiaplatz — confluent des trois glaciers tributaires de l''Aletsch',
+        'page-glacier', 0
+    ),
+    (
+        'Vue Eggishorn',
+        'Vue panoramique du glacier d''Aletsch depuis l''Eggishorn',
+        'image', 'glacier', 'eggishorn-vue.jpg',
+        'assets/images/glacier/eggishorn-vue.jpg',
+        'Le glacier d''Aletsch vu depuis le sommet de l''Eggishorn',
+        'page-glacier', 0
     );
 
 -- 7. Vérification finale

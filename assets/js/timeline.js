@@ -9,13 +9,22 @@
 
     // ── Toggle onglets patrimoine / géologie ──────────────────────
     window.switchTab = function (tabName) {
-        document.getElementById('timeline-heritage').classList.add('hidden');
-        document.getElementById('timeline-geology').classList.add('hidden');
+        var heritage = document.getElementById('timeline-heritage');
+        var geology  = document.getElementById('timeline-geology');
+
+        // Masquer les deux panneaux (class CSS + attribut HTML)
+        heritage.classList.add('hidden');
+        heritage.setAttribute('hidden', '');
+        geology.classList.add('hidden');
+        geology.setAttribute('hidden', '');
 
         document.getElementById('tab-heritage').classList.remove('active');
         document.getElementById('tab-geology').classList.remove('active');
 
-        document.getElementById('timeline-' + tabName).classList.remove('hidden');
+        // Afficher le panneau actif (retirer class CSS + attribut HTML)
+        var active = document.getElementById('timeline-' + tabName);
+        active.classList.remove('hidden');
+        active.removeAttribute('hidden');
         document.getElementById('tab-' + tabName).classList.add('active');
 
         history.replaceState(null, null, '#' + (tabName === 'heritage' ? 'patrimoine' : 'geologie'));
@@ -45,5 +54,30 @@
     if (location.hash === '#geologie' || location.hash === '#geology') {
         window.switchTab('geology');
     }
+
+    // ── Lightbox ─────────────────────────────────────────────────
+    document.addEventListener('click', function(e) {
+        var img = e.target.closest('.timeline-zoomable');
+        if (!img) return;
+        e.stopPropagation();
+        var lightbox = document.getElementById('timeline-lightbox');
+        var lightboxImg = document.getElementById('lightbox-img');
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    });
+
+    window.closeLightbox = function() {
+        var lightbox = document.getElementById('timeline-lightbox');
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+        document.body.style.overflow = '';
+    };
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLightbox();
+    });
 
 })();

@@ -181,17 +181,21 @@
 
 TODO :
 
-- implémenter les images d'illustrations dans les 2 timelines (WhatsApp Mohamed) = NO
+- implémenter les images d'illustrations dans les 2 timelines 
+(WhatsApp Mohamed) = CHECKED
 
 - vérifier si les images correspondent bien à la description : cf sections : "Site" 
 et "Parcours" = NO
 
 25 / 04 / 2026
 RECAP :
-- ajouter une photo de chaque membre de l’équipe = NO
+- ajouter une photo de chaque membre de l’équipe = CHECKED
 
-- La fonctionnalité stopper les animations bug. Ça stoppe pas vraiment (cf vidéo whatsapp Mohamed) = NO
+- La fonctionnalité stopper les animations bug. Ça stoppe pas vraiment 
+(cf vidéo whatsapp Mohamed) = NO
 
-- dans la page sites dans la section faune quand je clique sur “en savoir plus” il manque une image = NO
+- dans la page sites dans la section faune quand je clique sur “en savoir plus” 
+il manque une image = NO
 
-- actualiser le mail de contact par celui du site web, ne plus avoir karlnatngam@gmail.com comme e mail de contact = NO
+- actualiser le mail de contact par celui du site web, ne plus avoir karlnatngam@gmail.com comme e mail 
+de contact mais jungfraualetsch@gmail.com = CHECKED
