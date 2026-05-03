@@ -220,51 +220,63 @@
 
         /* --- RESPONSIVE MOBILE (< 1024px) --- */
         @media (max-width: 1024px) {
-            .timeline-wrapper::before {
-                left: 24px;
-                transform: none;
+            .timeline-wrapper {
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
 
-            /* Ligne à gauche */
+            .timeline-wrapper::before {
+                left: 32px;
+                transform: none;
+            }
 
             .timeline-row,
             .timeline-row:nth-child(even),
             .timeline-row:nth-child(odd) {
                 flex-direction: column;
                 align-items: flex-start;
-                margin-bottom: 4rem;
+                margin-bottom: 3rem;
+                padding-left: 2rem;
             }
 
             .timeline-col {
                 width: 100%;
             }
 
-            /* Alignement et Ordre Mobile */
             .timeline-row .timeline-col.is-card {
                 order: 1;
-                padding: 0 0 0 4rem !important;
-                /* Marge à gauche pour la ligne */
+                padding: 0 0 0 3rem !important;
                 text-align: left !important;
             }
 
             .timeline-row .timeline-col.is-media {
                 order: 2;
-                padding: 0 0 0 4rem !important;
+                padding: 0 0 0 3rem !important;
                 margin-top: 1rem;
             }
 
-            /* Points alignés à gauche */
             .timeline-dot {
-                left: 24px !important;
-                top: 2rem !important;
-                /* Aligné avec le haut de la carte */
+                left: 32px !important;
+                top: 1.5rem !important;
                 transform: translateX(-50%) !important;
             }
 
-            /* Reset bouton alignement */
             .btn-readmore {
                 margin-left: 0 !important;
                 margin-right: 0 !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-wrapper::before {
+                left: 20px;
+            }
+            .timeline-dot {
+                left: 20px !important;
+            }
+            .timeline-row .timeline-col.is-card,
+            .timeline-row .timeline-col.is-media {
+                padding-left: 2.5rem !important;
             }
         }
 
@@ -940,7 +952,7 @@
         <button type="button" onclick="closeLightbox()" class="absolute top-6 right-6 text-white hover:text-slate-300 transition-colors z-[10000]" aria-label="Fermer">
             <i data-lucide="x" class="w-8 h-8"></i>
         </button>
-        <img id="lightbox-img" src="" alt="" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl">
+        <img id="lightbox-img" src="data:," alt="" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl">
     </div>
 </body>
 

@@ -185,7 +185,7 @@ TODO :
 (WhatsApp Mohamed) = CHECKED
 
 - vérifier si les images correspondent bien à la description : cf sections : "Site" 
-et "Parcours" = NO
+et "Parcours" = CHECKED
 
 25 / 04 / 2026
 RECAP :
