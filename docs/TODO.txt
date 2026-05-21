@@ -205,3 +205,34 @@ RECAP :
 - implémenter une fonctionnalité focus sur toutes les images des 6 sites : 
 index.html + faune.html + flore.html + glacier.html + jungfrau.html + randonnees.html
 = NO
+
+21 / 05 / 2026 : 
+
+Modifications à effectuer — Parcours Jungfrau
+Parcours : 
+
+* Expliquer pourquoi certains parcours sont payants.
+
+* Indiquer à quoi sert l’argent récolté via les parcours payants.
+
+* Aller davantage à l’essentiel dans les textes de présentation.
+
+Navigation / éléments visuels : 
+
+* Faire en sorte que le logo de l’UNESCO redirige vers le site officiel.
+
+* Supprimer les boutons « Nous contacter ».
+
+Contenus : 
+
+* Traduire les descriptions des vidéos en français.
+
+* Indiquer clairement si l’observatoire présent sur la landing page est visitable.
+
+Accessibilité : 
+
+* Vérifier que chaque élément du widget d’accessibilité fonctionne correctement.
+
+-------------------------------------------------------------
+
+Le point sur les parcours payants est particulièrement important parce que ça évite l’effet “paiement arbitraire” côté utilisateur.

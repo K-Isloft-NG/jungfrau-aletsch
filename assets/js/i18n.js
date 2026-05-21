@@ -175,6 +175,21 @@ const translations = {
         "parcours.trail.time": "Temps",
         "parcours.trail.distance": "Distance",
         "parcours.trail.elevation": "Dénivelé",
+        "parcours.pricing.title": "Pourquoi certains parcours sont-ils payants ?",
+        "parcours.pricing.text": "Les sentiers de randonnée du Jungfrau-Aletsch sont libres d'accès. Cependant, la plupart des points de départ sont situés en altitude et ne sont accessibles que par télécabine ou train à crémaillère (Jungfraubahn). Le tarif indiqué correspond au transport aller-retour pour rejoindre le départ du sentier, opéré par des compagnies privées indépendantes du patrimoine UNESCO.",
+        "parcours.pricing.free": "Sentier gratuit",
+        "parcours.pricing.paid": "Sentier payant",
+        "parcours.revenue.title": "À quoi sert l'argent récolté ?",
+        "parcours.revenue.subtitle": "Les recettes des télécabines et du Jungfraubahn financent directement la préservation du site",
+        "parcours.revenue.item1.label": "par an",
+        "parcours.revenue.item1.text": "Versés par la Jungfraubahn à la Fondation UNESCO Swiss Alps Jungfrau-Aletsch pour la conservation du patrimoine",
+        "parcours.revenue.item2.label": "par an",
+        "parcours.revenue.item2.text": "Cofinancement du fonds de durabilité des téléphériques pour réduire l'empreinte écologique des remontées",
+        "parcours.revenue.item3.label": "par an",
+        "parcours.revenue.item3.text": "Investis dans des projets de conservation locale : entretien des sentiers, protection de la faune et de la flore",
+        "parcours.revenue.item4.label": "de la flotte",
+        "parcours.revenue.item4.text": "Objectif de conversion des trains en électrique d'ici 2025 pour réduire l'impact climatique du transport",
+        "parcours.revenue.source": "Sources :",
 
 
         // --- Page Mentions légales (mentions-legales.html) ---
@@ -555,8 +570,23 @@ const translations = {
         "parcours.trail.time": "Time",
         "parcours.trail.distance": "Distance",
         "parcours.trail.elevation": "Elevation",
+        "parcours.pricing.title": "Why are some trails paid?",
+        "parcours.pricing.text": "Hiking trails in the Jungfrau-Aletsch region are free to walk. However, most starting points are located at altitude and can only be reached by cable car or cogwheel train (Jungfraubahn). The price shown covers the return transport to the trailhead, operated by private companies independent from the UNESCO heritage.",
+        "parcours.pricing.free": "Free trail",
+        "parcours.pricing.paid": "Paid trail",
+        "parcours.revenue.title": "Where does the money go?",
+        "parcours.revenue.subtitle": "Cable car and Jungfraubahn revenues directly fund the preservation of the heritage site",
+        "parcours.revenue.item1.label": "per year",
+        "parcours.revenue.item1.text": "Contributed by Jungfraubahn to the UNESCO Swiss Alps Jungfrau-Aletsch Foundation for heritage conservation",
+        "parcours.revenue.item2.label": "per year",
+        "parcours.revenue.item2.text": "Co-funding of the cable car sustainability fund to reduce the ecological footprint of mountain transport",
+        "parcours.revenue.item3.label": "per year",
+        "parcours.revenue.item3.text": "Invested in local conservation projects: trail maintenance, wildlife and flora protection",
+        "parcours.revenue.item4.label": "of the fleet",
+        "parcours.revenue.item4.text": "Target for electric train conversion by 2025 to reduce the climate impact of mountain transport",
+        "parcours.revenue.source": "Sources:",
 
-        
+
         // --- Page Mentions légales (mentions-legales.html) ---
         "legal.page.title": "Legal Notice — Jungfrau-Aletsch UNESCO",
         "legal.hero.badge": "Legal",
