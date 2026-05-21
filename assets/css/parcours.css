@@ -609,6 +609,11 @@
 
 .trail-stat svg { flex-shrink: 0; }
 
+/* Espacement badge prix / tags */
+.trail-price-row {
+    margin-bottom: 0.75rem;
+}
+
 /* Tags (#6 : bg-slate-100, rounded-full) */
 .trail-tags {
     display: flex;
