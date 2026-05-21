@@ -407,3 +407,166 @@ body.a11y-focus-highlight *:focus-visible {
         max-height: 72vh;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Mode "Écouter le contenu" (Text-to-Speech)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Curseur pointer + transition de fond sur les éléments lisibles */
+body.a11y-tts-active p,
+body.a11y-tts-active h1,
+body.a11y-tts-active h2,
+body.a11y-tts-active h3,
+body.a11y-tts-active h4,
+body.a11y-tts-active h5,
+body.a11y-tts-active h6,
+body.a11y-tts-active li,
+body.a11y-tts-active blockquote,
+body.a11y-tts-active td,
+body.a11y-tts-active dd,
+body.a11y-tts-active dt,
+body.a11y-tts-active figcaption {
+    cursor: pointer !important;
+    transition: background-color 0.2s ease;
+}
+
+/* Hover : surlignage discret */
+body.a11y-tts-active p:hover,
+body.a11y-tts-active h1:hover,
+body.a11y-tts-active h2:hover,
+body.a11y-tts-active h3:hover,
+body.a11y-tts-active h4:hover,
+body.a11y-tts-active h5:hover,
+body.a11y-tts-active h6:hover,
+body.a11y-tts-active li:hover,
+body.a11y-tts-active blockquote:hover,
+body.a11y-tts-active td:hover,
+body.a11y-tts-active dd:hover,
+body.a11y-tts-active dt:hover,
+body.a11y-tts-active figcaption:hover {
+    background-color: rgba(37, 99, 235, 0.08);
+    border-radius: 4px;
+}
+
+/* Élément en cours de lecture : surlignage marqué */
+.tts-reading {
+    background-color: rgba(37, 99, 235, 0.15) !important;
+    border-radius: 4px;
+    outline: 2px solid #2563eb !important;
+    outline-offset: 2px;
+}
+
+/* Le mode "stop animations" coupe les transitions de surlignage */
+body.a11y-stop-animations.a11y-tts-active p,
+body.a11y-stop-animations.a11y-tts-active h1,
+body.a11y-stop-animations.a11y-tts-active h2,
+body.a11y-stop-animations.a11y-tts-active h3,
+body.a11y-stop-animations.a11y-tts-active h4,
+body.a11y-stop-animations.a11y-tts-active h5,
+body.a11y-stop-animations.a11y-tts-active h6,
+body.a11y-stop-animations.a11y-tts-active li,
+body.a11y-stop-animations.a11y-tts-active blockquote,
+body.a11y-stop-animations.a11y-tts-active td {
+    transition: none !important;
+}
+
+/* ─── Mini-player flottant ─── */
+.tts-player {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9997;
+    width: auto;
+    max-width: 90vw;
+}
+
+.tts-player-inner {
+    background: #1e293b;
+    color: #ffffff;
+    border-radius: 1rem;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 14px;
+}
+
+.tts-player-text {
+    font-size: 0.8rem;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0.85;
+}
+
+.tts-player-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tts-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #ffffff;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+}
+.tts-btn:hover  { background: rgba(255, 255, 255, 0.25); }
+.tts-btn:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+.tts-btn svg { width: 16px; height: 16px; }
+
+.tts-speed {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.tts-btn-sm {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #ffffff;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+}
+.tts-btn-sm:hover { background: rgba(255, 255, 255, 0.2); }
+.tts-btn-sm:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+#tts-speed-label {
+    min-width: 30px;
+    text-align: center;
+}
+
+/* Mobile : on cache le texte pour gagner de la place + le player remonte
+   au-dessus du bouton accessibilité (qui est en bas-gauche) */
+@media (max-width: 640px) {
+    .tts-player-text { display: none; }
+    .tts-player      { bottom: 80px; }
+}
