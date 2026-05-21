@@ -223,7 +223,7 @@ Navigation / éléments visuels :
 
 * Supprimer les boutons « Nous contacter ».
 
-Contenus : 
+Contenus :
 
 * Traduire les descriptions des vidéos en français.
 
