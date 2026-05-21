@@ -1,0 +1,24 @@
+Modifications à effectuer — Parcours Jungfrau
+Parcours : 
+
+* Aller davantage à l’essentiel dans les textes de présentation.
+
+Navigation / éléments visuels : 
+
+* Faire en sorte que le logo de l’UNESCO redirige vers le site officiel.
+
+* Supprimer les boutons « Nous contacter ».
+
+Contenus : 
+
+* Traduire les descriptions des vidéos en français.
+
+* Indiquer clairement si l’observatoire présent sur la landing page est visitable.
+
+Accessibilité : 
+
+* Vérifier que chaque élément du widget d’accessibilité fonctionne correctement.
+
+-------------------------------------------------------------
+
+Le point sur les parcours payants est particulièrement important parce que ça évite l’effet “paiement arbitraire” côté utilisateur.
